@@ -84,16 +84,20 @@
                                 <a href="#" class="nav-link dropdown-toggle " data-toggle="dropdown">
                                     Hai, <?= $this->session->userdata('namadepan') ?>
                                 </a>
+                                <div class="dropdown-menu">
+                                    <a href="<?= base_url('user_akun') ?>" class="dropdown-item">My Account</a>
+                                </div>
                             <?php else : ?>
                                 <a href="#" class="nav-link dropdown-toggle " data-toggle="dropdown">
                                     More
                                 </a>
+                                <div class="dropdown-menu">
+                                    <!-- <a href="<?= base_url('user_akun') ?>" class="dropdown-item">My Account</a> -->
+                                    <a href="<?= base_url('user_akun/login') ?>" class="dropdown-item">Login</a>
+                                    <a href="<?= base_url('user_akun/register') ?>" class="dropdown-item">Register</a>
+                                </div>
                             <?php endif; ?>
-                            <div class="dropdown-menu">
-                                <a href="<?= base_url('user_akun') ?>" class="dropdown-item">My Account</a>
-                                <a href="<?= base_url('user_akun/login') ?>" class="dropdown-item">Login</a>
-                                <a href="<?= base_url('user_akun/register') ?>" class="dropdown-item">Register</a>
-                            </div>
+
                         </div>
                     </div>
                     <div class="nav-item dropdown">

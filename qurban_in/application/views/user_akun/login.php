@@ -9,10 +9,17 @@
                     <?= '<div class="alert alert-danger">' . $message . '</div>'; ?>
                     <?php $this->session->unset_userdata('message'); ?>
                 <?php endif; ?>
+
                 <?php if ($this->session->flashdata('message1')) : ?>
                     <?php $message = $this->session->flashdata('message1'); ?>
                     <?= '<div class="alert alert-success">' . $message . '</div>'; ?>
                     <?php $this->session->unset_userdata('message1'); ?>
+                <?php endif; ?>
+
+                <?php if ($this->session->flashdata('message2')) : ?>
+                    <?php $message = $this->session->flashdata('message2'); ?>
+                    <?= '<div class="alert alert-info">' . $message . '</div>'; ?>
+                    <?php $this->session->unset_userdata('message2'); ?>
                 <?php endif; ?>
 
                 <div class="login-form">
