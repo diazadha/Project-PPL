@@ -44,27 +44,27 @@
                                         </tr>
                                     </tfoot> -->
                      <tbody>
-                        <?php $no=1;
-                        foreach($hewan as $hwn) : ?>
-                         <tr>
-                             <td style="text-align: center;"><?php echo $no++ ?></td>
-                             <td><?php echo $hwn->nama_hewan ?></td>
-                             <td><?php echo $hwn->harga?></td>
-                             <td><?php echo $hwn->berat?></td>
-                             <td><?php echo $hwn->stok?></td>
-                             <td><?php echo $hwn->kategori?></td>
-                             
-                             <td>
-                                 <center>
-                                     <a href="<?= base_url('penjual/detailhewan'); ?>" class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></a>
-                                     <!-- <div class="btn btn-primary btn-sm"><i class="fas fa-edit"></i>
+                         <?php $no = 1;
+                            foreach ($hewan as $hwn) : ?>
+                             <tr>
+                                 <td style="text-align: center;"><?php echo $no++ ?></td>
+                                 <td><?php echo $hwn->nama_hewan ?></td>
+                                 <td><?php echo $hwn->harga ?></td>
+                                 <td><?php echo $hwn->berat ?></td>
+                                 <td><?php echo $hwn->stok ?></td>
+                                 <td><?php echo $hwn->kategori ?></td>
+
+                                 <td>
+                                     <center>
+                                         <a href="<?= base_url('penjual/detailhewan'); ?>" class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></a>
+                                         <!-- <div class="btn btn-primary btn-sm"><i class="fas fa-edit"></i>
                                                     </div> -->
-                                     <a href="<?= base_url('penjual/hapus/').$hwn->id_hewan; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
-                                     
-                                 </center>
-                             </td>
-                         </tr>
-                     <?php endforeach; ?>
+                                         <a href="<?= base_url('penjual/hapus/') . $hwn->id_hewan; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+
+                                     </center>
+                                 </td>
+                             </tr>
+                         <?php endforeach; ?>
                      </tbody>
                  </table>
              </div>
@@ -131,7 +131,7 @@
                                      <input type="number" min="1" max="1000" name="stok_barang" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping">
                                  </div>
                              </div>
-                          
+
                              <!-- <div class="col-sm-6 mb-3 mb-sm-0">
                                     Diskon
                                     <div class="input-group flex-nowrap">
@@ -143,22 +143,22 @@
                                     </div>
                                 </div> -->
                          </div>
-                      <div class="form-group row">
-                                <div class="col-sm-6 mb-3 mb-sm-0">
+                         <div class="form-group row">
+                             <div class="col-sm-6 mb-3 mb-sm-0">
                                  Kategori
                                  <div class="input-group flex-nowrap">
-                                     
+
                                      <input type="text" name="kategori" class="form-control" aria-label="kategori" aria-describedby="addon-wrapping">
                                  </div>
-                                </div>
-                                <div class="col-sm-6 mb-3 mb-sm-0">
+                             </div>
+                             <div class="col-sm-6 mb-3 mb-sm-0">
                                  Kelas
-                                <div class="input-group flex-nowrap">
-                                     
+                                 <div class="input-group flex-nowrap">
+
                                      <input type="text" name="kelas" class="form-control" aria-label="kelas" aria-describedby="addon-wrapping">
                                  </div>
                              </div>
-                             </div>
+                         </div>
                          <div class="form-group">
                              Deskripsi
                              <textarea class="form-control" id="deskripsi" rows="3" name="deskripsi"></textarea>

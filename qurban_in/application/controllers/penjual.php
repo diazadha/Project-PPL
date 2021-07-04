@@ -9,7 +9,7 @@ class penjual extends CI_Controller
         $this->load->view('adminpenjual/register', $data);
     }
 
-     public function inputhewan()
+    public function inputhewan()
     {
         $data['title'] = 'Data Hewan';
         $data['hewan'] = $this->m_hewan->tampil_data();
@@ -43,20 +43,20 @@ class penjual extends CI_Controller
                 $foto_hewan = $this->upload->data('file_name');
             }
             $data = array(
-            'nama_hewan'     => $nama_hewan, 
-            'harga'          => $harga,
-            'berat'          => $berat,
-            'stok'           => $stok,
-            'foto_hewan'     => $foto_hewan,
-            'deskripsi'      => $deskripsi,
-            'kategori'       => $kategori,
-            'kelas'          => $kelas
-        );
-        $this->m_hewan->tambah_hewan($data,'tb_hewan');
-        redirect('penjual/inputhewan');
+                'nama_hewan'     => $nama_hewan,
+                'harga'          => $harga,
+                'berat'          => $berat,
+                'stok'           => $stok,
+                'foto_hewan'     => $foto_hewan,
+                'deskripsi'      => $deskripsi,
+                'kategori'       => $kategori,
+                'kelas'          => $kelas
+            );
+            $this->m_hewan->tambah_hewan($data, 'tb_hewan');
+            redirect('penjual/inputhewan');
         }
     }
-    
+
 
     public function detailhewan()
     {
@@ -84,15 +84,15 @@ class penjual extends CI_Controller
         $this->load->view('adminpenjual/detail_pesanan');
         $this->load->view('adminpenjual/templates_adminpenjual/footer');
     }
-    
+
     public function hapus($id)
     {
         $this->load->model('m_hewan');
-         $detail = $this->m_hewan->dapat_data($id);
-            $path = './foto_hewan/'.$detail->foto_hewan;
-            unlink($path); 
+        $detail = $this->m_hewan->dapat_data($id);
+        $path = './foto_hewan/' . $detail->foto_hewan;
+        unlink($path);
 
-            $this->m_hewan->hapus_data('tb_hewan',array('id_hewan'=>$id));
-            redirect('penjual/inputhewan');
-    } 
+        $this->m_hewan->hapus_data('tb_hewan', array('id_hewan' => $id));
+        redirect('penjual/inputhewan');
+    }
 }
