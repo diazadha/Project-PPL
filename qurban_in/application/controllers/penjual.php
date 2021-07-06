@@ -66,6 +66,30 @@ class penjual extends CI_Controller
         $this->load->view('adminpenjual/detail');
         $this->load->view('adminpenjual/templates_adminpenjual/footer');
     }
+	public function upload()
+    {
+
+        $gambar    = $_FILES['foto_bukti']['name'];
+        
+            $config['upload_path'] = './uploads/barang';
+            $config['allowed_types'] = 'jpg|jpeg|png|gif';
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('gambar')) {
+                echo "Gambar gagal di upload!";
+            } else {
+                $gambar = $this->upload->data('file_name');
+            }
+        
+        
+        $data  = array(
+            'gambar'   => $gambar,
+            
+            
+        );
+        $this->db->insert('transaksi', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Product Added!</div>');
+        redirect('penjual/detail_pesanan');
+    }
 
     public function datapesanan()
     {
