@@ -37,17 +37,26 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Registrasi Tempat Distribusi</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" method="post" action="<?= base_url('tempatdistribusi/register'); ?>">>
                                 <div class="form-group">
-
-                                    <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Nama Masjid / Musholla">
-
+                                    <input type="text" class="form-control form-control-user" id="nama" name= "nama_masjid" placeholder="Nama Masjid / Musholla">
+                                    <?= form_error('nama_masjid', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Alamat">
+                                <div class="form-group" method="post">
+                                    <input type="text" class="form-control form-control-user" id="alamat" name= "alamat" placeholder="Alamat">
+                                    <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="No. Telepon">
+                                <div class="form-group" method="post">
+                                    <input type="text" class="form-control form-control-user" id="tlp" name= "tlp" placeholder="No. Telepon">
+                                    <?= form_error('tlp', '<small class="text-danger pl-3">', '</small>'); ?>
+                                </div>
+								<div class="form-group" method="post">
+                                    <input type="text" class="form-control form-control-user" id="nama_admin" name= "nama_admin" placeholder="Nama Lengkap">
+                                    <?= form_error('nama_admin','<small class="text-danger pl-3">', '</small>'); ?>
+                                </div>
+								<div class="form-group" method="post">
+                                    <input type="email" class="form-control form-control-user" id="email" name= "email" placeholder="E-mail">
+                                    <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
                                 <!-- <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -59,9 +68,7 @@
                                             id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div> -->
-                                <a href="<?= base_url('tempatdistribusi/inputhewan'); ?>" class="btn btn-user btn-block" style="background-color: #d7552a; color: white;">
-                                    Register
-                                </a>
+                                <button type="submit" class="btn btn-user btn-block" style="background-color: #d7552a; color: white;">Submit</button>
                                 <!-- <hr> -->
                                 <a href="<?= base_url('marketplace/') ?>" class="btn btn-secondary btn-user btn-block">
                                     <i class="fas fa-store"></i> Back To Home

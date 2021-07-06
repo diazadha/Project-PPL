@@ -8,6 +8,8 @@
                      Hewan</button>
              </h6>
          </div>
+						   <?= form_error('nama_barang', '<div class="alert alert-danger" role="alert">', '</div>');   ?>
+         <?= $this->session->flashdata('message'); ?>
      </div>
      <!-- Page Heading -->
      <!-- <h1 class="h3 mb-2 text-gray-800">Tables</h1>
@@ -27,6 +29,7 @@
                          <tr style="text-align: center;">
                              <th>No</th>
                              <th>Nama Hewan</th>
+																										   <th>Status</th>
                              <th>Aksi</th>
                          </tr>
                      </thead>
@@ -41,15 +44,19 @@
                                         </tr>
                                     </tfoot> -->
                      <tbody>
+																						   <?php $i = 1;  ?>
+                         <?php foreach ($hewan as $h) : ?>
                          <tr>
-                             <td style="text-align: center;">1</td>
-                             <td>Sapi</td>
-
+																										   <td scope="row"><?= $i; ?></td>
+																										   <td><?php echo $h->namahewan ?></td>
+                             <td><?php echo $h->nama_status ?></td>
                              <td>
-                                 <center><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#updatehewan"><i class="fas fa-search-plus"></i></button> </center>
+																														   <center><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#updatehewan"><i class="fas fa-search-plus"></i></button> </center>
                              </td>
 
                          </tr>
+																						   <?php $i++; ?>
+                         <?php endforeach;  ?>
                      </tbody>
                  </table>
              </div>
@@ -121,8 +128,10 @@
                                  Status
 
                                  <select name="status" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping">
-                                     <option value="1">Aktif</option>
-                                     <option value="2">Tidak Aktif</option>
+                                     <option value="">Pilih status</option>
+																																		   <?php foreach ($status as $s) : ?>
+                                         <option value="<?= $s['statusid']; ?>"><?= $s['nama_status']; ?></option>
+                                     <?php endforeach;  ?>
                                  </select>
                              </div>
                          </div>

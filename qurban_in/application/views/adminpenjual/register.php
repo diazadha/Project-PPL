@@ -34,17 +34,17 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Registrasi Toko</h1>
                                 </div>
-                                <form class="user">
+                                <form class="user" method="post" action="<?= base_url('penjual/register'); ?>">
                                     <div class="form-group">
 
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Nama Toko">
+                                        <input type="text" class="form-control form-control-user" id="namatoko" name="namatoko" placeholder="Nama Toko">
 
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Alamat Toko">
+                                        <input type="email" class="form-control form-control-user" id="alamattoko" name="alamattoko" placeholder="Alamat Toko">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="No. Telepon">
+                                        <input type="email" class="form-control form-control-user" id="notlp" name="notlp" placeholder="No. Telepon">
                                     </div>
                                     <!-- <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
@@ -56,9 +56,9 @@
                                             id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div> -->
-                                    <a href="<?= base_url('penjual/inputhewan'); ?>" class="btn btn-user btn-block" style="background-color: #d7552a; color:white;">
-                                        Register
-                                    </a>
+                                <button href="<?= base_url('tempatdistribusi/inputhewan') ?>"type="submit" class="btn btn-user btn-block" style="background-color: #d7552a; color:white;">
+                                    Register Account
+                                </button>
                                     <!-- <hr> -->
                                     <a href="<?= base_url('marketplace/') ?>" class="btn btn-secondary btn-user btn-block">
                                         <i class="fas fa-store"></i> Back To Home
