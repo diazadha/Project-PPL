@@ -17,6 +17,13 @@ class m_hewan extends CI_model
         }
     }
 
+    public function max_id_toko()
+    {
+        $this->db->select_max('id_toko');
+        $this->db->from('toko');
+        return $this->db->get();
+    }
+
     public function hapus_data($table, $where)
     {
         $this->db->where($where);

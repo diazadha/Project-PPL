@@ -15,7 +15,7 @@ class tempatdistribusi extends CI_Controller
         $this->form_validation->set_rules('nama_tempat', 'Mosque Name', 'required|trim');
         $this->form_validation->set_rules('alamat', 'Address', 'required|trim');
         $this->form_validation->set_rules('tlp', 'Phone Number', 'required|trim');
-        $this->form_validation->set_rules('email', 'Phone Number', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Register Tempat Distribusi';
@@ -105,12 +105,15 @@ class tempatdistribusi extends CI_Controller
                     $this->db->delete('mitra_distribusi', ['id_tempatdistribusi' => $id_tempatdistribusi]);
                     $this->db->delete('user_token', ['email' => $email]);
 
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong email. </div');
+                    $this->session->set_flashdata('message1', 'Expired!');
                     redirect('tempatdistribusi/register');
                 }
+            } else {
+                $this->session->set_flashdata('message1', 'Token tidak valid');
+                redirect('tempatdistribusi/register');
             }
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong email. </div');
+            $this->session->set_flashdata('message1', 'Email tidak valid');
             redirect('tempatdistribusi/register');
         }
     }
@@ -120,7 +123,7 @@ class tempatdistribusi extends CI_Controller
         $data['title'] = 'Data Hewan';
         $this->load->model('tempatdistribusi_model');
         $data['status'] = $this->tempatdistribusi_model->statushewan();
-        $data['hewan'] = $this->tempatdistribusi_model->datahewan()->result();
+        $data['distribusi'] = $this->tempatdistribusi_model->getalldata()->result();
 
         $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
         $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
@@ -131,15 +134,29 @@ class tempatdistribusi extends CI_Controller
     public function tambahhewan()
     {
 
-        $this->form_validation->set_rules('nama_barang', 'Data', 'required');
+        $this->form_validation->set_rules('nama_hewan', 'Data', 'required');
         $this->form_validation->set_rules('status', 'Data', 'required');
         $data = [
-            'namahewan' => htmlspecialchars($this->input->post('nama_barang', true)),
-            'statusid' => htmlspecialchars($this->input->post('status', true)),
+            'nama_hewan' => htmlspecialchars($this->input->post('nama_hewan', true)),
+            'id_status' => htmlspecialchars($this->input->post('status', true)),
+            'id_tempatdistribusi' => htmlspecialchars($this->input->post('id_tempatdistribusi', true)),
         ];
-        echo "tempatdistribusi";
-        $this->db->insert('hewan', $data);
-        $this->load->view('adminmasjid/inputhewan', $data);
+        $this->db->insert('hewan_tempatdistribusi', $data);
+        redirect('tempatdistribusi/inputhewan');
+    }
+
+    public function updatehewan($id_hewan)
+    {
+
+        $this->form_validation->set_rules('nama_hewan', 'Data', 'required');
+        $this->form_validation->set_rules('status', 'Data', 'required');
+        $data = [
+            'nama_hewan' => htmlspecialchars($this->input->post('nama_hewan', true)),
+            'id_status' => htmlspecialchars($this->input->post('status', true)),
+            'id_tempatdistribusi' => htmlspecialchars($this->input->post('id_tempatdistribusi', true)),
+        ];
+        $this->db->where('id_hewan', $id_hewan);
+        $this->db->update('hewan_tempatdistribusi', $data);
         redirect('tempatdistribusi/inputhewan');
     }
 }

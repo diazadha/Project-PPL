@@ -14,20 +14,107 @@ class penjual extends CI_Controller
         $this->form_validation->set_rules('namatoko', 'namatoko', 'required|trim');
         $this->form_validation->set_rules('alamattoko', 'alamattoko', 'required|trim');
         $this->form_validation->set_rules('notlp', 'notlp', 'required|trim');
+        $this->form_validation->set_rules('email', 'Email', 'required|trim');
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Register Mitra Penjual';
             $this->load->view('adminpenjual/register', $data);
         } else {
+            $email = htmlspecialchars($this->input->post('email'));
             $data = [
-                'namatoko' => htmlspecialchars($this->input->post('namatoko', true)),
+                'nama_toko' => htmlspecialchars($this->input->post('namatoko', true)),
                 'alamat' => htmlspecialchars($this->input->post('alamattoko', true)),
-                'notlp' => htmlspecialchars($this->input->post('notlp', true)),
+                'notelp' => htmlspecialchars($this->input->post('notlp', true)),
+                'is_active' => 0
             ];
-            echo "penjual";
-            $this->db->insert('register', $data);
-            $this->load->view('adminpenjual/register', $data);
+            //token
+            $token = base64_encode(random_bytes(32));
+            $user_token = [
+                'email' => $email,
+                'token' => $token,
+                'date_created' => time()
+
+            ];
+
+            $this->db->insert('toko', $data);
+            $this->db->insert('user_token', $user_token);
+
+            $this->_sendEmail($token, 'verify');
+
+            $this->session->set_flashdata('message', 'Mitra Toko Sudah Berhasil Dibuat, Silahkan Cek Email Untuk Melakukan Aktivasi!');
+            redirect('penjual/register');
         }
     }
+
+    private function _sendEmail($token, $type)
+    {
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'qurban.in24@gmail.com',
+            'smtp_pass' => 'Qurbanin2403',
+            'smtp_port' => 465,
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        ];
+
+        $this->load->library('email', $config);
+        $this->email->initialize($config);
+
+        $this->email->from('qurban.in24@gmail.com', 'Qurban.In');
+        $this->email->to($this->input->post('email'));
+
+        if ($type == 'verify') {
+            $this->email->subject('Partner Verification');
+            $this->email->message('Click this link to join as a partner : <a href="' . base_url() . 'penjual/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
+        }
+
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
+        }
+    }
+
+    public function verify()
+    {
+        $email = $this->input->get('email');
+        $token = $this->input->get('token');
+
+        $toko = $this->m_hewan->max_id_toko()->row();
+        $id_toko = $toko->id_toko;
+        $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        if ($user) {
+            $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
+            if ($user_token) {
+                if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
+                    $this->db->set('is_active', 1);
+                    $this->db->where('id_toko', $id_toko);
+                    $this->db->update('toko');
+                    $this->db->delete('user_token', ['email' => $email]);
+                    $this->db->set('id_toko', $id_toko);
+                    $this->db->where('email', $email);
+                    $this->db->update('user');
+                    // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' has been activated!</div');
+                    redirect('penjual/inputhewan');
+                } else {
+                    $this->db->delete('toko', ['id_toko' => $id_toko]);
+                    $this->db->delete('user_token', ['email' => $email]);
+
+                    $this->session->set_flashdata('message1', 'Expired!');
+                    redirect('penjual/register');
+                }
+            } else {
+                $this->session->set_flashdata('message1', 'Token tidak valid');
+                redirect('penjual/register');
+            }
+        } else {
+            $this->session->set_flashdata('message1', 'Email tidak valid');
+            redirect('penjual/register');
+        }
+    }
+
 
     public function inputhewan()
     {

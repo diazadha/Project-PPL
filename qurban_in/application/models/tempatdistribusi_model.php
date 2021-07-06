@@ -10,7 +10,7 @@ class tempatdistribusi_model extends CI_Model
         return $this->db->query($queryName)->result_array();
     }
 
-    public function datahewan()
+    public function getalldata()
     {
 
         //$queryName =    "SELECT hewan.*, status_hewan . nama_status 

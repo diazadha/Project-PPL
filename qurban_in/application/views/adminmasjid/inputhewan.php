@@ -45,11 +45,11 @@
                                     </tfoot> -->
                      <tbody>
                          <?php $i = 1;  ?>
-                         <?php foreach ($hewan as $h) : ?>
+                         <?php foreach ($distribusi as $d) : ?>
                              <tr>
-                                 <td scope="row"><?= $i; ?></td>
-                                 <td><?php echo $h->namahewan ?></td>
-                                 <td><?php echo $h->nama_status ?></td>
+                                 <td scope="row" style="text-align: center;"><?= $i; ?></td>
+                                 <td><?php echo $d->nama_hewan ?></td>
+                                 <td><?php echo $d->nama_status ?></td>
                                  <td>
                                      <center><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#updatehewan"><i class="fas fa-search-plus"></i></button> </center>
                                  </td>
@@ -80,19 +80,22 @@
                      </button>
                  </div>
                  <div class="card-body">
-                     <form action="" method="post" enctype="multipart/form-data">
+                     <form action=" <?= base_url('tempatdistribusi/updatehewan/') . $d->id_hewan; ?> " method="post" enctype="multipart/form-data">
                          <div class="form-group row">
                              <div class="col-sm-6 mb-3 mb-sm-0">
                                  Nama Hewan Qurban
-                                 <input type="text" name="nama_barang" class="form-control">
+                                 <input type="text" name="nama_hewan" class="form-control" value=" <?= $d->nama_hewan; ?> " required>
                              </div>
                              <div class="col-sm-6 mb-3 mb-sm-0">
                                  Status
 
-                                 <select name="status" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping">
-                                     <option value="1">Aktif</option>
-                                     <option value="2">Tidak Aktif</option>
+                                 <select name="status" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" required>
+                                     <option value="">Pilih status</option>
+                                     <?php foreach ($status as $s) : ?>
+                                         <option value="<?= $s['id_status']; ?>"><?= $s['nama_status']; ?></option>
+                                     <?php endforeach;  ?>
                                  </select>
+                                 <input type="hidden" name="id_tempatdistribusi" value=" <?= $d->id_tempatdistribusi; ?> " required>
                              </div>
                          </div>
 
@@ -118,21 +121,22 @@
                      </button>
                  </div>
                  <div class="card-body">
-                     <form action="" method="post" enctype="multipart/form-data">
+                     <form action=" <?= base_url('tempatdistribusi/tambahhewan'); ?> " method="post" enctype="multipart/form-data">
                          <div class="form-group row">
                              <div class="col-sm-6 mb-3 mb-sm-0">
                                  Nama Hewan Qurban
-                                 <input type="text" name="nama_barang" class="form-control">
+                                 <input type="text" name="nama_hewan" class="form-control" required>
                              </div>
                              <div class="col-sm-6 mb-3 mb-sm-0">
                                  Status
 
-                                 <select name="status" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping">
+                                 <select name="status" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" required>
                                      <option value="">Pilih status</option>
                                      <?php foreach ($status as $s) : ?>
-                                         <option value="<?= $s['statusid']; ?>"><?= $s['nama_status']; ?></option>
+                                         <option value="<?= $s['id_status']; ?>"><?= $s['nama_status']; ?></option>
                                      <?php endforeach;  ?>
                                  </select>
+                                 <input type="hidden" name="id_tempatdistribusi" value=" <?= $d->id_tempatdistribusi; ?> " required>
                              </div>
                          </div>
                          <div class="modal-footer">
@@ -141,9 +145,6 @@
                          </div>
                      </form>
                  </div>
-                 <script>
-                     CKEDITOR.replace('desc');
-                 </script>
              </div>
          </div>
      </div>

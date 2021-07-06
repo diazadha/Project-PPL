@@ -1,3 +1,12 @@
+<?php if ($this->session->userdata('email')) {
+    $get_tempat = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    if ($get_tempat['id_tempatdistribusi'] != 0) {
+        redirect('tempatdistribusi/inputhewan');
+    }
+} else {
+    redirect('user_akun/register');
+} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,6 +50,12 @@
                                 <?php $message = $this->session->flashdata('message'); ?>
                                 <?= '<div class="alert alert-success">' . $message . '</div>'; ?>
                                 <?php $this->session->unset_userdata('message'); ?>
+                            <?php endif; ?>
+
+                            <?php if ($this->session->flashdata('message1')) : ?>
+                                <?php $message = $this->session->flashdata('message1'); ?>
+                                <?= '<div class="alert alert-danger">' . $message . '</div>'; ?>
+                                <?php $this->session->unset_userdata('message1'); ?>
                             <?php endif; ?>
 
                             <form class="user" method="post" action="<?= base_url('tempatdistribusi/register'); ?>">

@@ -34,17 +34,34 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Registrasi Toko</h1>
                                 </div>
+                                <?php if ($this->session->flashdata('message')) : ?>
+                                    <?php $message = $this->session->flashdata('message'); ?>
+                                    <?= '<div class="alert alert-success">' . $message . '</div>'; ?>
+                                    <?php $this->session->unset_userdata('message'); ?>
+                                <?php endif; ?>
+                                <?php if ($this->session->flashdata('message1')) : ?>
+                                    <?php $message = $this->session->flashdata('message1'); ?>
+                                    <?= '<div class="alert alert-danger">' . $message . '</div>'; ?>
+                                    <?php $this->session->unset_userdata('message1'); ?>
+                                <?php endif; ?>
                                 <form class="user" method="post" action="<?= base_url('penjual/register'); ?>">
                                     <div class="form-group">
-
+                                        <p style="text-align: left; color:#d7552a"> Email Terdaftar : </p>
+                                        <input type="text" class="form-control form-control-user" id="email" name="email" value=" <?= $this->session->userdata('email'); ?> " readonly>
+                                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group">
                                         <input type="text" class="form-control form-control-user" id="namatoko" name="namatoko" placeholder="Nama Toko">
-
+                                        <?= form_error('namatoko', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="alamattoko" name="alamattoko" placeholder="Alamat Toko">
+                                        <input type="text" class="form-control form-control-user" id="alamattoko" name="alamattoko" placeholder="Alamat Toko">
+                                        <?= form_error('alamattoko', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control form-control-user" id="notlp" name="notlp" placeholder="No. Telepon">
+                                        <input type="text" class="form-control form-control-user" id="notlp" name="notlp" placeholder="No. Telepon">
+                                        <?= form_error('notlp', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                     <!-- <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
