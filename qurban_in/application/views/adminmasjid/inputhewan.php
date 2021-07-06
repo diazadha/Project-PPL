@@ -8,7 +8,7 @@
                      Hewan</button>
              </h6>
          </div>
-						   <?= form_error('nama_barang', '<div class="alert alert-danger" role="alert">', '</div>');   ?>
+         <?= form_error('nama_barang', '<div class="alert alert-danger" role="alert">', '</div>');   ?>
          <?= $this->session->flashdata('message'); ?>
      </div>
      <!-- Page Heading -->
@@ -29,7 +29,7 @@
                          <tr style="text-align: center;">
                              <th>No</th>
                              <th>Nama Hewan</th>
-																										   <th>Status</th>
+                             <th>Status</th>
                              <th>Aksi</th>
                          </tr>
                      </thead>
@@ -44,18 +44,18 @@
                                         </tr>
                                     </tfoot> -->
                      <tbody>
-																						   <?php $i = 1;  ?>
+                         <?php $i = 1;  ?>
                          <?php foreach ($hewan as $h) : ?>
-                         <tr>
-																										   <td scope="row"><?= $i; ?></td>
-																										   <td><?php echo $h->namahewan ?></td>
-                             <td><?php echo $h->nama_status ?></td>
-                             <td>
-																														   <center><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#updatehewan"><i class="fas fa-search-plus"></i></button> </center>
-                             </td>
+                             <tr>
+                                 <td scope="row"><?= $i; ?></td>
+                                 <td><?php echo $h->namahewan ?></td>
+                                 <td><?php echo $h->nama_status ?></td>
+                                 <td>
+                                     <center><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#updatehewan"><i class="fas fa-search-plus"></i></button> </center>
+                                 </td>
 
-                         </tr>
-																						   <?php $i++; ?>
+                             </tr>
+                             <?php $i++; ?>
                          <?php endforeach;  ?>
                      </tbody>
                  </table>
@@ -129,7 +129,7 @@
 
                                  <select name="status" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping">
                                      <option value="">Pilih status</option>
-																																		   <?php foreach ($status as $s) : ?>
+                                     <?php foreach ($status as $s) : ?>
                                          <option value="<?= $s['statusid']; ?>"><?= $s['nama_status']; ?></option>
                                      <?php endforeach;  ?>
                                  </select>

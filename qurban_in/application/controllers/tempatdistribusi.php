@@ -8,15 +8,14 @@ class tempatdistribusi extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->library('session');
+        $this->session->keep_flashdata('message');
     }
-
     public function register()
     {
-        $this->form_validation->set_rules('nama_masjid', 'Mosque Name', 'required|trim');
+        $this->form_validation->set_rules('nama_tempat', 'Mosque Name', 'required|trim');
         $this->form_validation->set_rules('alamat', 'Address', 'required|trim');
         $this->form_validation->set_rules('tlp', 'Phone Number', 'required|trim');
-        $this->form_validation->set_rules('nama_admin', 'Name', 'required|trim');
-        $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
+        $this->form_validation->set_rules('email', 'Phone Number', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Register Tempat Distribusi';
@@ -24,31 +23,28 @@ class tempatdistribusi extends CI_Controller
         } else {
             $email = htmlspecialchars($this->input->post('email'));
             $data = [
-                'nama_masjid' => htmlspecialchars($this->input->post('nama_masjid', true)),
+                'nama_tempat' => htmlspecialchars($this->input->post('nama_tempat', true)),
                 'alamat' => htmlspecialchars($this->input->post('alamat', true)),
-                'tlp' => htmlspecialchars($this->input->post('tlp', true)),
-                'nama_admin' => htmlspecialchars($this->input->post('nama_admin', true)),
-                'email' => $email,
-                'role_id' => 1,
+                'notelp' => htmlspecialchars($this->input->post('tlp', true)),
                 'is_active' => 0
             ];
 
             //token
             $token = base64_encode(random_bytes(32));
-            $toko_token = [
+            $user_token = [
                 'email' => $email,
                 'token' => $token,
                 'date_created' => time()
 
             ];
 
-            $this->db->insert('register', $data);
-            $this->db->insert('toko_token', $toko_token);
+            $this->db->insert('mitra_distribusi', $data);
+            $this->db->insert('user_token', $user_token);
 
             $this->_sendEmail($token, 'verify');
 
-            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Congratulation! your account has been created. Please activate your account</div');
-            redirect('marketplace');
+            $this->session->set_flashdata('message', 'Mitra Distribusi Sudah Berhasil Dibuat, Silahkan Cek Email Untuk Melakukan Aktivasi!');
+            redirect('tempatdistribusi/register');
         }
     }
 
@@ -72,8 +68,8 @@ class tempatdistribusi extends CI_Controller
         $this->email->to($this->input->post('email'));
 
         if ($type == 'verify') {
-            $this->email->subject('Account Verification');
-            $this->email->message('Click this link to verify your account : <a href="' . base_url() . 'tempatdistribusi/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
+            $this->email->subject('Partner Verification');
+            $this->email->message('Click this link to join as a partner : <a href="' . base_url() . 'tempatdistribusi/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
         }
 
         if ($this->email->send()) {
@@ -89,23 +85,25 @@ class tempatdistribusi extends CI_Controller
         $email = $this->input->get('email');
         $token = $this->input->get('token');
 
-        $toko = $this->db->get_where('register', ['email' => $email])->row_array();
-
-        if ($toko) {
-            $toko_token = $this->db->get_where('toko_token', ['token' => $token])->row_array();
-
-            if ($toko_token) {
-                if (time() - $toko_token['date_created'] < (60 * 60 * 24)) {
+        $tempat = $this->tempatdistribusi_model->max_id_distribusi()->row();
+        $id_tempatdistribusi = $tempat->id_tempatdistribusi;
+        $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        if ($user) {
+            $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
+            if ($user_token) {
+                if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
                     $this->db->set('is_active', 1);
+                    $this->db->where('id_tempatdistribusi', $id_tempatdistribusi);
+                    $this->db->update('mitra_distribusi');
+                    $this->db->delete('user_token', ['email' => $email]);
+                    $this->db->set('id_tempatdistribusi', $id_tempatdistribusi);
                     $this->db->where('email', $email);
-                    $this->db->update('register');
-
-                    $this->db->delete('toko_token', ['email' => $email]);
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' has been activated!</div');
+                    $this->db->update('user');
+                    // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' has been activated!</div');
                     redirect('tempatdistribusi/inputhewan');
                 } else {
-                    $this->db->delete('toko', ['email' => $email]);
-                    $this->db->delete('toko_token', ['email' => $email]);
+                    $this->db->delete('mitra_distribusi', ['id_tempatdistribusi' => $id_tempatdistribusi]);
+                    $this->db->delete('user_token', ['email' => $email]);
 
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong email. </div');
                     redirect('tempatdistribusi/register');
@@ -120,20 +118,21 @@ class tempatdistribusi extends CI_Controller
     public function inputhewan()
     {
         $data['title'] = 'Data Hewan';
-		$this->load->model('tempatdistribusi_model');
+        $this->load->model('tempatdistribusi_model');
         $data['status'] = $this->tempatdistribusi_model->statushewan();
         $data['hewan'] = $this->tempatdistribusi_model->datahewan()->result();
 
         $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
         $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
-        $this->load->view('adminmasjid/inputhewan');
+        $this->load->view('adminmasjid/inputhewan', $data);
         $this->load->view('adminmasjid/templates_adminmasjid/footer');
     }
 
-	 public function tambahhewan(){
+    public function tambahhewan()
+    {
 
-        $this->form_validation->set_rules('nama_barang', 'Data', 'required');  
-        $this->form_validation->set_rules('status', 'Data', 'required');  
+        $this->form_validation->set_rules('nama_barang', 'Data', 'required');
+        $this->form_validation->set_rules('status', 'Data', 'required');
         $data = [
             'namahewan' => htmlspecialchars($this->input->post('nama_barang', true)),
             'statusid' => htmlspecialchars($this->input->post('status', true)),

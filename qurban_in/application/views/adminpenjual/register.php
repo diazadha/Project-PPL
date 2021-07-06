@@ -56,9 +56,9 @@
                                             id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div> -->
-                                <button href="<?= base_url('tempatdistribusi/inputhewan') ?>"type="submit" class="btn btn-user btn-block" style="background-color: #d7552a; color:white;">
-                                    Register Account
-                                </button>
+                                    <button type="submit" class="btn btn-user btn-block" style="background-color: #d7552a; color:white;">
+                                        Register Account
+                                    </button>
                                     <!-- <hr> -->
                                     <a href="<?= base_url('marketplace/') ?>" class="btn btn-secondary btn-user btn-block">
                                         <i class="fas fa-store"></i> Back To Home
