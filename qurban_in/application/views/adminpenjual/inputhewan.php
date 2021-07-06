@@ -8,7 +8,14 @@
                      Hewan</button>
              </h6>
          </div>
+
      </div>
+     <?php if ($this->session->flashdata('message1')) : ?>
+         <?php $message = $this->session->flashdata('message1'); ?>
+         <?= '<div class="alert alert-success">' . $message . '</div>'; ?>
+         <?php $this->session->unset_userdata('message1'); ?>
+     <?php endif; ?>
+
      <!-- Page Heading -->
      <!-- <h1 class="h3 mb-2 text-gray-800">Tables</h1>
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
@@ -20,6 +27,7 @@
          <div class="card-header py-3">
              <h6 class="m-0 font-weight-bold" style="color: #d7552a;">Data Hewan Qurban</h6>
          </div>
+
          <div class="card-body">
              <div class="table-responsive">
                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -29,7 +37,7 @@
                              <th>Nama Hewan</th>
                              <th>Harga</th>
                              <th>Stok</th>
-                             <th>Kategori</th>
+                             <th>Jenis</th>
                              <th>Aksi</th>
                          </tr>
                      </thead>
@@ -45,21 +53,19 @@
                                     </tfoot> -->
                      <tbody>
                          <?php $no = 1;
-                            foreach ($hewan as $hwn) : ?>
+                            foreach ($hewan1 as $hwn) : ?>
                              <tr>
                                  <td style="text-align: center;"><?php echo $no++ ?></td>
                                  <td><?php echo $hwn->nama_hewan ?></td>
-                                 <td><?php echo $hwn->harga ?></td>
-                                 <td><?php echo $hwn->berat ?></td>
+                                 <td style="text-align: right;">Rp. <?= number_format($hwn->harga, 0, ',', '.') ?></td>
                                  <td><?php echo $hwn->stok ?></td>
-                                 <td><?php echo $hwn->kategori ?></td>
-
+                                 <td><?php echo $hwn->jenis ?></td>
                                  <td>
                                      <center>
-                                         <a href="<?= base_url('penjual/detailhewan'); ?>" class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></a>
+                                         <a href="<?= base_url('penjual/detailhewan/') . $hwn->id_hewan ?>" class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></a>
                                          <!-- <div class="btn btn-primary btn-sm"><i class="fas fa-edit"></i>
                                                     </div> -->
-                                         <a href="<?= base_url('penjual/hapus/') . $hwn->id_hewan; ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
+                                         <a href="<?= base_url('penjual/hapus/') . $hwn->id_hewan; ?>" onclick="return confirm('Apakah Kamu Yakin?');" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
 
                                      </center>
                                  </td>
@@ -85,11 +91,11 @@
                      </button>
                  </div>
                  <div class="card-body">
-                     <form action="" method="post" enctype="multipart/form-data">
+                     <form action=" <?= base_url('penjual/tambah_hewan') ?> " method="post" enctype="multipart/form-data">
                          <div class="form-group row">
                              <div class="col-sm-6 mb-3 mb-sm-0">
                                  Nama Hewan Qurban
-                                 <input type="text" name="nama_barang" class="form-control">
+                                 <input type="text" name="nama_hewan" class="form-control" required>
                              </div>
                              <div class="col-sm-6 mb-3 mb-sm-0">
                                  Berat
@@ -97,20 +103,9 @@
                                      <div class="input-group-prepend">
                                          <span class="input-group-text" id="addon-wrapping">Kg</span>
                                      </div>
-                                     <input type="number" min="1" max="1000" name="berat" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping">
+                                     <input type="text" min="1" name="berat" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" required>
                                  </div>
                              </div>
-                             <!-- <div class="col-sm-6 mb-3 mb-sm-0">
-                                    Kategori
-                                    <select name="id_kategori" id="id_kategori" class="form-control">
-                                        <?php foreach ($kategori as $k) : ?>
-                                        <option value="">
-                                        <?= $k['nama_kategori']; ?> 
-                                        </option>
-                                        <option value="">asdasd</option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div> -->
                          </div>
                          <div class="form-group row">
                              <div class="col-sm-6 mb-3 mb-sm-0">
@@ -119,7 +114,7 @@
                                      <div class="input-group-prepend">
                                          <span class="input-group-text" id="addon-wrapping">Rp.</span>
                                      </div>
-                                     <input type="text" name="harga_barang" class="form-control" aria-label="harga_barang" aria-describedby="addon-wrapping">
+                                     <input type="text" name="harga" class="form-control" aria-label="harga_barang" aria-describedby="addon-wrapping" required>
                                  </div>
                              </div>
                              <div class="col-sm-6 mb-3 mb-sm-0">
@@ -128,52 +123,40 @@
                                      <div class="input-group-prepend">
                                          <span class="input-group-text" id="addon-wrapping">Qty</span>
                                      </div>
-                                     <input type="number" min="1" max="1000" name="stok_barang" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping">
+                                     <input type="number" min="1" name="stok" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" required>
                                  </div>
                              </div>
-
-                             <!-- <div class="col-sm-6 mb-3 mb-sm-0">
-                                    Diskon
-                                    <div class="input-group flex-nowrap">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="addon-wrapping">%</span>
-                                        </div>
-                                        <input type="number" value="0" min="0" max="100" name="diskon"
-                                            class="form-control" aria-label="diskon" aria-describedby="addon-wrapping">
-                                    </div>
-                                </div> -->
                          </div>
                          <div class="form-group row">
                              <div class="col-sm-6 mb-3 mb-sm-0">
-                                 Kategori
+                                 Jenis
                                  <div class="input-group flex-nowrap">
 
-                                     <input type="text" name="kategori" class="form-control" aria-label="kategori" aria-describedby="addon-wrapping">
+                                     <input type="text" name="jenis" class="form-control" aria-label="kategori" aria-describedby="addon-wrapping" required>
                                  </div>
                              </div>
                              <div class="col-sm-6 mb-3 mb-sm-0">
                                  Kelas
                                  <div class="input-group flex-nowrap">
 
-                                     <input type="text" name="kelas" class="form-control" aria-label="kelas" aria-describedby="addon-wrapping">
+                                     <input type="text" name="kelas" class="form-control" aria-label="kelas" aria-describedby="addon-wrapping" required>
                                  </div>
                              </div>
                          </div>
                          <div class="form-group">
                              Deskripsi
-                             <textarea class="form-control" id="deskripsi" rows="3" name="deskripsi"></textarea>
+                             <textarea class="form-control" id="deskripsi" name="deskripsi" required></textarea>
                          </div>
                          <div class="form-group">
                              <label>Foto Hewan</label>
-                             <input type="file" name="foto_barang" class="form-control">
+                             <input type="file" name="foto_hewan" class="form-control">
                          </div>
-                         <input type="hidden" class="form-control" id="harga_setelahdiskon" name="harga_setelahdiskon" value="0">
+                         <input type="hidden" class="form-control" id="harga_setelahdiskon" name="harga_setelahdiskon" value="0" required>
 
                          <div class="form-group">
                              <input type="hidden" class="form-control" id="id_toko" name="id_toko" value="">
-
                          </div>
-                         <input type="hidden" class="form-control" id="admin" name="admin" value="">
+                         <!-- <input type="hidden" class="form-control" id="admin" name="admin" value=""> -->
                          <div class="modal-footer">
                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                              <button type="submit" class="btn " style="background-color: #D7552A; color: white;">Tambah</button>

@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="#">
+                            <a href=" <?= base_url('marketplace/detail_toko'); ?> ">
                                 <img src="<?= base_url('assets/'); ?>img/toko_a.jpg" alt="Product Image" style="width: 500px; height: 300px;">
                             </a>
                             <!-- <div class="product-action">
@@ -75,7 +75,7 @@
                         <div class="product-price">
                             <i class="fas fa-store text-white"></i>
                             <!-- <h3><span>$</span>99</h3> -->
-                            <a class="btn" href=""><i class="fas fa-door-open"></i></i>Kunjungi Toko</a>
+                            <a class="btn" href="<?= base_url('marketplace/detail_toko'); ?>"><i class="fas fa-door-open"></i></i>Kunjungi Toko</a>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
 
         </div>
         <!-- Pagination Start -->
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item disabled">
@@ -97,7 +97,7 @@
                     </li>
                 </ul>
             </nav>
-        </div>
+        </div> -->
     </div>
     <!-- Pagination Start -->
 </div>

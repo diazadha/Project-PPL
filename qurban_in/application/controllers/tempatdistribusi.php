@@ -9,7 +9,7 @@ class tempatdistribusi extends CI_Controller
         $this->load->library('form_validation');
         $this->load->library('session');
     }
-    
+
     public function register()
     {
         $this->form_validation->set_rules('nama_masjid', 'Mosque Name', 'required|trim');
@@ -18,18 +18,16 @@ class tempatdistribusi extends CI_Controller
         $this->form_validation->set_rules('nama_admin', 'Name', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
 
-        if($this->form_validation->run() == false)
-        {
+        if ($this->form_validation->run() == false) {
             $data['title'] = 'Register Tempat Distribusi';
             $this->load->view('adminmasjid/register', $data);
-        }else
-        {
-            $email = htmlspecialchars ($this->input->post('email'));
+        } else {
+            $email = htmlspecialchars($this->input->post('email'));
             $data = [
-                'nama_masjid' => htmlspecialchars ($this->input->post('nama_masjid', true)),
-                'alamat' => htmlspecialchars ($this->input->post('alamat', true)),
-                'tlp' => htmlspecialchars ($this->input->post('tlp', true)),
-                'nama_admin' => htmlspecialchars ($this->input->post('nama_admin', true)),
+                'nama_masjid' => htmlspecialchars($this->input->post('nama_masjid', true)),
+                'alamat' => htmlspecialchars($this->input->post('alamat', true)),
+                'tlp' => htmlspecialchars($this->input->post('tlp', true)),
+                'nama_admin' => htmlspecialchars($this->input->post('nama_admin', true)),
                 'email' => $email,
                 'role_id' => 1,
                 'is_active' => 0
@@ -54,75 +52,68 @@ class tempatdistribusi extends CI_Controller
         }
     }
 
-        private function _sendEmail($token, $type)
-        {
-            $config = [
-                'protocol' => 'smtp',
-                'smtp_host' => 'ssl://smtp.googlemail.com',
-                'smtp_user' => 'qurban.in24@gmail.com',
-                'smtp_pass' => 'Qurbanin2403',
-                'smtp_port' => 465,
-                'mailtype' => 'html',
-                'charset' => 'utf-8',
-                'newline' => "\r\n"
-            ];
+    private function _sendEmail($token, $type)
+    {
+        $config = [
+            'protocol' => 'smtp',
+            'smtp_host' => 'ssl://smtp.googlemail.com',
+            'smtp_user' => 'qurban.in24@gmail.com',
+            'smtp_pass' => 'Qurbanin2403',
+            'smtp_port' => 465,
+            'mailtype' => 'html',
+            'charset' => 'utf-8',
+            'newline' => "\r\n"
+        ];
 
-            $this->load->library('email', $config);
-            $this->email->initialize($config);
+        $this->load->library('email', $config);
+        $this->email->initialize($config);
 
-            $this->email->from('qurban.in24@gmail.com', 'Qurban.In');
-            $this->email->to($this->input->post('email'));
+        $this->email->from('qurban.in24@gmail.com', 'Qurban.In');
+        $this->email->to($this->input->post('email'));
 
-            if ($type == 'verify') {
-                $this->email->subject('Account Verification');
-                $this->email->message('Click this link to verify your account : <a href="'. base_url() . 'tempatdistribusi/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
-            }
-
-            if($this->email->send())
-            {
-                return true;
-            } else 
-            {
-                echo $this->email->print_debugger();
-                die;
-            }
+        if ($type == 'verify') {
+            $this->email->subject('Account Verification');
+            $this->email->message('Click this link to verify your account : <a href="' . base_url() . 'tempatdistribusi/verify?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
         }
 
-        public function verify()
-        {
-            $email = $this->input->get('email');
-            $token = $this->input->get('token');
+        if ($this->email->send()) {
+            return true;
+        } else {
+            echo $this->email->print_debugger();
+            die;
+        }
+    }
 
-            $toko = $this->db->get_where('register', ['email' => $email]) ->row_array();
+    public function verify()
+    {
+        $email = $this->input->get('email');
+        $token = $this->input->get('token');
 
-            if ($toko) 
-            {
-                $toko_token = $this->db->get_where('toko_token', ['token' => $token])->row_array();
+        $toko = $this->db->get_where('register', ['email' => $email])->row_array();
 
-                if ($toko_token) 
-                {
-                    if (time() - $toko_token['date_created'] < (60 * 60 * 24)) {
-                        $this->db->set('is_active', 1);
-                        $this->db->where('email', $email);
-                        $this->db->update('register');
+        if ($toko) {
+            $toko_token = $this->db->get_where('toko_token', ['token' => $token])->row_array();
 
-                        $this->db->delete('toko_token', ['email' => $email]);
-                        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">'. $email . ' has been activated!</div');
-                        redirect('tempatdistribusi/inputhewan');
-                    } else 
-                    {
-                        $this->db->delete('toko', ['email' => $email]);
-                        $this->db->delete('toko_token', ['email' => $email]);
+            if ($toko_token) {
+                if (time() - $toko_token['date_created'] < (60 * 60 * 24)) {
+                    $this->db->set('is_active', 1);
+                    $this->db->where('email', $email);
+                    $this->db->update('register');
 
-                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong email. </div');
-                        redirect('tempatdistribusi/register');
-                    }
+                    $this->db->delete('toko_token', ['email' => $email]);
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' has been activated!</div');
+                    redirect('tempatdistribusi/inputhewan');
+                } else {
+                    $this->db->delete('toko', ['email' => $email]);
+                    $this->db->delete('toko_token', ['email' => $email]);
+
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong email. </div');
+                    redirect('tempatdistribusi/register');
                 }
-            } else
-            {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong email. </div');
-                redirect('tempatdistribusi/register');
             }
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Account activation failed! Wrong email. </div');
+            redirect('tempatdistribusi/register');
         }
     }
 

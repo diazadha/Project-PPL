@@ -170,7 +170,7 @@
 
         </div>
         <!-- Pagination Start -->
-        <div class="col-md-12">
+        <!-- <div class="col-md-12">
             <nav aria-label="Page navigation example">
                 <ul class="pagination justify-content-center">
                     <li class="page-item disabled">
@@ -184,7 +184,7 @@
                     </li>
                 </ul>
             </nav>
-        </div>
+        </div> -->
     </div>
     <!-- Pagination Start -->
 </div>

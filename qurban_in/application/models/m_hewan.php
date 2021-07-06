@@ -1,6 +1,6 @@
 <?php
 
-class M_hewan extends CI_model
+class m_hewan extends CI_model
 {
     public function tambah_hewan($data, $table)
     {
@@ -21,6 +21,11 @@ class M_hewan extends CI_model
     {
         $this->db->where($where);
         $this->db->delete($table);
+    }
+
+    public function detail_hewan($where, $table)
+    {
+        return $this->db->get_where($table, $where);
     }
 
     public function dapat_data($id_hewan = null)

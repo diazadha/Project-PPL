@@ -20,6 +20,14 @@ class marketplace extends CI_Controller
         $this->load->view('marketplace/templates_marketplace/footer');
     }
 
+    public function detail_toko()
+    {
+        $data['title'] = 'Toko';
+        $this->load->view('marketplace/templates_marketplace/header', $data);
+        $this->load->view('marketplace/detailtoko');
+        $this->load->view('marketplace/templates_marketplace/footer');
+    }
+
     public function toko()
     {
         $data['title'] = 'Toko';
