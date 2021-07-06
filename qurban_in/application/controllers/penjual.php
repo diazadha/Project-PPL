@@ -3,10 +3,30 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class penjual extends CI_Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library('form_validation');
+        $this->load->library('session');
+    }
     public function register()
     {
-        $data['title'] = 'Register Mitra Penjual';
-        $this->load->view('adminpenjual/register', $data);
+        $this->form_validation->set_rules('namatoko', 'namatoko', 'required|trim');
+        $this->form_validation->set_rules('alamattoko', 'alamattoko', 'required|trim');
+        $this->form_validation->set_rules('notlp', 'notlp', 'required|trim');
+	if ($this->form_validation->run() == false) {
+		$data['title'] = 'Register Mitra Penjual';
+       		$this->load->view('adminpenjual/register', $data);
+	}else{
+            $data = [
+                'namatoko' => htmlspecialchars($this->input->post('namatoko', true)),
+                'alamat' => htmlspecialchars($this->input->post('alamattoko', true)),
+                'notlp' => htmlspecialchars($this->input->post('notlp', true)),
+            ];
+            echo "penjual";
+            $this->db->insert('register', $data);
+            $this->load->view('adminpenjual/register', $data);
+	}
     }
 
     public function inputhewan()
