@@ -129,9 +129,27 @@ class tempatdistribusi extends CI_Controller
     public function inputhewan()
     {
         $data['title'] = 'Data Hewan';
+		$this->load->model('tempatdistribusi_model');
+        $data['status'] = $this->tempatdistribusi_model->statushewan();
+        $data['hewan'] = $this->tempatdistribusi_model->datahewan()->result();
+
         $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
         $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
         $this->load->view('adminmasjid/inputhewan');
         $this->load->view('adminmasjid/templates_adminmasjid/footer');
+    }
+
+	 public function tambahhewan(){
+
+        $this->form_validation->set_rules('nama_barang', 'Data', 'required');  
+        $this->form_validation->set_rules('status', 'Data', 'required');  
+        $data = [
+            'namahewan' => htmlspecialchars($this->input->post('nama_barang', true)),
+            'statusid' => htmlspecialchars($this->input->post('status', true)),
+        ];
+        echo "tempatdistribusi";
+        $this->db->insert('hewan', $data);
+        $this->load->view('adminmasjid/inputhewan', $data);
+        redirect('tempatdistribusi/inputhewan');
     }
 }
