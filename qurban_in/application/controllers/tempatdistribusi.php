@@ -141,11 +141,12 @@ class tempatdistribusi extends CI_Controller
             'id_status' => htmlspecialchars($this->input->post('status', true)),
             'id_tempatdistribusi' => htmlspecialchars($this->input->post('id_tempatdistribusi', true)),
         ];
+        $this->session->set_flashdata('message1', 'Data Hewan Berhasil Ditambahkan!');
         $this->db->insert('hewan_tempatdistribusi', $data);
         redirect('tempatdistribusi/inputhewan');
     }
 
-    public function updatehewan($id_hewan)
+    public function updatehewan()
     {
 
         $this->form_validation->set_rules('nama_hewan', 'Data', 'required');
@@ -155,8 +156,15 @@ class tempatdistribusi extends CI_Controller
             'id_status' => htmlspecialchars($this->input->post('status', true)),
             'id_tempatdistribusi' => htmlspecialchars($this->input->post('id_tempatdistribusi', true)),
         ];
-        $this->db->where('id_hewan', $id_hewan);
+        $this->session->set_flashdata('message1', 'Data Hewan Berhasil Dirubah!');
+        $this->db->where('id_hewan', $this->input->post('id_hewan'));
         $this->db->update('hewan_tempatdistribusi', $data);
         redirect('tempatdistribusi/inputhewan');
+    }
+
+    public function getubah()
+    {
+        $id_hewan = $_POST['id_hewan'];
+        echo json_encode($this->tempatdistribusi_model->gethewanbyid($id_hewan)->result());
     }
 }

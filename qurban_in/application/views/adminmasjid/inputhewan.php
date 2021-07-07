@@ -3,7 +3,7 @@
      <div class="card shadow mb-4">
          <div class="card-header">
              <h6 class="m-0 font-weight-bold text-primary">
-                 <button class='btn btn-sm ' data-toggle="modal" data-target="#tambah_hewan" style="color: white; background-color: #d7552a;"><i class="fas fa-plus fa-sm"></i>
+                 <button class='btn btn-sm tambahdata' data-toggle="modal" data-target="#modal" style="color: white; background-color: #d7552a;"><i class="fas fa-plus fa-sm"></i>
                      Tambah
                      Hewan</button>
              </h6>
@@ -11,6 +11,11 @@
          <?= form_error('nama_barang', '<div class="alert alert-danger" role="alert">', '</div>');   ?>
          <?= $this->session->flashdata('message'); ?>
      </div>
+     <?php if ($this->session->flashdata('message1')) : ?>
+         <?php $message = $this->session->flashdata('message1'); ?>
+         <?= '<div class="alert alert-success">' . $message . '</div>'; ?>
+         <?php $this->session->unset_userdata('message1'); ?>
+     <?php endif; ?>
      <!-- Page Heading -->
      <!-- <h1 class="h3 mb-2 text-gray-800">Tables</h1>
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
@@ -51,7 +56,7 @@
                                  <td><?php echo $d->nama_hewan ?></td>
                                  <td><?php echo $d->nama_status ?></td>
                                  <td>
-                                     <center><button class="btn btn-success btn-sm" data-toggle="modal" data-target="#updatehewan"><i class="fas fa-search-plus"></i></button> </center>
+                                     <center><a href=" " class=" btn btn-success btn-sm tampilmodalubah" data-toggle="modal" data-target="#modal" data-id="<?= $d->id_hewan; ?>"><i class="fas fa-search-plus"></i></a> </center>
                                  </td>
 
                              </tr>
@@ -63,85 +68,45 @@
          </div>
      </div>
 
-     </>
+
      <!-- /.container-fluid -->
 
  </div>
  <!-- End of Main Content -->
  <!-- Modal tambah hewan qurban -->
- <div class="modal fade" id="updatehewan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+ <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
      <div class="modal-dialog modal-lg">
          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
              <div class="modal-content modal-lg">
                  <div class="modal-header modal-lg">
-                     <h5 class="modal-title" id="exampleModalLongTitle">Edit Hewan Qurban</h5>
+                     <h5 class="modal-title" id="exampleModalLongTitle">Tambah Hewan</h5>
                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                          <span aria-hidden="true">&times;</span>
                      </button>
                  </div>
-                 <div class="card-body">
-                     <form action=" <?= base_url('tempatdistribusi/updatehewan/') . $d->id_hewan; ?> " method="post" enctype="multipart/form-data">
+                 <div class="modal-body">
+                     <form id="form" action=" <?= base_url('tempatdistribusi/tambahhewan'); ?> " method="post" enctype="multipart/form-data">
                          <div class="form-group row">
                              <div class="col-sm-6 mb-3 mb-sm-0">
                                  Nama Hewan Qurban
-                                 <input type="text" name="nama_hewan" class="form-control" value=" <?= $d->nama_hewan; ?> " required>
+                                 <input type="text" name="nama_hewan" id="namahewan" class="form-control" required>
                              </div>
                              <div class="col-sm-6 mb-3 mb-sm-0">
                                  Status
-
-                                 <select name="status" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" required>
-                                     <option value="">Pilih status</option>
+                                 <select name="status" id="status" class="form-control" required>
+                                     <!-- <option value="">Pilih status</option> -->
                                      <?php foreach ($status as $s) : ?>
                                          <option value="<?= $s['id_status']; ?>"><?= $s['nama_status']; ?></option>
                                      <?php endforeach;  ?>
                                  </select>
-                                 <input type="hidden" name="id_tempatdistribusi" value=" <?= $d->id_tempatdistribusi; ?> " required>
-                             </div>
-                         </div>
-
-                         <div class="modal-footer">
-                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                             <button type="submit" class="btn " style="background-color: #d7552a; color: white;">Update</button>
-                         </div>
-                     </form>
-                 </div>
-             </div>
-         </div>
-     </div>
- </div>
- <!-- Modal tambah hewan qurban -->
- <div class="modal fade" id="tambah_hewan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-     <div class="modal-dialog modal-lg">
-         <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-             <div class="modal-content modal-lg">
-                 <div class="modal-header modal-lg">
-                     <h5 class="modal-title" id="exampleModalLongTitle">Tambah Hewan Qurban</h5>
-                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                         <span aria-hidden="true">&times;</span>
-                     </button>
-                 </div>
-                 <div class="card-body">
-                     <form action=" <?= base_url('tempatdistribusi/tambahhewan'); ?> " method="post" enctype="multipart/form-data">
-                         <div class="form-group row">
-                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                 Nama Hewan Qurban
-                                 <input type="text" name="nama_hewan" class="form-control" required>
-                             </div>
-                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                 Status
-
-                                 <select name="status" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" required>
-                                     <option value="">Pilih status</option>
-                                     <?php foreach ($status as $s) : ?>
-                                         <option value="<?= $s['id_status']; ?>"><?= $s['nama_status']; ?></option>
-                                     <?php endforeach;  ?>
-                                 </select>
-                                 <input type="hidden" name="id_tempatdistribusi" value=" <?= $d->id_tempatdistribusi; ?> " required>
+                                 <input type="hidden" name="id_tempatdistribusi" id="id_tempatdistribusi" value=" <?= $d->id_tempatdistribusi; ?> " required>
+                                 <input type="hidden" name="id_status" id="id_status" value=" <?= $d->id_status; ?> " required>
+                                 <input type="hidden" name="id_hewan" id="id_hewan" value=" <?= $d->id_hewan; ?> " required>
                              </div>
                          </div>
                          <div class="modal-footer">
                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                             <button type="submit" class="btn" style="background-color: #d7552a; color: white;">Tambah</button>
+                             <button type="submit" class="btn button_tambah" style="background-color: #d7552a; color: white;">Tambah</button>
                          </div>
                      </form>
                  </div>

@@ -120,7 +120,7 @@ class penjual extends CI_Controller
     {
         $data['title'] = 'Data Hewan';
         // $data['hewan'] = $this->m_hewan->tampil_data();
-        $data['hewan1'] = $this->db->get('tb_hewan')->result();
+        $data['toko'] = $this->m_hewan->getalldata()->result();
         $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
         $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
         $this->load->view('adminpenjual/inputhewan', $data);
@@ -159,7 +159,7 @@ class penjual extends CI_Controller
                 'deskripsi'      => $deskripsi,
                 'jenis'       => $jenis,
                 'kelas'          => $kelas,
-                'id_toko'        => 0
+                'id_toko'        => $this->input->post('id_toko'),
             );
             $this->m_hewan->tambah_hewan($data, 'tb_hewan');
             $this->session->set_flashdata('message1', 'Data Hewan Berhasil Ditambahkan!');
@@ -186,7 +186,7 @@ class penjual extends CI_Controller
             'jenis'       => $jenis,
             'deskripsi'      => $deskripsi,
             'kelas'          => $kelas,
-            'id_toko'       => 0
+            'id_toko'       => $this->input->post('id_toko')
         );
 
         // $where = array('id_hewan' => $id);

@@ -34,6 +34,8 @@
 
 <!-- Page level custom scripts -->
 <script src="<?= base_url('assets/'); ?>js/demo/datatables-demo.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="<?= base_url('assets/'); ?>js/script.js"></script>
 
 </body>
 

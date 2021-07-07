@@ -24,6 +24,16 @@ class m_hewan extends CI_model
         return $this->db->get();
     }
 
+    public function getalldata()
+    {
+        $this->db->select('*');
+        $this->db->from('tb_hewan');
+        $this->db->join('toko', 'toko.id_toko = tb_hewan.id_toko');
+        $this->db->join('user', 'user.id_toko = toko.id_toko');
+        $this->db->where('user.email', $this->session->userdata('email'));
+        return $this->db->get();
+    }
+
     public function hapus_data($table, $where)
     {
         $this->db->where($where);

@@ -53,6 +53,7 @@
                                     </div>
                                     <input type="number" min="1" name="stok" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" value="<?= $h->stok; ?>" required>
                                     <input type="hidden" name="id_hewan" value=" <?= $h->id_hewan; ?> ">
+                                    <input type="hidden" name="id_toko" value=" <?= $h->id_toko; ?> ">
                                 </div>
                             </div>
                         </div>
