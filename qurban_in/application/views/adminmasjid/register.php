@@ -80,16 +80,16 @@
                                     <input type="text" class="form-control form-control-user" id="tlp" name="tlp" placeholder="No. Telepon">
                                     <?= form_error('tlp', '<small class="text-danger pl-3">', '</small>'); ?>
                                 </div>
-                                <!-- <div class="form-group row">
+                                <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                        <input type="text" class="form-control form-control-user" name="kota" id="kota" placeholder="Kota">
+                                        <?= form_error('kota', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                        <input type="text" class="form-control form-control-user" name="provinsi" id="provinsi" placeholder="Provinsi">
+                                        <?= form_error('kota', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
-                                </div> -->
+                                </div>
                                 <button type="submit" class="btn btn-user btn-block" style="background-color: #d7552a; color: white;">Submit</button>
                                 <!-- <hr> -->
                                 <a href="<?= base_url('marketplace/') ?>" class="btn btn-secondary btn-user btn-block">

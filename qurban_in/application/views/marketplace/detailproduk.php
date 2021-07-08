@@ -27,7 +27,7 @@
                         <div class="col-md-7">
                             <div class="product-content">
                                 <div class="title">
-                                    <h2><?= $h->nama_hewan; ?></h2>
+                                    <h1><?= $h->nama_hewan; ?></h1>
                                 </div>
                                 <div class="ratting">
                                     <?php for ($i = 1; $i <= $h->kelas; $i++) : ?>
@@ -37,17 +37,17 @@
                                 <div class="price">
                                     <h4>Harga:</h4>
                                     <!-- <span>$149</span> -->
-                                    <p>Rp. <?= number_format($h->harga, 0, ',', '.') ?> </p> <br>
+                                    <p style="font-size: large;">Rp. <?= number_format($h->harga, 0, ',', '.') ?> </p> <br>
                                     <h4>Jenis: </h4>
-                                    <p><?= $h->jenis; ?></p> <br>
+                                    <p style="font-size: large;"><?= $h->jenis; ?></p> <br>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <h4>Kelas: </h4>
-                                            <p> <?= $h->kelas; ?> </p>
+                                            <p style="font-size: large;"> <?= $h->kelas; ?> </p>
                                         </div>
                                         <div class="col-lg-6">
                                             <h4>Berat:</h4>
-                                            <p> <?= $h->berat . ' Kg' ?> </p>
+                                            <p style="font-size: large;"> <?= $h->berat . ' Kg' ?> </p>
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="price col-lg-6">
                                             <h4>Stok:</h4>
-                                            <p> <?= $h->stok; ?> </p>
+                                            <p style="font-size: large;"> <?= $h->stok; ?> </p>
                                         </div>
                                     </div>
                                 </div>

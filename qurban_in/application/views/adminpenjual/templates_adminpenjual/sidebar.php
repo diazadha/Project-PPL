@@ -11,9 +11,7 @@
                 <div class="sidebar-brand-icon ">
                     <i class="fas fa-store"></i>
                 </div>
-                <?php foreach ($toko as $t) : ?>
-                <?php endforeach; ?>
-                <div class="sidebar-brand-text mx-3"> <?= $t->nama_toko; ?> </div>
+                <div class="sidebar-brand-text mx-3"> <?= $profil['nama_toko']; ?> </div>
             </a>
 
             <!-- Divider -->
@@ -210,7 +208,7 @@
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $t->nama_depan; ?> <?= $t->nama_belakang; ?></span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['nama_depan']; ?> <?= $user['nama_belakang']; ?></span>
                                 <img class="img-profile rounded-circle" src=" <?= base_url('assets/'); ?>img/undraw_profile.svg">
                             </a>
                             <!-- Dropdown - User Information -->

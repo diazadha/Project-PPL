@@ -22,10 +22,9 @@ $(function () {
             success: function (data) {
                 console.log(data);
                 $('#namahewan').val(data[0].nama_hewan);
-                $('#statuss').val(data[0].nama_status);
-                $('#id_tempatdistribusi').val(data[0].id_tempatdistribusi);
-                $('#id_status').val(data[0].id_status);
+                // $('#pilih').val(data[0].nama_status);
                 $('#id_hewan').val(data[0].id_hewan);
+                // $('#id_status').val(data[0].id_status);
             }
         });
     });

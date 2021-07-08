@@ -16,6 +16,8 @@ class tempatdistribusi extends CI_Controller
         $this->form_validation->set_rules('alamat', 'Address', 'required|trim');
         $this->form_validation->set_rules('tlp', 'Phone Number', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim');
+        $this->form_validation->set_rules('kota', 'Kota', 'required|trim');
+        $this->form_validation->set_rules('provinsi', 'Provinsi', 'required|trim');
 
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Register Tempat Distribusi';
@@ -23,9 +25,11 @@ class tempatdistribusi extends CI_Controller
         } else {
             $email = htmlspecialchars($this->input->post('email'));
             $data = [
-                'nama_tempat' => htmlspecialchars($this->input->post('nama_tempat', true)),
-                'alamat' => htmlspecialchars($this->input->post('alamat', true)),
-                'notelp' => htmlspecialchars($this->input->post('tlp', true)),
+                'nama_tempat' => htmlspecialchars(ucwords($this->input->post('nama_tempat', true))),
+                'alamat' => htmlspecialchars(ucwords($this->input->post('alamat', true))),
+                'notelp' => htmlspecialchars(ucwords($this->input->post('tlp', true))),
+                'kota' => htmlspecialchars(ucwords($this->input->post('kota', true))),
+                'provinsi' => htmlspecialchars(ucwords($this->input->post('provinsi', true))),
                 'is_active' => 0
             ];
 
@@ -122,7 +126,10 @@ class tempatdistribusi extends CI_Controller
     {
         $data['title'] = 'Data Hewan';
         $this->load->model('tempatdistribusi_model');
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
         $data['status'] = $this->tempatdistribusi_model->statushewan();
+        $data['profil'] = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $data['user']['id_tempatdistribusi']])->row_array();
         $data['distribusi'] = $this->tempatdistribusi_model->getalldata()->result();
 
         $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
@@ -165,6 +172,6 @@ class tempatdistribusi extends CI_Controller
     public function getubah()
     {
         $id_hewan = $_POST['id_hewan'];
-        echo json_encode($this->tempatdistribusi_model->gethewanbyid($id_hewan)->result());
+        echo json_encode($this->tempatdistribusi_model->gethewanbyid($id_hewan));
     }
 }

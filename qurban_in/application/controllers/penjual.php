@@ -15,14 +15,18 @@ class penjual extends CI_Controller
         $this->form_validation->set_rules('alamattoko', 'alamattoko', 'required|trim');
         $this->form_validation->set_rules('notlp', 'notlp', 'required|trim');
         $this->form_validation->set_rules('email', 'Email', 'required|trim');
+        $this->form_validation->set_rules('kota', 'Kota', 'required|trim');
+        $this->form_validation->set_rules('provinsi', 'Provinsi', 'required|trim');
         if ($this->form_validation->run() == false) {
             $data['title'] = 'Register Mitra Penjual';
             $this->load->view('adminpenjual/register', $data);
         } else {
             $email = htmlspecialchars($this->input->post('email'));
             $data = [
-                'nama_toko' => htmlspecialchars($this->input->post('namatoko', true)),
-                'alamat' => htmlspecialchars($this->input->post('alamattoko', true)),
+                'nama_toko' => htmlspecialchars(ucwords($this->input->post('namatoko', true))),
+                'alamat' => htmlspecialchars(ucwords($this->input->post('alamattoko', true))),
+                'kota' => htmlspecialchars(ucwords($this->input->post('kota', true))),
+                'provinsi' => htmlspecialchars(ucwords($this->input->post('provinsi', true))),
                 'notelp' => htmlspecialchars($this->input->post('notlp', true)),
                 'is_active' => 0
             ];
@@ -119,8 +123,11 @@ class penjual extends CI_Controller
     public function inputhewan()
     {
         $data['title'] = 'Data Hewan';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
         // $data['hewan'] = $this->m_hewan->tampil_data();
         $data['toko'] = $this->m_hewan->getalldata()->result();
+        $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
         $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
         $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
         $this->load->view('adminpenjual/inputhewan', $data);
@@ -232,7 +239,10 @@ class penjual extends CI_Controller
         // $where = array('id_hewan' => $id);
         $data['title'] = 'Data Hewan';
         // $data['hewan'] = $this->m_hewan->detail_hewan($where, 'tb_hewan')->result();
-        $data['hewan'] = $this->db->get_where('tb_hewan', ['id_hewan' => $id])->result();
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['hewan'] = $this->db->get_where('tb_hewan', ['id_hewan' => $id])->row_array();
+        $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
 
         $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
         $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
@@ -267,15 +277,23 @@ class penjual extends CI_Controller
     public function datapesanan()
     {
         $data['title'] = 'Pesanan';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
+
         $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
         $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
-        $this->load->view('adminpenjual/pesanan_adminpenjual');
+        $this->load->view('adminpenjual/pesanan_adminpenjual', $data);
         $this->load->view('adminpenjual/templates_adminpenjual/footer');
     }
 
     public function detail_pesanan()
     {
         $data['title'] = 'Pesanan';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
+
         $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
         $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
         $this->load->view('adminpenjual/detail_pesanan');

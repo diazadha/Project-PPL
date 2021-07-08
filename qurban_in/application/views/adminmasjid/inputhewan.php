@@ -94,14 +94,14 @@
                              <div class="col-sm-6 mb-3 mb-sm-0">
                                  Status
                                  <select name="status" id="status" class="form-control" required>
-                                     <!-- <option value="">Pilih status</option> -->
+                                     <option value="">Pilih status</option>
                                      <?php foreach ($status as $s) : ?>
                                          <option value="<?= $s['id_status']; ?>"><?= $s['nama_status']; ?></option>
                                      <?php endforeach;  ?>
                                  </select>
-                                 <input type="hidden" name="id_tempatdistribusi" id="id_tempatdistribusi" value=" <?= $d->id_tempatdistribusi; ?> " required>
-                                 <input type="hidden" name="id_status" id="id_status" value=" <?= $d->id_status; ?> " required>
-                                 <input type="hidden" name="id_hewan" id="id_hewan" value=" <?= $d->id_hewan; ?> " required>
+                                 <input type="hidden" name="id_tempatdistribusi" id="id_tempatdistribusi" value=" <?= $profil['id_tempatdistribusi']; ?> " required>
+                                 <input type="hidden" name="id_hewan" id="id_hewan" required>
+                                 <!-- <input type="hidden" name="status" id="id_status" value="" required> -->
                              </div>
                          </div>
                          <div class="modal-footer">

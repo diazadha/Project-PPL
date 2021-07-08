@@ -52,17 +52,17 @@
                                         </tr>
                                     </tfoot> -->
                      <tbody>
-                         <?php $no = 1;
-                            foreach ($toko as $t) : ?>
+                         <?php $no = 1; ?>
+                         <?php foreach ($toko as $t) : ?>
                              <tr>
                                  <td style="text-align: center;"><?php echo $no++ ?></td>
-                                 <td><?php echo $t->nama_hewan ?></td>
+                                 <td><?php echo $t->nama_hewan; ?></td>
                                  <td style="text-align: right;">Rp. <?= number_format($t->harga, 0, ',', '.') ?></td>
-                                 <td><?php echo $t->stok ?></td>
-                                 <td><?php echo $t->jenis ?></td>
+                                 <td><?php echo $t->stok; ?></td>
+                                 <td><?php echo $t->jenis; ?></td>
                                  <td>
                                      <center>
-                                         <a href="<?= base_url('penjual/detailhewan/') . $t->id_hewan ?>" class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></a>
+                                         <a href="<?= base_url('penjual/detailhewan/') . $t->id_hewan; ?>" class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></a>
                                          <!-- <div class="btn btn-primary btn-sm"><i class="fas fa-edit"></i>
                                                     </div> -->
                                          <a href="<?= base_url('penjual/hapus/') . $t->id_hewan; ?>" onclick="return confirm('Apakah Kamu Yakin?');" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
@@ -154,7 +154,7 @@
                          <input type="hidden" class="form-control" id="harga_setelahdiskon" name="harga_setelahdiskon" value="0" required>
 
                          <div class="form-group">
-                             <input type="hidden" class="form-control" id="id_toko" name="id_toko" value=" <?= $t->id_toko; ?> ">
+                             <input type="hidden" class="form-control" id="id_toko" name="id_toko" value=" <?= $profil['id_toko']; ?> ">
                          </div>
                          <!-- <input type="hidden" class="form-control" id="admin" name="admin" value=""> -->
                          <div class="modal-footer">
