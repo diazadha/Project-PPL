@@ -93,19 +93,22 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="product-search">
-                                            <input type="email" value="Search">
-                                            <button><i class="fa fa-search"></i></button>
+                                            <form action="<?= base_url('marketplace/search') ?>" method="POST">
+                                                <input type="text" name="key" id="key">
+                                                <button type="submit"><i class="fa fa-search"></i></button>
+                                            </form>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <div class="product-short">
                                             <div class="dropdown">
-                                                <div class="dropdown-toggle" data-toggle="dropdown">Product short by
+                                                <div class="dropdown-toggle" data-toggle="dropdown">Berat (Kg. )
                                                 </div>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#" class="dropdown-item">Newest</a>
-                                                    <a href="#" class="dropdown-item">Popular</a>
-                                                    <a href="#" class="dropdown-item">Most sale</a>
+                                                    <a href=" <?= base_url('marketplace'); ?> " class="dropdown-item" style="font-weight: bolder;">Semua Berat</a>
+                                                    <a href=" <?= base_url('marketplace/filter_berat?from=20&until=81'); ?> " class="dropdown-item" style="font-weight: bolder;">20 Kg - 80 Kg</a>
+                                                    <a href="<?= base_url('marketplace/filter_berat?from=81&until=100'); ?>" class="dropdown-item" style="font-weight: bolder;">81 Kg - 99 Kg</a>
+                                                    <a href="<?= base_url('marketplace/filter_berat_diatas?val=100'); ?>" class="dropdown-item" style="font-weight: bolder;">>= 100 Kg</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -113,20 +116,20 @@
                                     <div class="col-md-4">
                                         <div class="product-price-range">
                                             <div class="dropdown">
-                                                <div class="dropdown-toggle" data-toggle="dropdown">Product price
-                                                    range
+                                                <div class="dropdown-toggle" data-toggle="dropdown">Harga (Rp. )
                                                 </div>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a href="#" class="dropdown-item">$0 to $50</a>
-                                                    <a href="#" class="dropdown-item">$51 to $100</a>
-                                                    <a href="#" class="dropdown-item">$101 to $150</a>
-                                                    <a href="#" class="dropdown-item">$151 to $200</a>
+                                                    <a href=" <?= base_url('marketplace'); ?> " class="dropdown-item" style="font-weight: bolder;">Semua Harga</a>
+                                                    <a href=" <?= base_url('marketplace/filter_harga?from=1000000&until=11000000'); ?> " class="dropdown-item" style="font-weight: bolder;">1 Jt - 10 Jt</a>
+                                                    <a href="<?= base_url('marketplace/filter_harga?from=11000000&until=51000000'); ?>" class="dropdown-item" style="font-weight: bolder;">11 Jt - 50 Jt</a>
+                                                    <a href="<?= base_url('marketplace/filter_harga_diatas?val=50000000'); ?>" class="dropdown-item" style="font-weight: bolder;">>= 50 Jt</a>
+                                                    <!-- <a href="#" class="dropdown-item">$151 to $200</a>
                                                     <a href="#" class="dropdown-item">$201 to $250</a>
                                                     <a href="#" class="dropdown-item">$251 to $300</a>
                                                     <a href="#" class="dropdown-item">$301 to $350</a>
                                                     <a href="#" class="dropdown-item">$351 to $400</a>
                                                     <a href="#" class="dropdown-item">$401 to $450</a>
-                                                    <a href="#" class="dropdown-item">$451 to $500</a>
+                                                    <a href="#" class="dropdown-item">$451 to $500</a> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -172,9 +175,11 @@
                             <div class="card" style="width: 18rem; border-color:tomato; border-width: 1px; ">
                                 <img src="<?= base_url('uploads/hewan/') . $h->foto_hewan; ?>" class="card-img-top" alt="..." style=" height:200px;">
                                 <div class="card-body">
-                                    <h5 class="card-title" style="font-weight: bold;"><?= $h->nama_hewan; ?></h5>
+                                    <h3 class="card-title" style="font-weight: bold;"><?= ucwords($h->nama_hewan); ?></h3>
                                     <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                                    <h3 style="text-align: right;">Rp. <?= number_format($h->harga, 0, ',', '.') ?> </h3>
+                                    <h4 style="text-align: right; font-weight:bolder;">Rp. <?= number_format($h->harga, 0, ',', '.') ?> </h4>
+                                    <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $h->nama_toko; ?> </h4>
+                                    <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $h->berat . ' Kg' ?> </h4>
                                     <hr>
                                     <div class="row">
                                         <div class="col-lg-6 mb-4">

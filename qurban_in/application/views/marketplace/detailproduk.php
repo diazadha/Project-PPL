@@ -27,7 +27,7 @@
                         <div class="col-md-7">
                             <div class="product-content">
                                 <div class="title">
-                                    <h1><?= $h->nama_hewan; ?></h1>
+                                    <h1><?= ucwords($h->nama_hewan); ?></h1>
                                 </div>
                                 <div class="ratting">
                                     <?php for ($i = 1; $i <= $h->kelas; $i++) : ?>

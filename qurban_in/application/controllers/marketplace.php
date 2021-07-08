@@ -13,6 +13,63 @@ class marketplace extends CI_Controller
         $this->load->view('marketplace/templates_marketplace/footer');
     }
 
+    public function search()
+    {
+        $this->load->library('session');
+        $keyword = $this->input->post('key');
+        $data['title'] = 'Home';
+        $data['tampil_hewan'] = $this->marketplace_model->search($keyword)->result();
+        $this->load->view('marketplace/templates_marketplace/header', $data);
+        $this->load->view('marketplace/index', $data);
+        $this->load->view('marketplace/templates_marketplace/footer');
+    }
+
+    public function filter_harga()
+    {
+        // $this->load->library('session');
+        $data['title'] = 'Home';
+        $dari = $this->input->get('from');
+        $sampai = $this->input->get('until');
+        $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_harga($dari, $sampai)->result();
+        $this->load->view('marketplace/templates_marketplace/header', $data);
+        $this->load->view('marketplace/index', $data);
+        $this->load->view('marketplace/templates_marketplace/footer');
+    }
+
+    public function filter_berat()
+    {
+        // $this->load->library('session');
+        $data['title'] = 'Home';
+        $dari = $this->input->get('from');
+        $sampai = $this->input->get('until');
+        $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_berat($dari, $sampai)->result();
+        $this->load->view('marketplace/templates_marketplace/header', $data);
+        $this->load->view('marketplace/index', $data);
+        $this->load->view('marketplace/templates_marketplace/footer');
+    }
+
+    public function filter_harga_diatas()
+    {
+        // $this->load->library('session');
+        $data['title'] = 'Home';
+        $value = $this->input->get('val');
+        $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_harga_diatas($value)->result();
+        $this->load->view('marketplace/templates_marketplace/header', $data);
+        $this->load->view('marketplace/index', $data);
+        $this->load->view('marketplace/templates_marketplace/footer');
+    }
+
+    public function filter_berat_diatas()
+    {
+        // $this->load->library('session');
+        $data['title'] = 'Home';
+        $value = $this->input->get('val');
+        $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_berat_diatas($value)->result();
+        $this->load->view('marketplace/templates_marketplace/header', $data);
+        $this->load->view('marketplace/index', $data);
+        $this->load->view('marketplace/templates_marketplace/footer');
+    }
+
     public function detail_produk($id_hewan)
     {
         $data['title'] = 'Home';
