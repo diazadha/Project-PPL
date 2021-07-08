@@ -1,3 +1,5 @@
+<?php foreach ($tampil_hewan as $h) : ?>
+<?php endforeach; ?>
 <!-- Product Detail Start -->
 <div class="product-detail">
     <div class="container-fluid">
@@ -7,15 +9,9 @@
                     <div class="row align-items-center">
                         <div class="col-md-5">
                             <center>
-                                <div class="header-slider normal-slider">
+                                <div class="header normal">
                                     <div class="header-slider-item">
-                                        <img src="<?= base_url('assets/'); ?>img/sapi_limosin.jpg" alt="Slider Image" style="height: 400px; width: 400px;" />
-                                    </div>
-                                    <div class="header-slider-item">
-                                        <img src="<?= base_url('assets/'); ?>img/kambing.jpeg" alt="Slider Image" style="height: 400px; width: 400px;" />
-                                    </div>
-                                    <div class="header-slider-item">
-                                        <img src="<?= base_url('assets/'); ?>img/kambing3.jpg" alt="Slider Image" style="height: 400px; width: 400px;" />
+                                        <img src="<?= base_url('./uploads/hewan/') . $h->foto_hewan; ?>" alt="Slider Image" style="height: 400px; width: 400px; border-color:tomato; border-style:solid;" />
                                     </div>
                                 </div>
                                 <!-- <div class="product-slider-single normal-slider">
@@ -31,37 +27,44 @@
                         <div class="col-md-7">
                             <div class="product-content">
                                 <div class="title">
-                                    <h2>Sapi Bali</h2>
+                                    <h2><?= $h->nama_hewan; ?></h2>
                                 </div>
                                 <div class="ratting">
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+                                    <?php for ($i = 1; $i <= $h->kelas; $i++) : ?>
+                                        <i class="fa fa-star"></i>
+                                    <?php endfor; ?>
                                 </div>
                                 <div class="price">
                                     <h4>Harga:</h4>
-                                    <p>$99 <span>$149</span></p> <br>
-                                    <h4>Kategori: </h4>
-                                    <p>Simental</p> <br>
+                                    <!-- <span>$149</span> -->
+                                    <p>Rp. <?= number_format($h->harga, 0, ',', '.') ?> </p> <br>
+                                    <h4>Jenis: </h4>
+                                    <p><?= $h->jenis; ?></p> <br>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <h4>Kelas: </h4>
-                                            <p>4</p>
+                                            <p> <?= $h->kelas; ?> </p>
                                         </div>
                                         <div class="col-lg-6">
                                             <h4>Berat:</h4>
-                                            <p>10 Kg</p>
+                                            <p> <?= $h->berat . ' Kg' ?> </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="quantity">
-                                    <h4>Jumlah:</h4>
-                                    <div class="qty">
-                                        <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                        <input type="text" value="1">
-                                        <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <h4>Jumlah:</h4>
+                                            <div class="qty">
+                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
+                                                <input type="text" value="1">
+                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="price col-lg-6">
+                                            <h4>Stok:</h4>
+                                            <p> <?= $h->stok; ?> </p>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- <div class="p-size">
@@ -83,7 +86,7 @@
                                     </div> -->
                                 <div class="action">
                                     <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                    <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Buy Now</a>
+                                    <!-- <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Buy Now</a> -->
                                 </div>
 
                             </div>
@@ -101,7 +104,7 @@
                     <div class="col-lg-12">
                         <ul class="nav nav-pills nav-justified">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="pill" href="#description">Description</a>
+                                <p class="nav-link active" style="color:white; font-size:medium; font-weight:bold; margin-top:1px; margin-bottom:1px;">Deskripsi Hewan Qurban</p>
                             </li>
                             <!-- <li class="nav-item">
                                     <a class="nav-link" data-toggle="pill" href="#specification">Specification</a>
@@ -113,17 +116,9 @@
 
                         <div class="tab-content">
                             <div id="description" class="container tab-pane active">
-                                <h4>Deskripsi Hewan Qurban</h4>
+                                <!-- <h4>Deskripsi Hewan Qurban</h4> -->
                                 <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In condimentum quam ac
-                                    mi viverra dictum. In efficitur ipsum diam, at dignissim lorem tempor in.
-                                    Vivamus tempor hendrerit finibus. Nulla tristique viverra nisl, sit amet
-                                    bibendum ante suscipit non. Praesent in faucibus tellus, sed gravida lacus.
-                                    Vivamus eu diam eros. Aliquam et sapien eget arcu rhoncus scelerisque.
-                                    Suspendisse sit amet neque neque. Praesent suscipit et magna eu iaculis. Donec
-                                    arcu libero, commodo ac est a, malesuada finibus dolor. Aenean in ex eu velit
-                                    semper fermentum. In leo dui, aliquet sit amet eleifend sit amet, varius in
-                                    turpis. Maecenas fermentum ut ligula at consectetur. Nullam et tortor leo.
+                                    <?= $h->deskripsi; ?>
                                 </p>
                             </div>
                         </div>
@@ -135,7 +130,7 @@
 
             <div class="col-lg-4 sidebar">
                 <div class="sidebar-widget category">
-                    <h2 class="title">Nama Toko</h2>
+                    <h2 class="title"> <?= $h->nama_toko; ?> </h2>
                     <img src=" <?= base_url('assets/'); ?>img/toko.jpg " alt="" style="width: 100%; height:100%; border-style:solid; border-color:tomato ">
                     <div class="modal-footer ml-auto">
                         <a href="<?= base_url('marketplace/detail_toko'); ?>">

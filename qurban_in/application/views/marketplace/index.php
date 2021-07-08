@@ -137,8 +137,8 @@
                     </div>
                 </div>
             </div>
-            <div class="row align-items-center product product-4">
-                <div class="col-lg-3 mb-4">
+            <div class="row  product-4">
+                <!-- <div class="col-lg-3 mb-4">
                     <div class="product-item">
                         <div class="product-title">
                             <a href="#">Product Name</a>
@@ -151,23 +151,45 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href="<?= base_url('marketplace/detail_produk'); ?>">
+                            <a href="">
                                 <img src=" <?= base_url('assets/') ?>img/domba_garut.jpg" alt="Product Image" style="width: 500px; height: 300px;">
                             </a>
-                            <!-- <div class="product-action">
-                                    <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                    <a href="#"><i class="fa fa-heart"></i></a>
-                                    <a href="#"><i class="fa fa-search"></i></a>
-                                </div> -->
+                            <div class="product-action">
+                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+                                <a href="#"><i class="fa fa-heart"></i></a>
+                                <a href="#"><i class="fa fa-search"></i></a>
+                            </div>
                         </div>
                         <div class="product-price">
                             <h3><span>$</span>99</h3>
                             <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Buy Now</a>
                         </div>
                     </div>
-                </div>
+                </div> -->
+                <?php foreach ($tampil_hewan as $h) : ?>
+                    <div class="col-lg-2 mb-4">
+                        <div class="product-item">
+                            <div class="card" style="width: 18rem; border-color:tomato; border-width: 1px; ">
+                                <img src="<?= base_url('uploads/hewan/') . $h->foto_hewan; ?>" class="card-img-top" alt="..." style=" height:200px;">
+                                <div class="card-body">
+                                    <h5 class="card-title" style="font-weight: bold;"><?= $h->nama_hewan; ?></h5>
+                                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                                    <h3 style="text-align: right;">Rp. <?= number_format($h->harga, 0, ',', '.') ?> </h3>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-lg-6 mb-4">
+                                            <a class="btn" href="<?= base_url('marketplace/detail_produk/') . $h->id_hewan; ?>" style="text-align: center; background-color:tomato; color:white;"><i class="fas fa-door-open"></i> Detail </a>
+                                        </div>
+                                        <div class="col-lg-6 mb-4">
+                                            <a class="btn" href="" style="text-align: center; left: 18px; position:absolute;"><i class="fas fa-shopping-cart"></i> Tambah </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
             </div>
-
         </div>
         <!-- Pagination Start -->
         <!-- <div class="col-md-12">

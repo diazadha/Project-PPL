@@ -27,6 +27,7 @@
 </head>
 
 <body>
+    <!-- <div class="" style="position: fixed; width: 100%; z-index:99"> -->
     <!-- Top bar Start -->
     <div class="top-bar">
         <div class="container-fluid">
@@ -156,4 +157,8 @@
             </div>
         </div>
     </div>
+    <!-- </div> -->
+    <!-- <?php for ($i = 1; $i <= 7; $i++) : ?>
+        <br>
+    <?php endfor; ?> -->
     <!-- Bottom Bar End -->

@@ -43,7 +43,7 @@
                             </div> -->
 
                             <div class="col-md-12">
-                                <button type="submit" class="btn">Submit</button>
+                                <button type="submit" class="btn">Login</button>
                             </div>
 
                         </div>

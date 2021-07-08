@@ -7,16 +7,18 @@ class marketplace extends CI_Controller
     {
         $this->load->library('session');
         $data['title'] = 'Home';
+        $data['tampil_hewan'] = $this->marketplace_model->tampil_hewan()->result();
         $this->load->view('marketplace/templates_marketplace/header', $data);
-        $this->load->view('marketplace/index');
+        $this->load->view('marketplace/index', $data);
         $this->load->view('marketplace/templates_marketplace/footer');
     }
 
-    public function detail_produk()
+    public function detail_produk($id_hewan)
     {
         $data['title'] = 'Home';
+        $data['tampil_hewan'] = $this->marketplace_model->tampil_detail_hewan($id_hewan)->result();
         $this->load->view('marketplace/templates_marketplace/header', $data);
-        $this->load->view('marketplace/detailproduk');
+        $this->load->view('marketplace/detailproduk', $data);
         $this->load->view('marketplace/templates_marketplace/footer');
     }
 
