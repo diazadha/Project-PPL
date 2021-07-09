@@ -1,3 +1,5 @@
+<?php foreach ($detail_toko as $t) : ?>
+<?php endforeach; ?>
 <!-- Product Detail Start -->
 <div class="product-detail">
     <div class="container-fluid">
@@ -17,7 +19,7 @@
                         <div class="col-md-7">
                             <div class="product-content">
                                 <div class="title">
-                                    <h2>Nama Toko</h2>
+                                    <h2><?= $t->nama_toko; ?></h2>
                                 </div>
                                 <div class="ratting">
                                     <i class="fa fa-star"></i>
@@ -27,12 +29,34 @@
                                     <i class="fa fa-star"></i>
                                 </div>
                                 <div class="price">
+                                    <div class="title">
                                     <h4>Alamat</h4>
                                     <br>
-                                    <p style="color:grey; font-size:medium"> JL. Basdasd </p>
+                                    <p style="color:grey; font-size:medium"><?= $t->alamat; ?></p>
+                                    </div>
+                                </div>
+                                <div class="price">
+                                    <div class="title">
+                                    <h4>Kota</h4>
+                                    <br>
+                                    <p style="color:grey; font-size:medium"><?= $t->kota; ?></p>
+                                </div>
+                                </div>
+                                <div class="price">
+                                    <div class="title">
+                                    <h4>Provinsi</h4>
+                                    <br>
+                                    <p style="color:grey; font-size:medium"><?= $t->provinsi; ?></p>
+                                </div>
+                                </div>
+                                <div class="price">
+                                    <div class="title">
+                                    <h4>No. Telepon</h4>
+                                    <br>
+                                    <p style="color:grey; font-size:medium"><?= $t->notelp; ?></p>
+                                </div>
                                 </div>
                             </div>
-
                             <div class="modal-footer ml-auto">
                                 <a href="<?= base_url('marketplace/toko'); ?>">
                                     <div class="btn btn-sm btn-secondary">Kembali</div>
