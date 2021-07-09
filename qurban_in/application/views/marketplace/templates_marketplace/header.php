@@ -149,8 +149,9 @@
                             <span>(0)</span>
                         </a> -->
                         <a href="<?= base_url('marketplace/cart'); ?>" class="btn cart">
-                            <i class="fa fa-shopping-cart"></i>
-                            <span>(0)</span>
+                            <?php echo $keranjang = '<i class="fa fa-shopping-cart"></i>' .$this->cart->total_items() ?>
+                            <?php echo anchor('marketplace/cart', $keranjang)  ?>
+                            <span></span>
                         </a>
                     </div>
                 </div>
