@@ -16,6 +16,18 @@ class m_hewan extends CI_model
             return FALSE;
         }
     }
+	public function find($id)
+    {
+        $result = $this->db->where('id_hewan', $id)
+                           ->limit(1)
+                           ->get('tb_hewan');
+
+        if($result->num_rows() > 0){
+            return $result->row();
+        }else{
+            return array();
+        }
+    }
 
     public function max_id_toko()
     {

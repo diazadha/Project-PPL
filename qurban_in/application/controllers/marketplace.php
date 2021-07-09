@@ -79,9 +79,10 @@ class marketplace extends CI_Controller
         $this->load->view('marketplace/templates_marketplace/footer');
     }
 
-    public function detail_toko()
+    public function detail_toko($id_toko)
     {
         $data['title'] = 'Toko';
+        $data['detail_toko'] = $this->detailtoko_model->tampil_detail_toko($id_toko)->result();
         $this->load->view('marketplace/templates_marketplace/header', $data);
         $this->load->view('marketplace/detailtoko');
         $this->load->view('marketplace/templates_marketplace/footer');
@@ -90,9 +91,24 @@ class marketplace extends CI_Controller
     public function toko()
     {
         $data['title'] = 'Toko';
+        $data['tampil_toko'] = $this->detailtoko_model->tampil_toko()->result();
         $this->load->view('marketplace/templates_marketplace/header', $data);
         $this->load->view('marketplace/toko');
         $this->load->view('marketplace/templates_marketplace/footer');
+    }
+
+    public function tambah_ke_keranjang($id)
+    {
+        $hewan = $this->m_hewan->find($id);
+        $data = array(
+            'id'      => $hewan->id_hewan,
+            'qty'     => 1,
+            'price'   => $hewan->harga,
+            'name'    => $hewan->nama_hewan
+        );
+
+        $this->cart->insert($data);
+        redirect('marketplace');
     }
 
     public function cart()

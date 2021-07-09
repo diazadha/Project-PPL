@@ -50,10 +50,11 @@
                 </div>
             </div>
             <div class="row align-items-center product product-4">
+                <?php foreach ($tampil_toko as $t) : ?>
                 <div class="col-lg-3 mb-4">
                     <div class="product-item">
                         <div class="product-title">
-                            <a href="#">Toko A</a>
+                            <a href="#"><?= $t->nama_toko; ?></a>
                             <div class="ratting">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -63,7 +64,7 @@
                             </div>
                         </div>
                         <div class="product-image">
-                            <a href=" <?= base_url('marketplace/detail_toko'); ?> ">
+                            <a href=" <?= base_url('marketplace/detail_toko/') . $t->id_toko ?> ">
                                 <img src="<?= base_url('assets/'); ?>img/toko_a.jpg" alt="Product Image" style="width: 500px; height: 300px;">
                             </a>
                             <!-- <div class="product-action">
@@ -75,10 +76,11 @@
                         <div class="product-price">
                             <i class="fas fa-store text-white"></i>
                             <!-- <h3><span>$</span>99</h3> -->
-                            <a class="btn" href="<?= base_url('marketplace/detail_toko'); ?>"><i class="fas fa-door-open"></i></i>Kunjungi Toko</a>
+                            <a class="btn" href="<?= base_url('marketplace/detail_toko/'). $t->id_toko ?>"><i class="fas fa-door-open"></i></i>Kunjungi Toko</a>
                         </div>
                     </div>
                 </div>
+                <?php endforeach; ?>
             </div>
 
         </div>
