@@ -148,11 +148,18 @@
                             <i class="fa fa-heart"></i>
                             <span>(0)</span>
                         </a> -->
-                        <a href="<?= base_url('marketplace/cart'); ?>" class="btn cart">
-                            <?php echo $keranjang = '<i class="fa fa-shopping-cart"></i>' .$this->cart->total_items() ?>
-                            <?php echo anchor('marketplace/cart', $keranjang)  ?>
-                            <span></span>
-                        </a>
+                        <?php if ($this->session->userdata('email')) : ?>
+                            <a href="<?= base_url('marketplace/cart'); ?>" class="btn cart">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span><?= $total_cart['total_cart']; ?></span>
+                            </a>
+                        <?php else : ?>
+                            <a href="<?= base_url('marketplace/cart'); ?>" class="btn cart">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span>0</span>
+                            </a>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </div>

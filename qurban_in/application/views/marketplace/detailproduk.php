@@ -1,5 +1,3 @@
-<?php foreach ($tampil_hewan as $h) : ?>
-<?php endforeach; ?>
 <!-- Product Detail Start -->
 <div class="product-detail">
     <div class="container-fluid">
@@ -11,7 +9,7 @@
                             <center>
                                 <div class="header normal">
                                     <div class="header-slider-item">
-                                        <img src="<?= base_url('./uploads/hewan/') . $h->foto_hewan; ?>" alt="Slider Image" style="height: 400px; width: 400px; border-color:tomato; border-style:solid;" />
+                                        <img src="<?= base_url('./uploads/hewan/') . $tampil_hewan->foto_hewan; ?>" alt="Slider Image" style="height: 400px; width: 400px; border-color:tomato; border-style:solid;" />
                                     </div>
                                 </div>
                                 <!-- <div class="product-slider-single normal-slider">
@@ -27,27 +25,27 @@
                         <div class="col-md-7">
                             <div class="product-content">
                                 <div class="title">
-                                    <h1><?= ucwords($h->nama_hewan); ?></h1>
+                                    <h1><?= ucwords($tampil_hewan->nama_hewan); ?></h1>
                                 </div>
                                 <div class="ratting">
-                                    <?php for ($i = 1; $i <= $h->kelas; $i++) : ?>
+                                    <?php for ($i = 1; $i <= $tampil_hewan->kelas; $i++) : ?>
                                         <i class="fa fa-star"></i>
                                     <?php endfor; ?>
                                 </div>
                                 <div class="price">
                                     <h4>Harga:</h4>
                                     <!-- <span>$149</span> -->
-                                    <p style="font-size: large;">Rp. <?= number_format($h->harga, 0, ',', '.') ?> </p> <br>
+                                    <p style="font-size: large;">Rp. <?= number_format($tampil_hewan->harga, 0, ',', '.') ?> </p> <br>
                                     <h4>Jenis: </h4>
-                                    <p style="font-size: large;"><?= $h->jenis; ?></p> <br>
+                                    <p style="font-size: large;"><?= $tampil_hewan->jenis; ?></p> <br>
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <h4>Kelas: </h4>
-                                            <p style="font-size: large;"> <?= $h->kelas; ?> </p>
+                                            <p style="font-size: large;"> <?= $tampil_hewan->kelas; ?> </p>
                                         </div>
                                         <div class="col-lg-6">
                                             <h4>Berat:</h4>
-                                            <p style="font-size: large;"> <?= $h->berat . ' Kg' ?> </p>
+                                            <p style="font-size: large;"> <?= $tampil_hewan->berat . ' Kg' ?> </p>
                                         </div>
                                     </div>
                                 </div>
@@ -63,7 +61,7 @@
                                         </div>
                                         <div class="price col-lg-6">
                                             <h4>Stok:</h4>
-                                            <p style="font-size: large;"> <?= $h->stok; ?> </p>
+                                            <p style="font-size: large;"> <?= $tampil_hewan->stok; ?> </p>
                                         </div>
                                     </div>
                                 </div>
@@ -85,7 +83,7 @@
                                         </div>
                                     </div> -->
                                 <div class="action">
-                                    <a class="btn" href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                    <a class="btn" href="<?= base_url('marketplace/tambah_ke_keranjang/') . $tampil_hewan->id_hewan; ?>"><i class="fa fa-shopping-cart"></i>Tambah ke Keranjang</a>
                                     <!-- <a class="btn" href="#"><i class="fa fa-shopping-bag"></i>Buy Now</a> -->
                                 </div>
 
@@ -118,7 +116,7 @@
                             <div id="description" class="container tab-pane active">
                                 <!-- <h4>Deskripsi Hewan Qurban</h4> -->
                                 <p>
-                                    <?= $h->deskripsi; ?>
+                                    <?= $tampil_hewan->deskripsi; ?>
                                 </p>
                             </div>
                         </div>
@@ -130,7 +128,7 @@
 
             <div class="col-lg-4 sidebar">
                 <div class="sidebar-widget category">
-                    <h2 class="title"> <?= $h->nama_toko; ?> </h2>
+                    <h2 class="title"> <?= $tampil_hewan->nama_toko; ?> </h2>
                     <img src=" <?= base_url('assets/'); ?>img/toko.jpg " alt="" style="width: 100%; height:100%; border-style:solid; border-color:tomato ">
                     <div class="modal-footer ml-auto">
                         <a href="<?= base_url('marketplace/detail_toko'); ?>">

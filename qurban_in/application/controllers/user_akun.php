@@ -14,6 +14,8 @@ class user_akun extends CI_Controller
     public function index()
     {
         $data['title'] = 'Akun Saya';
+        $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
         $this->load->view('marketplace/templates_marketplace/header', $data);
         $this->load->view('user_akun/index');
         $this->load->view('marketplace/templates_marketplace/footer');
@@ -23,10 +25,19 @@ class user_akun extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'required|trim');
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Login Page';
-            $this->load->view('marketplace/templates_marketplace/header', $data);
-            $this->load->view('user_akun/login');
-            $this->load->view('marketplace/templates_marketplace/footer');
+            $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+            if ($user) {
+                $data['title'] = 'Login Page';
+                $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
+                $this->load->view('marketplace/templates_marketplace/header', $data);
+                $this->load->view('user_akun/login');
+                $this->load->view('marketplace/templates_marketplace/footer');
+            } else {
+                $data['title'] = 'Login Page';
+                $this->load->view('marketplace/templates_marketplace/header', $data);
+                $this->load->view('user_akun/login');
+                $this->load->view('marketplace/templates_marketplace/footer');
+            }
         } else {
             $this->_gologin();
         }
@@ -77,10 +88,19 @@ class user_akun extends CI_Controller
         $this->form_validation->set_rules('password2', 'Password', 'matches[password1]');
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Registration Page';
-            $this->load->view('marketplace/templates_marketplace/header', $data);
-            $this->load->view('user_akun/register');
-            $this->load->view('marketplace/templates_marketplace/footer');
+            $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+            if ($user) {
+                $data['title'] = 'Registration Page';
+                $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
+                $this->load->view('marketplace/templates_marketplace/header', $data);
+                $this->load->view('user_akun/register');
+                $this->load->view('marketplace/templates_marketplace/footer');
+            } else {
+                $data['title'] = 'Registration Page';
+                $this->load->view('marketplace/templates_marketplace/header', $data);
+                $this->load->view('user_akun/register');
+                $this->load->view('marketplace/templates_marketplace/footer');
+            }
         } else {
             $data = [
                 'nama_depan' => htmlspecialchars($this->input->post('namadepan', true)),
@@ -184,10 +204,19 @@ class user_akun extends CI_Controller
 
     public function detail()
     {
-        $data['title'] = 'Detail Pesanan';
-        $this->load->view('marketplace/templates_marketplace/header', $data);
-        $this->load->view('user_akun/detailpesanan');
-        $this->load->view('marketplace/templates_marketplace/footer');
+        $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        if ($user) {
+            $data['title'] = 'Detail Pesanan';
+            $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
+            $this->load->view('marketplace/templates_marketplace/header', $data);
+            $this->load->view('user_akun/detailpesanan');
+            $this->load->view('marketplace/templates_marketplace/footer');
+        } else {
+            $data['title'] = 'Detail Pesanan';
+            $this->load->view('marketplace/templates_marketplace/header', $data);
+            $this->load->view('user_akun/detailpesanan');
+            $this->load->view('marketplace/templates_marketplace/footer');
+        }
     }
 
     public function logout()

@@ -186,7 +186,7 @@
                                             <a class="btn" href="<?= base_url('marketplace/detail_produk/') . $h->id_hewan; ?>" style="text-align: center; background-color:tomato; color:white;"><i class="fas fa-door-open"></i> Detail </a>
                                         </div>
                                         <div class="col-lg-6 mb-4">
-                                            <a class="btn" href="" style="text-align: center; left: 18px; position:absolute;"><i class="fas fa-shopping-cart"></i> Tambah </a>
+                                            <a class="btn" href=" <?= base_url('marketplace/tambah_ke_keranjang/') . $h->id_hewan; ?> " style="text-align: center; left: 18px; position:absolute;"><i class="fas fa-shopping-cart"></i> Tambah </a>
                                         </div>
                                     </div>
                                 </div>

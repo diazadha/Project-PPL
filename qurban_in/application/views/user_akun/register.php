@@ -3,6 +3,11 @@
      <div class="container-fluid">
          <div class="row">
              <div class="col-lg-12">
+                 <?php if ($this->session->flashdata('message')) : ?>
+                     <?php $message = $this->session->flashdata('message'); ?>
+                     <?= '<div class="alert alert-info">' . $message . '</div>'; ?>
+                     <?php $this->session->unset_userdata('message'); ?>
+                 <?php endif; ?>
                  <div class="register-form">
                      <form class="user" method="POST" action="<?= base_url('user_akun/register'); ?>">
                          <div class="row">
