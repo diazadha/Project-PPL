@@ -99,7 +99,7 @@ class marketplace extends CI_Controller
     {
         $data['title'] = 'Keranjang';
         $this->load->view('marketplace/templates_marketplace/header', $data);
-        $this->load->view('marketplace/cart');
+        $this->load->view('marketplace/keranjang');
         $this->load->view('marketplace/templates_marketplace/footer');
     }
 
