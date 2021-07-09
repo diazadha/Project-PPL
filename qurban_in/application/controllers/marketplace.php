@@ -94,6 +94,20 @@ class marketplace extends CI_Controller
         $this->load->view('marketplace/toko');
         $this->load->view('marketplace/templates_marketplace/footer');
     }
+	
+	public function tambah_ke_keranjang($id)
+    {
+        $hewan = $this->m_hewan->find($id);
+        $data = array(
+            'id'      => $hewan->id_hewan,
+            'qty'     => 1,
+            'price'   => $hewan->harga,
+            'name'    => $hewan->nama_hewan
+        );
+
+        $this->cart->insert($data);
+        redirect('marketplace');
+    }
 
     public function cart()
     {
