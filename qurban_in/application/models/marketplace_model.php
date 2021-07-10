@@ -97,4 +97,13 @@ class marketplace_model extends CI_Model
         WHERE user.id_user=keranjang.id_user AND toko.id_toko=keranjang.id_toko AND keranjang.id_hewan = tb_hewan.id_hewan AND keranjang.id_user=$id_user AND keranjang.id_hewan=$id_hewan";
         return $this->db->query($query);
     }
+
+    public function getharga($id_keranjang)
+    {
+        $this->db->select('harga');
+        $this->db->from('keranjang');
+        $this->db->join('tb_hewan', 'keranjang.id_hewan=tb_hewan.id_hewan');
+        $this->db->where('keranjang.id_keranjang', $id_keranjang);
+        return $this->db->get();
+    }
 }

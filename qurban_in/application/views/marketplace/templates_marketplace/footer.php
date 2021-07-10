@@ -81,6 +81,7 @@
 
 <!-- Template Javascript -->
 <script src=" <?= base_url('assets/') ?>js/main.js"></script>
+<script src=" <?= base_url('assets/') ?>js/hitungcart.js"></script>
 </body>
 
 </html>

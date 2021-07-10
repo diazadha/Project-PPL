@@ -9,7 +9,7 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th>No</th>
-                                    <th>Produk</th>
+                                    <th>Hewan</th>
                                     <th>Nama Toko</th>
                                     <th>Harga</th>
                                     <th>QTY</th>
@@ -35,12 +35,13 @@
                                             <td style="text-align: right;">Rp. <?= number_format($k['harga'], 0, ',', '.') ?></td>
                                             <td>
                                                 <div class="qty">
-                                                    <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                    <input type="text" value=" <?= $k['qty']; ?> ">
-                                                    <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                                    <button class="btn-minus" onclick="kurang_qty(<?= $k['id_keranjang']; ?>)"><i class="fa fa-minus"></i></button>
+                                                    <input type="text" id="qty_<?= $k['id_keranjang']; ?>" value=" <?= $k['qty']; ?>" min="1" readonly>
+                                                    <button class="btn-plus" onclick="tambah_qty(<?= $k['id_keranjang']; ?>)"><i class="fa fa-plus"></i></button>
+
                                                 </div>
                                             </td>
-                                            <td style="text-align: right;">Rp. <?= number_format($k['total_harga'], 0, ',', '.') ?></td>
+                                            <td style="text-align: right;"> <span id="total_harga_<?= $k['id_keranjang']; ?>">Rp. <?= number_format($k['total_harga'], 0, ',', '.') ?></span> </td>
                                             <td><a href=" <?= base_url('marketplace/hapus_item_keranjang/') . $k['id_keranjang']; ?> "><i class="fa fa-trash"></i></a></td>
                                             <?php $no++; ?>
                                         </tr>
@@ -65,21 +66,18 @@
                                     <h1>Cost</h1>
                                     <!-- <p>Sub Total<span></span></p> -->
                                     <!-- <p>Shipping Cost<span>$1</span></p> -->
-                                    <h2>Total<span>Rp. <?= number_format($grand_total, 0, ',', '.'); ?> </span></h2>
+                                    <h2>Total<span id="grand_total">Rp. <?= number_format($grand_total, 0, ',', '.'); ?> </span></h2>
+                                    <input type="hidden" id="grand" value="<?= $grand_total; ?>">
                                 </div>
                                 <center>
-                                    <div class="row">
-                                        <div class="col-lg-6 mb-4 col-sm-8">
-                                            <div class="cart-btn">
-                                                <button type="update" class="btn btn-primary">Update Cart</button>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 mb-4 col-sm-8">
-                                            <div class="cart-btn">
-                                                <a href="<?= base_url('marketplace/checkout'); ?>"> <button type="submit" class="btn btn-primary">Checkout</button> </a>
-                                            </div>
-                                        </div>
+
+
+
+                                    <div class="cart-btn">
+                                        <a href="<?= base_url('marketplace/checkout'); ?>"> <button type="submit" class="btn btn-primary">Checkout</button> </a>
                                     </div>
+
+
                                     <!-- <div class="col-sm-8">
 
                                     </div>

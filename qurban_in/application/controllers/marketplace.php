@@ -262,6 +262,17 @@ class marketplace extends CI_Controller
         }
     }
 
+    public function updatekeranjang()
+    {
+        $id_keranjang = $_POST['id_keranjang'];
+        $qty = $_POST['qty'];
+        // echo json_encode($this->marketplace_model->update_keranjang($id_keranjang, $qty)->row_array());
+        $query = "UPDATE keranjang SET qty = $qty WHERE id_keranjang = $id_keranjang";
+
+        echo json_encode($this->marketplace_model->getharga($id_keranjang)->row_array());
+        return $this->db->query($query);
+    }
+
     public function checkout()
     {
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
