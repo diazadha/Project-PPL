@@ -38,7 +38,6 @@
                                                     <button class="btn-minus" onclick="kurang_qty(<?= $k['id_keranjang']; ?>)"><i class="fa fa-minus"></i></button>
                                                     <input type="text" id="qty_<?= $k['id_keranjang']; ?>" value=" <?= $k['qty']; ?>" min="1" readonly>
                                                     <button class="btn-plus" onclick="tambah_qty(<?= $k['id_keranjang']; ?>)"><i class="fa fa-plus"></i></button>
-
                                                 </div>
                                             </td>
                                             <td style="text-align: right;"> <span id="total_harga_<?= $k['id_keranjang']; ?>">Rp. <?= number_format($k['total_harga'], 0, ',', '.') ?></span> </td>
@@ -62,31 +61,21 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="cart-summary">
-                                <div class="cart-content">
-                                    <h1>Cost</h1>
-                                    <!-- <p>Sub Total<span></span></p> -->
-                                    <!-- <p>Shipping Cost<span>$1</span></p> -->
-                                    <h2>Total<span id="grand_total">Rp. <?= number_format($grand_total, 0, ',', '.'); ?> </span></h2>
-                                    <input type="hidden" id="grand" value="<?= $grand_total; ?>">
-                                </div>
-                                <center>
+                                <form action=" <?= base_url('marketplace/checkout') ?> " method="POST">
+                                    <div class="cart-content">
+                                        <h1>Cost</h1>
+                                        <!-- <p>Sub Total<span></span></p> -->
+                                        <!-- <p>Shipping Cost<span>$1</span></p> -->
+                                        <h2>Total<span id="grand_total">Rp. <?= number_format($grand_total, 0, ',', '.'); ?> </span></h2>
 
-
-
-                                    <div class="cart-btn">
-                                        <a href="<?= base_url('marketplace/checkout'); ?>"> <button type="submit" class="btn btn-primary">Checkout</button> </a>
+                                        <input type="hidden" id="grand" name="grand" value="<?= $grand_total; ?>">
                                     </div>
-
-
-                                    <!-- <div class="col-sm-8">
-
-                                    </div>
-                                    <div class="col-sm-8">
+                                    <center>
                                         <div class="cart-btn">
-                                            <a href="<?= base_url('marketplace/checkout'); ?>"> <button type="submit" class="btn btn-primary">Checkout</button> </a>
+                                            <button type="submit" class="btn btn-primary">Checkout</button>
                                         </div>
-                                    </div> -->
-                                </center>
+                                    </center>
+                                </form>
                             </div>
                         </div>
 

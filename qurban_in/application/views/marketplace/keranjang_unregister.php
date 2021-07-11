@@ -42,23 +42,6 @@
                                     <!-- <p>Shipping Cost<span>$1</span></p> -->
                                     <h2>Total<span>Rp. 0</span></h2>
                                 </div>
-                                <center>
-
-
-                                    <div class="cart-btn">
-                                        <a href="<?= base_url('marketplace/checkout'); ?>"> <button type="submit" class="btn btn-primary">Checkout</button> </a>
-                                    </div>
-
-
-                                    <!-- <div class="col-sm-8">
-
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="cart-btn">
-                                            <a href="<?= base_url('marketplace/checkout'); ?>"> <button type="submit" class="btn btn-primary">Checkout</button> </a>
-                                        </div>
-                                    </div> -->
-                                </center>
                             </div>
                         </div>
 

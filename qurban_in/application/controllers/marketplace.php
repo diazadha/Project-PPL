@@ -279,8 +279,13 @@ class marketplace extends CI_Controller
         if ($user) {
             $data['title'] = 'Pemesanan';
             $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
+            $data['tampil_keranjang'] = $this->marketplace_model->tampil_keranjang($user['id_user'])->result_array();
+            $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['grand_total'] = $this->input->post('grand');
+            $data['tampil_distribusi'] = $this->marketplace_model->tampil_tempat_distribusi()->result_array();
+
             $this->load->view('marketplace/templates_marketplace/header', $data);
-            $this->load->view('marketplace/checkout');
+            $this->load->view('marketplace/checkout', $data);
             $this->load->view('marketplace/footer_checkout');
         } else {
             $data['title'] = 'Pemesanan';
@@ -288,5 +293,12 @@ class marketplace extends CI_Controller
             $this->load->view('marketplace/checkout');
             $this->load->view('marketplace/footer_checkout');
         }
+    }
+
+    public function get_tempat_distribusi()
+    {
+        $id_distribusi = $_POST['id_distribusi'];
+        echo json_encode($this->marketplace_model->tampil_tempat_distribusi_byid($id_distribusi)->row_array());
+        // return $this->db->query($query);
     }
 }

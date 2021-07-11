@@ -84,7 +84,7 @@ class marketplace_model extends CI_Model
 
     public function tampil_keranjang($id_user)
     {
-        $query = "SELECT nama_hewan, nama_toko, qty, harga, qty * harga as total_harga, foto_hewan, id_keranjang
+        $query = "SELECT nama_hewan, nama_toko, qty, harga, qty * harga as total_harga, foto_hewan, id_keranjang, keranjang.id_toko
         FROM keranjang, user, toko, tb_hewan
         WHERE user.id_user=keranjang.id_user AND toko.id_toko=keranjang.id_toko AND keranjang.id_hewan = tb_hewan.id_hewan AND user.id_user=$id_user";
         return $this->db->query($query);
@@ -105,5 +105,23 @@ class marketplace_model extends CI_Model
         $this->db->join('tb_hewan', 'keranjang.id_hewan=tb_hewan.id_hewan');
         $this->db->where('keranjang.id_keranjang', $id_keranjang);
         return $this->db->get();
+    }
+
+    public function tampil_tempat_distribusi()
+    {
+        $query = "SELECT count(id_hewan) as total_hewan_qurban, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
+        FROM hewan_tempatdistribusi, mitra_distribusi
+        WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi
+        group BY mitra_distribusi.id_tempatdistribusi";
+        return $this->db->query($query);
+    }
+
+    public function tampil_tempat_distribusi_byid($id_distribusi)
+    {
+        $query = "SELECT count(id_hewan) as total_hewan_qurban, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
+        FROM hewan_tempatdistribusi, mitra_distribusi
+        WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi AND mitra_distribusi.id_tempatdistribusi = $id_distribusi
+        group BY mitra_distribusi.id_tempatdistribusi";
+        return $this->db->query($query);
     }
 }

@@ -5,27 +5,27 @@
                 <div class="col-lg-8">
                     <div class="checkout-inner">
                         <div class="billing-address">
-                            <h2>Biodata Pemesan</h2>
+                            <h2 style="font-size:x-large;">Biodata Pengqurban</h2>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>First Name</label>
-                                    <input class="form-control" type="text" placeholder="First Name">
+                                    <label>Nama Depan</label>
+                                    <input class="form-control" type="text" placeholder="First Name" name="nama_depan" value=" <?= $user['nama_depan']; ?> " style="color:black">
                                 </div>
                                 <div class="col-md-6">
-                                    <label>Last Name"</label>
-                                    <input class="form-control" type="text" placeholder="Last Name">
+                                    <label>Nama Belakang</label>
+                                    <input class="form-control" type="text" placeholder="Last Name" name="nama_belakang" value=" <?= $user['nama_belakang']; ?> " style="color:black">
                                 </div>
                                 <div class="col-md-6">
                                     <label>E-mail</label>
-                                    <input class="form-control" type="text" placeholder="E-mail">
+                                    <input class="form-control" type="text" placeholder="E-mail" name="email" value="<?= $user['email']; ?>" style="color:black">
                                 </div>
                                 <div class="col-md-6">
                                     <label>Mobile No</label>
-                                    <input class="form-control" type="text" placeholder="Mobile No">
+                                    <input class="form-control" type="text" placeholder="Mobile No" name="nohp" value="<?= $user['nohp']; ?>" style="color:black">
                                 </div>
-                                <div class="col-md-12">
-                                    <label>Address</label>
-                                    <input class="form-control" type="text" placeholder="Address">
+                                <!-- <div class="col-md-12">
+                                    <label>Alamat Pengqurban</label>
+                                    <textarea class="form-control" type="text" placeholder="Address"> </textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Country</label>
@@ -47,7 +47,7 @@
                                 <div class="col-md-6">
                                     <label>ZIP Code</label>
                                     <input class="form-control" type="text" placeholder="ZIP Code">
-                                </div>
+                                </div> -->
                                 <!-- <div class="col-md-12">
                                     <div class="custom-control custom-checkbox">
                                         <input type="checkbox" class="custom-control-input" id="newaccount">
@@ -66,7 +66,7 @@
 
                         <hr>
 
-                        <h2>Pilih Lokasi Distribusi</h2>
+                        <h2 style="font-size:x-large;">Pilih Lokasi Distribusi</h2>
                         <div class="product-view">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -111,36 +111,31 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
-                                            <div class="product-item">
-                                                <div class="product-title">
-                                                    <a href="#">Masjid A</a>
-                                                    <div class="ratting">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
+                                        <?php foreach ($tampil_distribusi as $d) : ?>
+                                            <div class="col-lg-4 md-4">
+                                                <div class="product-item">
+                                                    <div class="card" style="width: 18rem; border-color:tomato; border-width: 1px; ">
+                                                        <img src="<?= base_url('assets/img/masjid_distribusi.jpg')  ?>" class="card-img-top" alt="..." style=" height:200px;">
+                                                        <div class="card-body">
+                                                            <h3 class="card-title" style="font-weight: bold;"><?= ucwords($d['nama_tempat']); ?></h3>
+                                                            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                                                            <!-- <h4 style="text-align: right; font-weight:bolder;">Rp. <?= number_format($h->harga, 0, ',', '.') ?> </h4> -->
+                                                            <!-- <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $d['kota']; ?> </h4> -->
+                                                            <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $d['provinsi']; ?> </h4>
+                                                            <h4 style="text-align: right; font-size:medium; font-weight:bolder;">Total Hewan Qurban : <?= $d['total_hewan_qurban']; ?> </h4>
+                                                            <hr>
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <button class="btn" style="text-align: center;" onclick="pilih_distribusi(<?= $d['id_tempatdistribusi']; ?>)"> <i class="fas fa-check"></i> Pilih</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="product-image">
-                                                    <img src=" <?= base_url('assets/'); ?>img/masjid_nurul.jpg" alt="Product Image" style="width: 500px; height: 300px;">
-                                                    <!-- <div class="product-action">
-                                                        <a href="#"><i class="fa fa-cart-plus"></i></a>
-                                                        <a href="#"><i class="fa fa-heart"></i></a>
-                                                        <a href="#"><i class="fa fa-search"></i></a>
-                                                    </div> -->
-                                                </div>
-                                                <div class="product-price">
-                                                    <!-- <h3><span>$</span>99</h3> -->
-                                                    <h5 style="color: white;">Total Hewan Qurban : 25</h5>
-                                                    <a class="btn" href=""><i class="fas fa-check-circle"></i>Pilih</a>
-
-                                                </div>
                                             </div>
-                                        </div>
+                                        <?php endforeach; ?>
                                         <!-- Pagination Start -->
-                                        <div class="col-md-12">
+                                        <!-- <div class="col-md-12">
                                             <nav aria-label="Page navigation example">
                                                 <ul class="pagination justify-content-center">
                                                     <li class="page-item disabled">
@@ -155,7 +150,7 @@
                                                     </li>
                                                 </ul>
                                             </nav>
-                                        </div>
+                                        </div> -->
                                         <!-- Pagination Start -->
                                     </div>
 
@@ -174,16 +169,18 @@
                 <div class="col-lg-4">
                     <div class="checkout-inner">
                         <div class="checkout-summary">
-                            <h1>Cart Total</h1>
-                            <p>Product Name<span>$99</span></p>
-                            <p class="sub-total">Sub Total<span>$99</span></p>
-                            <p class="ship-cost">Shipping Cost<span>$1</span></p>
-                            <h2>Grand Total<span>$100</span></h2>
+                            <h1>Ringkasan Pemesanan</h1>
+                            <?php foreach ($tampil_keranjang as $t) : ?>
+                                <p><?= $t['nama_hewan']; ?><span>Rp. <?= number_format($t['total_harga'], 0, ',', '.'); ?></span></p>
+                            <?php endforeach; ?>
+                            <!-- <p class="sub-total">Sub Total<span>$99</span></p> -->
+                            <!-- <p class="ship-cost">Shipping Cost<span>$1</span></p> -->
+                            <h2>Grand Total<span>Rp. <?= number_format($grand_total, 0, ',', '.'); ?> </span></h2>
                         </div>
 
                         <div class="checkout-payment">
                             <div class="payment-methods">
-                                <h1>Payment Methods</h1>
+                                <h1>Metode Pembayaran</h1>
                                 <div class="payment-method">
                                     <!-- <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" id="payment-1" name="payment">
@@ -201,15 +198,16 @@
                         </div>
                         <div class="checkout-payment">
                             <div class="payment-methods">
-                                <h1>Tempat Pendistribusian</h1>
+                                <h1>Pilihan Tempat Pendistribusian</h1>
                                 <div class="payment-method">
                                     <!-- <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" id="payment-1" name="payment">
                                         <label class="custom-control-label" for="payment-1">BNI</label>
                                     </div> -->
-                                    <p>
-                                        Masjid A <br> Alamat : JL. Blok M RT.12 /RW. 13s
-                                    </p>
+                                    <p>Nama : <span id="nama_masjid"> ... </span></p>
+                                    <p>Alamat : <span id="alamat"> ... </span></p>
+                                    <p>Provinsi : <span id="provinsi"> ... </span></p>
+                                    <input type="hidden" id="id_distribusi" name="id_distribusi">
 
                                 </div>
                             </div>
