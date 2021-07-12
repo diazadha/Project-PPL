@@ -9,19 +9,19 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label>Nama Depan</label>
-                                    <input class="form-control" type="text" placeholder="First Name" name="nama_depan" value=" <?= $user['nama_depan']; ?> " style="color:black">
+                                    <input class="form-control" type="text" id="nama_depan" onkeyup="nama_depan()" placeholder="First Name" name="nama_depan" value=" <?= $user['nama_depan']; ?> " style="color:black" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Nama Belakang</label>
-                                    <input class="form-control" type="text" placeholder="Last Name" name="nama_belakang" value=" <?= $user['nama_belakang']; ?> " style="color:black">
+                                    <input class="form-control" type="text" id="nama_belakang" onkeyup="nama_belakang()" placeholder="Last Name" name="nama_belakang" value=" <?= $user['nama_belakang']; ?> " style="color:black" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label>E-mail</label>
-                                    <input class="form-control" type="text" placeholder="E-mail" name="email" value="<?= $user['email']; ?>" style="color:black">
+                                    <input class="form-control" type="text" id="email" placeholder="E-mail" onkeyup="email()" name="email" value="<?= $user['email']; ?>" style="color:black" required>
                                 </div>
                                 <div class="col-md-6">
                                     <label>Mobile No</label>
-                                    <input class="form-control" type="text" placeholder="Mobile No" name="nohp" value="<?= $user['nohp']; ?>" style="color:black">
+                                    <input class="form-control" type="text" id="nohp" placeholder="Mobile No" onkeyup="nohp()" name="nohp" value="<?= $user['nohp']; ?>" style="color:black" required>
                                 </div>
                                 <!-- <div class="col-md-12">
                                     <label>Alamat Pengqurban</label>
@@ -74,35 +74,19 @@
                                         <div class="col-md-12">
                                             <div class="product-view-top">
                                                 <div class="row">
-                                                    <div class="col-md-4">
-                                                        <div class="product-search">
-                                                            <input type="email" value="Search">
-                                                            <button><i class="fa fa-search"></i></button>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="product-short">
-                                                            <div class="dropdown">
-                                                                <div class="dropdown-toggle" data-toggle="dropdown">
-                                                                    Place short by
-                                                                </div>
-                                                                <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a href="#" class="dropdown-item">Newest</a>
-                                                                    <a href="#" class="dropdown-item">Popular</a>
-                                                                    <!-- <a href="#" class="dropdown-item">Most sale</a> -->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-lg-12 md-4">
                                                         <div class="product-price-range">
                                                             <div class="dropdown">
                                                                 <div class="dropdown-toggle" data-toggle="dropdown">
-                                                                    Address
+                                                                    Provinsi
                                                                 </div>
                                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a href="#" class="dropdown-item">Bekasi Barat</a>
-                                                                    <a href="#" class="dropdown-item">Jakarta Timur</a>
+                                                                    <a href="<?= base_url('marketplace/checkout?grand=') . $grand_total ?>" class="dropdown-item">Tampil Semua</a>
+                                                                    <a href="<?= base_url('marketplace/filter_distribusi_provinsi?provinsi=Jakarta Barat&grand=') . $grand_total ?>" class="dropdown-item">Jakarta Barat</a>
+                                                                    <a href="<?= base_url('marketplace/filter_distribusi_provinsi?provinsi=Jakarta Timur&grand=') . $grand_total ?>" class="dropdown-item">Jakarta Timur</a>
+                                                                    <a href="<?= base_url('marketplace/filter_distribusi_provinsi?provinsi=Jakarta Selatan&grand=') . $grand_total ?>" class="dropdown-item">Jakarta Selatan</a>
+                                                                    <a href="<?= base_url('marketplace/filter_distribusi_provinsi?provinsi=Jakarta Utara&grand=') . $grand_total ?>" class="dropdown-item">Jakarta Utara</a>
+                                                                    <a href="<?= base_url('marketplace/filter_distribusi_provinsi?provinsi=Jakarta Pusat&grand=') . $grand_total ?>" class="dropdown-item">Jakarta Pusat</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -207,12 +191,12 @@
                                     <p>Nama : <span id="nama_masjid"> ... </span></p>
                                     <p>Alamat : <span id="alamat"> ... </span></p>
                                     <p>Provinsi : <span id="provinsi"> ... </span></p>
-                                    <input type="hidden" id="id_distribusi" name="id_distribusi">
+                                    <input type="hidden" id="id_distribusi" name="id_distribusi" required>
 
                                 </div>
                             </div>
                             <div class="checkout-btn">
-                                <button type="button" class="bayar">Process</button>
+                                <button type="submit" class="bayar">Process</button>
                             </div>
                         </div>
                     </div>

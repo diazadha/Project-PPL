@@ -94,7 +94,7 @@
                                     <div class="col-md-4">
                                         <div class="product-search">
                                             <form action="<?= base_url('marketplace/search') ?>" method="POST">
-                                                <input type="text" name="key" id="key">
+                                                <input type="text" name="key" id="key" style="color: black;">
                                                 <button type="submit"><i class="fa fa-search"></i></button>
                                             </form>
                                         </div>

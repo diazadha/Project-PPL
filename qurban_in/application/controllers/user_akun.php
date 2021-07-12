@@ -15,9 +15,10 @@ class user_akun extends CI_Controller
     {
         $data['title'] = 'Akun Saya';
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['riwayat'] = $this->user_akun_model->get_riwayat($user['id_user'])->result_array();
         $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
         $this->load->view('marketplace/templates_marketplace/header', $data);
-        $this->load->view('user_akun/index');
+        $this->load->view('user_akun/index', $data);
         $this->load->view('marketplace/templates_marketplace/footer');
     }
     public function login()

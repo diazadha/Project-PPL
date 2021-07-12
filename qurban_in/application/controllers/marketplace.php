@@ -9,7 +9,7 @@ class marketplace extends CI_Controller
         if ($user) {
             $this->load->library('session');
             $data['title'] = 'Home';
-            $data['tampil_hewan'] = $this->marketplace_model->tampil_hewan()->result();
+            $data['tampil_hewan'] = $this->marketplace_model->tampil_hewan($user['id_toko'])->result();
             $id_user = $user['id_user'];
             $data['total_cart'] = $this->marketplace_model->total_cart($id_user)->row_array();
             $this->load->view('marketplace/templates_marketplace/header', $data);
@@ -18,7 +18,7 @@ class marketplace extends CI_Controller
         } else {
             $this->load->library('session');
             $data['title'] = 'Home';
-            $data['tampil_hewan'] = $this->marketplace_model->tampil_hewan()->result();
+            $data['tampil_hewan'] = $this->marketplace_model->tampil_hewan_semua()->result();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
             $this->load->view('marketplace/templates_marketplace/footer');
@@ -32,7 +32,7 @@ class marketplace extends CI_Controller
             $this->load->library('session');
             $keyword = $this->input->post('key');
             $data['title'] = 'Home';
-            $data['tampil_hewan'] = $this->marketplace_model->search($keyword)->result();
+            $data['tampil_hewan'] = $this->marketplace_model->search($keyword, $user['id_toko'])->result();
             $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
@@ -41,7 +41,7 @@ class marketplace extends CI_Controller
             $this->load->library('session');
             $keyword = $this->input->post('key');
             $data['title'] = 'Home';
-            $data['tampil_hewan'] = $this->marketplace_model->search($keyword)->result();
+            $data['tampil_hewan'] = $this->marketplace_model->search_belomlogin($keyword)->result();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
             $this->load->view('marketplace/templates_marketplace/footer');
@@ -56,7 +56,7 @@ class marketplace extends CI_Controller
             $data['title'] = 'Home';
             $dari = $this->input->get('from');
             $sampai = $this->input->get('until');
-            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_harga($dari, $sampai)->result();
+            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_harga($dari, $sampai, $user['id_toko'])->result();
             $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
@@ -65,7 +65,7 @@ class marketplace extends CI_Controller
             $data['title'] = 'Home';
             $dari = $this->input->get('from');
             $sampai = $this->input->get('until');
-            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_harga($dari, $sampai)->result();
+            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_harga_belomlogin($dari, $sampai)->result();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
             $this->load->view('marketplace/templates_marketplace/footer');
@@ -80,7 +80,7 @@ class marketplace extends CI_Controller
             $data['title'] = 'Home';
             $dari = $this->input->get('from');
             $sampai = $this->input->get('until');
-            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_berat($dari, $sampai)->result();
+            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_berat($dari, $sampai, $user['id_toko'])->result();
             $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
@@ -89,7 +89,7 @@ class marketplace extends CI_Controller
             $data['title'] = 'Home';
             $dari = $this->input->get('from');
             $sampai = $this->input->get('until');
-            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_berat($dari, $sampai)->result();
+            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_berat_belomlogin($dari, $sampai)->result();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
             $this->load->view('marketplace/templates_marketplace/footer');
@@ -103,7 +103,7 @@ class marketplace extends CI_Controller
         if ($user) {
             $data['title'] = 'Home';
             $value = $this->input->get('val');
-            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_harga_diatas($value)->result();
+            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_harga_diatas($value, $user['id_toko'])->result();
             $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
@@ -111,7 +111,7 @@ class marketplace extends CI_Controller
         } else {
             $data['title'] = 'Home';
             $value = $this->input->get('val');
-            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_harga_diatas($value)->result();
+            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_harga_diatas_belomlogin($value)->result();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
             $this->load->view('marketplace/templates_marketplace/footer');
@@ -125,7 +125,7 @@ class marketplace extends CI_Controller
         if ($user) {
             $data['title'] = 'Home';
             $value = $this->input->get('val');
-            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_berat_diatas($value)->result();
+            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_berat_diatas($value, $user['id_toko'])->result();
             $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
@@ -133,7 +133,7 @@ class marketplace extends CI_Controller
         } else {
             $data['title'] = 'Home';
             $value = $this->input->get('val');
-            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_berat_diatas($value)->result();
+            $data['tampil_hewan'] = $this->marketplace_model->filter_hewan_berat_diatas_belomlogin($value)->result();
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/index', $data);
             $this->load->view('marketplace/templates_marketplace/footer');
@@ -281,8 +281,31 @@ class marketplace extends CI_Controller
             $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
             $data['tampil_keranjang'] = $this->marketplace_model->tampil_keranjang($user['id_user'])->result_array();
             $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-            $data['grand_total'] = $this->input->post('grand');
-            $data['tampil_distribusi'] = $this->marketplace_model->tampil_tempat_distribusi()->result_array();
+            $data['grand_total'] = $this->input->get('grand');
+            $data['tampil_distribusi'] = $this->marketplace_model->tampil_tempat_distribusi($user['id_tempatdistribusi'])->result_array();
+
+            $this->load->view('marketplace/templates_marketplace/header', $data);
+            $this->load->view('marketplace/checkout', $data);
+            $this->load->view('marketplace/footer_checkout');
+        } else {
+            $data['title'] = 'Pemesanan';
+            $this->load->view('marketplace/templates_marketplace/header', $data);
+            $this->load->view('marketplace/checkout');
+            $this->load->view('marketplace/footer_checkout');
+        }
+    }
+
+    public function filter_distribusi_provinsi()
+    {
+        $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        if ($user) {
+            $data['title'] = 'Pemesanan';
+            $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
+            $data['tampil_keranjang'] = $this->marketplace_model->tampil_keranjang($user['id_user'])->result_array();
+            $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['grand_total'] = $this->input->get('grand');
+            $provinsi = $this->input->get('provinsi');
+            $data['tampil_distribusi'] = $this->marketplace_model->tampil_tempat_distribusi_filter($user['id_tempatdistribusi'], $provinsi)->result_array();
 
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/checkout', $data);
@@ -300,5 +323,55 @@ class marketplace extends CI_Controller
         $id_distribusi = $_POST['id_distribusi'];
         echo json_encode($this->marketplace_model->tampil_tempat_distribusi_byid($id_distribusi)->row_array());
         // return $this->db->query($query);
+    }
+
+    public function pesanan()
+    {
+        $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $nama_depan = $_POST['nama_depan'];
+        $nama_belakang = $_POST['nama_belakang'];
+        $email = $_POST['email'];
+        $nohp = $_POST['nohp'];
+        $id_tempatdistribusi = $_POST['id_tempatdistribusi'];
+        $data_invoice = [
+            'nama_depan' => $nama_depan,
+            'nama_belakang' => $nama_belakang,
+            'email' => $email,
+            'order_date' => time(),
+            'nohp' => $nohp,
+            'id_tempatdistribusi' => $id_tempatdistribusi,
+            'id_user' => $user['id_user'],
+        ];
+        // var_dump($nama_depan);
+        // die;
+        $this->db->insert('invoice', $data_invoice);
+
+
+        $keranjang = $this->db->get_where('keranjang', ['id_user' => $user['id_user']])->result_array();
+        $invoice = $this->marketplace_model->max_id_invoice()->row_array();
+
+        foreach ($keranjang as $items) {
+            $data_orders = [
+                'id_invoice' => $invoice['id_invoice'],
+                'id_hewan' => $items['id_hewan'],
+                'qty' => $items['qty'],
+            ];
+            $this->db->insert('orders', $data_orders);
+
+            $data_status_transaksi = [
+                'id_invoice' => $invoice['id_invoice'],
+                'status_bayar' => 0,
+                'foto_bukti_bayar' => 0,
+                'status_pesanan' => 0,
+                'foto_bukti_sampai' => 0,
+                'id_toko' => $items['id_toko'],
+            ];
+            $this->db->insert('status_transaksi', $data_status_transaksi);
+
+            $this->db->delete('keranjang', ['id_keranjang' => $items['id_keranjang']]);
+        }
+
+        // $sukses = ['status' => 1];
+        echo json_encode($this->marketplace_model->max_id_invoice()->row_array());
     }
 }

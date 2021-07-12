@@ -15,27 +15,28 @@
                     <div class="tab-pane fade show active" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
                         <div class="table-responsive">
                             <table class="table table-bordered">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Hewan</th>
-                                        <th>Date</th>
-                                        <th>Price</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Product Name</td>
-                                        <td>01 Jan 2020</td>
-                                        <td>$99</td>
-                                        <td>Approved</td>
-                                        <td> <a href="<?= base_url('user_akun/detail'); ?>"> <button class="btn">Detail</button> </a>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                <?php $no = 1; ?>
+                                <?php date_default_timezone_set('Asia/Jakarta'); ?>
+                                <?php foreach ($riwayat as $r) : ?>
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Nama Pemesan</th>
+                                            <th>Tanggal Pemesanan</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><?= $no; ?></td>
+                                            <td><?= $r['nama_depan']; ?> <?= $r['nama_belakang']; ?></td>
+                                            <td><?= date('d/m/Y H:i:s', $r['order_date']); ?></td>
+                                            <td> <a href="<?= base_url('user_akun/detail'); ?>"> <button class="btn">Detail</button> </a>
+                                            </td>
+                                            <?php $no++; ?>
+                                        </tr>
+                                    </tbody>
+                                <?php endforeach; ?>
                             </table>
                         </div>
                     </div>

@@ -3,7 +3,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class marketplace_model extends CI_Model
 {
-    public function tampil_hewan()
+    public function tampil_hewan($id_toko)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_hewan');
+        $this->db->join('toko', 'toko.id_toko=tb_hewan.id_toko');
+        $this->db->where('toko.id_toko !=', $id_toko);
+        return $this->db->get();
+    }
+
+    public function tampil_hewan_semua()
     {
         $this->db->select('*');
         $this->db->from('tb_hewan');
@@ -29,7 +38,17 @@ class marketplace_model extends CI_Model
         return $this->db->get();
     }
 
-    public function filter_hewan_harga($dari, $sampai)
+    public function filter_hewan_harga($dari, $sampai, $id_toko)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_hewan');
+        $this->db->join('toko', 'toko.id_toko=tb_hewan.id_toko');
+        $this->db->where("tb_hewan.harga BETWEEN '$dari' AND '$sampai'");
+        $this->db->where('toko.id_toko !=', $id_toko);
+        return $this->db->get();
+    }
+
+    public function filter_hewan_harga_belomlogin($dari, $sampai)
     {
         $this->db->select('*');
         $this->db->from('tb_hewan');
@@ -38,7 +57,17 @@ class marketplace_model extends CI_Model
         return $this->db->get();
     }
 
-    public function filter_hewan_berat($dari, $sampai)
+    public function filter_hewan_berat($dari, $sampai, $id_toko)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_hewan');
+        $this->db->join('toko', 'toko.id_toko=tb_hewan.id_toko');
+        $this->db->where("tb_hewan.berat BETWEEN '$dari' AND '$sampai'");
+        $this->db->where('toko.id_toko !=', $id_toko);
+        return $this->db->get();
+    }
+
+    public function filter_hewan_berat_belomlogin($dari, $sampai)
     {
         $this->db->select('*');
         $this->db->from('tb_hewan');
@@ -47,7 +76,17 @@ class marketplace_model extends CI_Model
         return $this->db->get();
     }
 
-    public function filter_hewan_berat_diatas($value)
+    public function filter_hewan_berat_diatas($value, $id_toko)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_hewan');
+        $this->db->join('toko', 'toko.id_toko=tb_hewan.id_toko');
+        $this->db->where('tb_hewan.berat>=', $value);
+        $this->db->where('toko.id_toko !=', $id_toko);
+        return $this->db->get();
+    }
+
+    public function filter_hewan_berat_diatas_belomlogin($value)
     {
         $this->db->select('*');
         $this->db->from('tb_hewan');
@@ -56,7 +95,17 @@ class marketplace_model extends CI_Model
         return $this->db->get();
     }
 
-    public function filter_hewan_harga_diatas($value)
+    public function filter_hewan_harga_diatas($value, $id_toko)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_hewan');
+        $this->db->join('toko', 'toko.id_toko=tb_hewan.id_toko');
+        $this->db->where('tb_hewan.harga>=', $value);
+        $this->db->where('toko.id_toko !=', $id_toko);
+        return $this->db->get();
+    }
+
+    public function filter_hewan_harga_diatas_belomlogin($value)
     {
         $this->db->select('*');
         $this->db->from('tb_hewan');
@@ -65,7 +114,17 @@ class marketplace_model extends CI_Model
         return $this->db->get();
     }
 
-    public function search($keyword)
+    public function search($keyword, $id_toko)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_hewan');
+        $this->db->join('toko', 'toko.id_toko=tb_hewan.id_toko');
+        $this->db->like('tb_hewan.nama_hewan', $keyword);
+        $this->db->where('toko.id_toko !=', $id_toko);
+        return $this->db->get();
+    }
+
+    public function search_belomlogin($keyword)
     {
         $this->db->select('*');
         $this->db->from('tb_hewan');
@@ -107,11 +166,11 @@ class marketplace_model extends CI_Model
         return $this->db->get();
     }
 
-    public function tampil_tempat_distribusi()
+    public function tampil_tempat_distribusi($id_tempat)
     {
         $query = "SELECT count(id_hewan) as total_hewan_qurban, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
         FROM hewan_tempatdistribusi, mitra_distribusi
-        WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi
+        WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi AND mitra_distribusi.id_tempatdistribusi != $id_tempat
         group BY mitra_distribusi.id_tempatdistribusi";
         return $this->db->query($query);
     }
@@ -121,6 +180,22 @@ class marketplace_model extends CI_Model
         $query = "SELECT count(id_hewan) as total_hewan_qurban, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
         FROM hewan_tempatdistribusi, mitra_distribusi
         WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi AND mitra_distribusi.id_tempatdistribusi = $id_distribusi
+        group BY mitra_distribusi.id_tempatdistribusi";
+        return $this->db->query($query);
+    }
+
+    public function max_id_invoice()
+    {
+        $this->db->select_max('id_invoice');
+        $this->db->from('invoice');
+        return $this->db->get();
+    }
+
+    public function tampil_tempat_distribusi_filter($id_tempat, $provinsi)
+    {
+        $query = "SELECT count(id_hewan) as total_hewan_qurban, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
+        FROM hewan_tempatdistribusi, mitra_distribusi
+        WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi AND mitra_distribusi.id_tempatdistribusi != $id_tempat AND mitra_distribusi.provinsi like '%$provinsi%'
         group BY mitra_distribusi.id_tempatdistribusi";
         return $this->db->query($query);
     }

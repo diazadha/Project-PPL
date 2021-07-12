@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="cart-summary">
-                                <form action=" <?= base_url('marketplace/checkout') ?> " method="POST">
+                                <form action=" <?= base_url('marketplace/checkout') ?> " method="GET">
                                     <div class="cart-content">
                                         <h1>Cost</h1>
                                         <!-- <p>Sub Total<span></span></p> -->
@@ -112,26 +112,8 @@
                             <h2>Total<span>Rp. 0 </span></h2>
                         </div>
                         <center>
-                            <div class="row">
-                                <div class="col-lg-6 mb-4 col-sm-8">
-                                    <div class="cart-btn">
-                                        <button type="update" class="btn btn-primary">Update Cart</button>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mb-4 col-sm-8">
-                                    <div class="cart-btn">
-                                        <a href="<?= base_url('marketplace/checkout'); ?>"> <button type="submit" class="btn btn-primary">Checkout</button> </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <div class="col-sm-8">
 
-                                    </div>
-                                    <div class="col-sm-8">
-                                        <div class="cart-btn">
-                                            <a href="<?= base_url('marketplace/checkout'); ?>"> <button type="submit" class="btn btn-primary">Checkout</button> </a>
-                                        </div>
-                                    </div> -->
+
                         </center>
                     </div>
                 </div>

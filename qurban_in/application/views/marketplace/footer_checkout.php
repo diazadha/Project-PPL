@@ -83,20 +83,64 @@
         <script src="<?= base_url('assets/'); ?>js/main.js"></script>
         <script src="<?= base_url('assets/'); ?>js/pilihdistribusi.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        <script src=" <?= base_url('assets/'); ?>js/proses_pesanan.js"></script>
         <script>
             $(document).on('click', '.bayar', function() {
-                Swal.fire({
-                    title: 'Sukses!',
-                    html: "Tagihan Pembayaran telah dikirimkan ke Halaman Akun Anda.",
-                    icon: 'success',
-                    timer: 3000,
-                    showCancelButton: false,
-                    showConfirmButton: false,
-                    buttons: true,
+                let nama_depan = $('#nama_depan').val();
+                let nama_belakang = $('#nama_belakang').val();
+                let email = $('#email').val();
+                let nohp = $('#nohp').val();
+                let id_tempatdistribusi = $('#id_distribusi').val();
+
+                // console.log(nama_depan);
+                // console.log(nama_belakang);
+                // console.log(email);
+                // console.log(nohp);
+                // console.log(id_tempatdistribusi);
+
+
+                $.ajax({
+                    url: '<?= base_url('marketplace/pesanan'); ?>',
+                    data: {
+                        nama_depan: nama_depan,
+                        nama_belakang: nama_belakang,
+                        email: email,
+                        nohp: nohp,
+                        id_tempatdistribusi: id_tempatdistribusi
+                    },
+                    method: 'post',
+                    dataType: 'json',
+                    success: function(data) {
+                        // console.log(data);
+                        Swal.fire({
+                            title: 'Sukses!',
+                            html: "Pesanan Berhasil, Tagihan Pembayaran telah dikirimkan ke Halaman Akun Anda.",
+                            icon: 'success',
+                            timer: 3000,
+                            showCancelButton: false,
+                            showConfirmButton: false,
+                            buttons: true,
+                        });
+                        setTimeout(function() {
+                            window.location.href = "<?= base_url('user_akun'); ?>";
+                        }, 3000);
+
+                        // // console.log('sukses update');
+                        // let harga = data.harga;
+                        // console.log('harga : ', +harga);
+                        // let total_harga = (qty_new) * parseInt(harga);
+                        // $('#total_harga_' + id_keranjang).html('Rp. ' + total_harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+
+                        // let grand_total_before = $('#grand').val();
+                        // console.log('grand_total_before : ' + grand_total_before)
+
+                        // let grand_total = parseInt(harga) + parseInt(grand_total_before);
+                        // $('#grand_total').html('Rp. ' + grand_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+                        // console.log('grand : ', grand_total);
+                        // console.log('total_harga : ' + total_harga);
+                        // $('#grand').val(grand_total);
+                    }
                 });
-                setTimeout(function() {
-                    window.location.href = "<?= base_url('user_akun'); ?>";
-                }, 3000);
             });
         </script>
         </body>
