@@ -166,21 +166,35 @@ class marketplace_model extends CI_Model
         return $this->db->get();
     }
 
-    public function tampil_tempat_distribusi($id_tempat)
+    // public function count_hewan($id_tempat)
+    // {
+    //     $query = "SELECT COUNT(hewan_tempatdistribusi.id_hewan) as total_hewan, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
+    //     FROM hewan_tempatdistribusi, mitra_distribusi
+    //     WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi
+    //     AND mitra_distribusi.id_tempatdistribusi != $id_tempat
+    //     AND hewan_tempatdistribusi.id_status = 1
+    //     AND mitra_distribusi.id_tempatdistribusi = $id_tempat";
+    //     return $this->db->query($query);
+    // }
+
+    public function tampil_tempat_distribusi_semua($id_tempat)
     {
-        $query = "SELECT count(id_hewan) as total_hewan_qurban, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
-        FROM hewan_tempatdistribusi, mitra_distribusi
-        WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi AND mitra_distribusi.id_tempatdistribusi != $id_tempat
-        group BY mitra_distribusi.id_tempatdistribusi";
+        $query = "SELECT  mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
+        FROM  mitra_distribusi
+        WHERE mitra_distribusi.id_tempatdistribusi != $id_tempat";
         return $this->db->query($query);
     }
 
-    public function tampil_tempat_distribusi_byid($id_distribusi)
+
+
+    public function tampil_tempat_distribusi_byid($id_distribusi, $id_tempatdistribusi_login)
     {
-        $query = "SELECT count(id_hewan) as total_hewan_qurban, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
+        $query = "SELECT COUNT(hewan_tempatdistribusi.id_hewan) as total_hewan, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
         FROM hewan_tempatdistribusi, mitra_distribusi
-        WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi AND mitra_distribusi.id_tempatdistribusi = $id_distribusi
-        group BY mitra_distribusi.id_tempatdistribusi";
+        WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi
+        AND mitra_distribusi.id_tempatdistribusi != $id_tempatdistribusi_login
+        AND hewan_tempatdistribusi.id_status = 1
+        AND mitra_distribusi.id_tempatdistribusi = $id_distribusi";
         return $this->db->query($query);
     }
 
@@ -193,9 +207,9 @@ class marketplace_model extends CI_Model
 
     public function tampil_tempat_distribusi_filter($id_tempat, $provinsi)
     {
-        $query = "SELECT count(id_hewan) as total_hewan_qurban, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
-        FROM hewan_tempatdistribusi, mitra_distribusi
-        WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi AND mitra_distribusi.id_tempatdistribusi != $id_tempat AND mitra_distribusi.provinsi like '%$provinsi%'
+        $query = "SELECT mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
+        FROM  mitra_distribusi
+        WHERE mitra_distribusi.id_tempatdistribusi != $id_tempat AND mitra_distribusi.provinsi like '%$provinsi%'
         group BY mitra_distribusi.id_tempatdistribusi";
         return $this->db->query($query);
     }

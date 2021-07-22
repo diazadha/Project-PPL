@@ -282,7 +282,7 @@ class marketplace extends CI_Controller
             $data['tampil_keranjang'] = $this->marketplace_model->tampil_keranjang($user['id_user'])->result_array();
             $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
             $data['grand_total'] = $this->input->get('grand');
-            $data['tampil_distribusi'] = $this->marketplace_model->tampil_tempat_distribusi($user['id_tempatdistribusi'])->result_array();
+            $data['tampil_distribusi'] = $this->marketplace_model->tampil_tempat_distribusi_semua($user['id_tempatdistribusi'])->result_array();
 
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('marketplace/checkout', $data);
@@ -320,14 +320,16 @@ class marketplace extends CI_Controller
 
     public function get_tempat_distribusi()
     {
+        $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $id_distribusi = $_POST['id_distribusi'];
-        echo json_encode($this->marketplace_model->tampil_tempat_distribusi_byid($id_distribusi)->row_array());
+        echo json_encode($this->marketplace_model->tampil_tempat_distribusi_byid($id_distribusi, $user['id_tempatdistribusi'])->row_array());
         // return $this->db->query($query);
     }
 
     public function pesanan()
     {
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
         $nama_depan = $_POST['nama_depan'];
         $nama_belakang = $_POST['nama_belakang'];
         $email = $_POST['email'];
@@ -349,6 +351,7 @@ class marketplace extends CI_Controller
 
         $keranjang = $this->db->get_where('keranjang', ['id_user' => $user['id_user']])->result_array();
         $invoice = $this->marketplace_model->max_id_invoice()->row_array();
+
 
         foreach ($keranjang as $items) {
             $data_orders = [

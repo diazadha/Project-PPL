@@ -2,24 +2,24 @@
 <div class="header">
     <div class="container-fluid">
         <center>
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="header-slider normal-slider">
                     <div class="header-slider-item">
-                        <img src=" <?= base_url('assets/') ?>img/sapi_limosin.jpg" alt="Slider Image" />
+                        <img src=" <?= base_url('assets/') ?>img/sapi_bali.jpg" alt="Slider Image" style="width:960px; height:560px;" />
                         <!-- <div class="header-slider-caption">
                                 <p>Some text goes here that describes the image</p>
                                 <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
                             </div> -->
                     </div>
                     <div class="header-slider-item">
-                        <img src=" <?= base_url('assets/') ?>img/kambing.jpeg" alt="Slider Image" />
+                        <img src=" <?= base_url('assets/') ?>img/kambing.jpeg" alt="Slider Image" style="width:960px; height:560px;" />
                         <!-- <div class="header-slider-caption">
                                 <p>Some text goes here that describes the image</p>
                                 <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
                             </div> -->
                     </div>
                     <div class="header-slider-item">
-                        <img src=" <?= base_url('assets/') ?>img/kambing3.jpg" alt="Slider Image" />
+                        <img src=" <?= base_url('assets/') ?>img/kambing3.jpg" alt="Slider Image" style="width:960px; height:560px;" />
                         <!-- <div class="header-slider-caption">
                                 <p>Some text goes here that describes the image</p>
                                 <a class="btn" href=""><i class="fa fa-shopping-cart"></i>Shop Now</a>
@@ -78,6 +78,35 @@
         </div>
     </div> -->
 <!-- Call to Action End -->
+
+<div class="container-fluid" style="background-color: white;">
+    <div class="section-header">
+        <p style="color:black; font-weight:bold; text-align:center; font-size:large;"> <span style="font-size: x-large; color:tomato;"> Qurban.In </span> adalah sebuah marketplace yang khusus untuk penjualan dan pendistribusian hewan qurban. <br> Latar belakang diciptakanya marketplace ini adalah karena kami sebagai tim developer merasa bahwa masih ada beberapa wilayah yang pembagianya tidak merata. Maka dari itu pada marketplace ini disediakan juga salah satu fitur bagi user untuk bisa mendaftar menjadi mitra tempat distribusi, sehingga pembeli hewan qurban bisa mendistribusikan hewanya ke tempat distribusi tersebut. Pada saat mendaftar menjadi mitra tempat distribusi tentu saja ada beberapa validasi yang harus dilakukan oleh pendaftar, contohnya seperti dokumen tempat, foto yang mendukung, dll. </p>
+        <p style="color:black; font-weight:bold; text-align:center; font-size:large;">Sampai saat ini, sistem ini masih dalam tahap pengembangan dan penyelesaian. <br> Sistem ini juga merupakan tugas besar dari salah satu mata kuliah di Universitas Al-Azhar Indonesia Prodi Informatika yaitu Proyek Perangkat Lunak.</p>
+        <center>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4">
+
+                        <img src=" <?= base_url('assets/') ?>img/UAI.png" alt="" style="width: 250px; height:130px;">
+
+                    </div>
+                    <div class="col-lg-4">
+
+                        <img src=" <?= base_url('assets/') ?>img/IF_UAI.png" alt="" style="width: 210px; height:120px;">
+
+                    </div>
+                    <div class="col-lg-4">
+
+                        <img src=" <?= base_url('assets/') ?>img/six_go.png" alt="" style="width:250x; height:110px;">
+                    </div>
+                </div>
+            </div>
+        </center>
+    </div>
+</div>
+
+
 <!-- Featured Product Start -->
 <div class="product-view">
     <div class="featured-product product">
@@ -140,7 +169,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row  product-4">
+            <div class="row align-items-center product product-4">
                 <!-- <div class="col-lg-3 mb-4">
                     <div class="product-item">
                         <div class="product-title">
@@ -170,23 +199,29 @@
                     </div>
                 </div> -->
                 <?php foreach ($tampil_hewan as $h) : ?>
-                    <div class="col-lg-2 mb-4">
+                    <div class="col-lg-3 mb-4">
                         <div class="product-item">
-                            <div class="card" style="width: 18rem; border-color:tomato; border-width: 1px; ">
-                                <img src="<?= base_url('uploads/hewan/') . $h->foto_hewan; ?>" class="card-img-top" alt="..." style=" height:200px;">
-                                <div class="card-body">
-                                    <h3 class="card-title" style="font-weight: bold;"><?= ucwords($h->nama_hewan); ?></h3>
-                                    <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                                    <h4 style="text-align: right; font-weight:bolder;">Rp. <?= number_format($h->harga, 0, ',', '.') ?> </h4>
-                                    <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $h->nama_toko; ?> </h4>
-                                    <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $h->berat . ' Kg' ?> </h4>
-                                    <hr>
-                                    <div class="row">
-                                        <div class="col-lg-6 mb-4">
-                                            <a class="btn" href="<?= base_url('marketplace/detail_produk/') . $h->id_hewan; ?>" style="text-align: center; background-color:tomato; color:white;"><i class="fas fa-door-open"></i> Detail </a>
-                                        </div>
-                                        <div class="col-lg-6 mb-4">
-                                            <a class="btn" href=" <?= base_url('marketplace/tambah_ke_keranjang/') . $h->id_hewan; ?> " style="text-align: center; left: 18px; position:absolute;"><i class="fas fa-shopping-cart"></i> Tambah </a>
+                            <div class="card-deck">
+                                <div class="card" style="border-color:tomato; border-width: 1px; ">
+                                    <img src="<?= base_url('uploads/hewan/') . $h->foto_hewan; ?>" class="card-img-top" alt="..." style=" height:250px;">
+                                    <div class="card-body">
+                                        <h3 class="card-title" style="font-weight: bold;"><?= ucwords($h->nama_hewan); ?></h3>
+                                        <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                                        <h4 style="text-align: right; font-weight:bolder;">Rp. <?= number_format($h->harga, 0, ',', '.') ?> </h4>
+                                        <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $h->nama_toko; ?> </h4>
+                                        <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $h->berat . ' Kg' ?> </h4>
+                                        <hr>
+                                        <div class="card-footer">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-lg-6 mb-4">
+                                                        <a class="btn" href="<?= base_url('marketplace/detail_produk/') . $h->id_hewan; ?>" style="text-align: center; background-color:tomato; color:white; "><i class="fas fa-door-open"></i> Detail </a>
+                                                    </div>
+                                                    <div class="col-lg-6 mb-4" style="text-align: right;">
+                                                        <a class="btn" href=" <?= base_url('marketplace/tambah_ke_keranjang/') . $h->id_hewan; ?> " style="text-align: center; position:relative; "><i class="fas fa-shopping-cart"></i> Tambah </a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

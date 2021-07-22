@@ -15,28 +15,31 @@
                     <div class="tab-pane fade show active" id="orders-tab" role="tabpanel" aria-labelledby="orders-nav">
                         <div class="table-responsive">
                             <table class="table table-bordered">
-                                <?php $no = 1; ?>
-                                <?php date_default_timezone_set('Asia/Jakarta'); ?>
-                                <?php foreach ($riwayat as $r) : ?>
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Pemesan</th>
-                                            <th>Tanggal Pemesanan</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Pemesan</th>
+                                        <th>Tanggal Pemesanan</th>
+                                        <th>Detail</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $no = 1; ?>
+                                    <?php date_default_timezone_set('Asia/Jakarta'); ?>
+                                    <?php foreach ($riwayat as $r) : ?>
                                         <tr>
                                             <td><?= $no; ?></td>
                                             <td><?= $r['nama_depan']; ?> <?= $r['nama_belakang']; ?></td>
                                             <td><?= date('d/m/Y H:i:s', $r['order_date']); ?></td>
-                                            <td> <a href="<?= base_url('user_akun/detail'); ?>"> <button class="btn">Detail</button> </a>
+
+                                            <td> <a href="<?= base_url('user_akun/detail/') . $r['id_invoice']; ?>"> <button class="btn">Detail</button> </a>
                                             </td>
                                             <?php $no++; ?>
                                         </tr>
-                                    </tbody>
-                                <?php endforeach; ?>
+                                    <?php endforeach; ?>
+                                </tbody>
+
                             </table>
                         </div>
                     </div>

@@ -9,7 +9,7 @@
                             <center>
                                 <div class="header normal">
                                     <div class="header-slider-item">
-                                        <img src="<?= base_url('./uploads/hewan/') . $tampil_hewan->foto_hewan; ?>" alt="Slider Image" style="height: 400px; width: 400px; border-color:tomato; border-style:solid;" />
+                                        <img src="<?= base_url('./uploads/hewan/') . $tampil_hewan->foto_hewan; ?>" alt="Slider Image" style="height: 100%; width: 100%; border-color:tomato; border-style:solid;" />
                                     </div>
                                 </div>
                                 <!-- <div class="product-slider-single normal-slider">

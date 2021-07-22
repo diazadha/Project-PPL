@@ -125,3 +125,74 @@
     </div>
     </div>
 <?php endif; ?>
+<script>
+    function tambah_qty(id_keranjang) {
+        let qty = $('#qty_' + id_keranjang).val();
+        let qty_new = parseInt(qty) + 1;
+        console.log('QTY 1 : ' + qty_new);
+        console.log('id keranjang : ' + id_keranjang);
+
+
+        $.ajax({
+            url: '<?= base_url('marketplace/updatekeranjang'); ?>',
+            data: {
+                id_keranjang: id_keranjang,
+                qty: qty_new
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                // console.log('sukses update');
+                let harga = data.harga;
+                console.log('harga : ', +harga);
+                let total_harga = (qty_new) * parseInt(harga);
+                $('#total_harga_' + id_keranjang).html('Rp. ' + total_harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+
+                let grand_total_before = $('#grand').val();
+                console.log('grand_total_before : ' + grand_total_before)
+
+                let grand_total = parseInt(harga) + parseInt(grand_total_before);
+                $('#grand_total').html('Rp. ' + grand_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+                console.log('grand : ', grand_total);
+                console.log('total_harga : ' + total_harga);
+                $('#grand').val(grand_total);
+            }
+        });
+    }
+
+    function kurang_qty(id_keranjang) {
+        let qty = $('#qty_' + id_keranjang).val();
+        let qty_new = parseInt(qty) - 1;
+        console.log('QTY 1 : ' + qty_new);
+        console.log('id keranjang : ' + id_keranjang);
+
+
+        $.ajax({
+            url: '<?= base_url('marketplace/updatekeranjang'); ?>',
+            data: {
+                id_keranjang: id_keranjang,
+                qty: qty_new
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                // console.log('sukses update');
+                let harga = data.harga;
+                console.log('harga : ', +harga);
+                let total_harga = (qty_new) * parseInt(harga);
+                $('#total_harga_' + id_keranjang).html('Rp. ' + total_harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+
+                let grand_total_before = $('#grand').val();
+                console.log('grand_total_before : ' + grand_total_before)
+
+                let grand_total = parseInt(grand_total_before) - parseInt(harga);
+                $('#grand_total').html('Rp. ' + grand_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+                console.log('grand : ', grand_total);
+                console.log('total_harga : ' + total_harga);
+                $('#grand').val(grand_total);
+            }
+        });
+    }
+</script>

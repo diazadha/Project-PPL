@@ -103,6 +103,7 @@ class user_akun extends CI_Controller
                 $this->load->view('marketplace/templates_marketplace/footer');
             }
         } else {
+            date_default_timezone_set('Asia/Jakarta');
             $data = [
                 'nama_depan' => htmlspecialchars($this->input->post('namadepan', true)),
                 'nama_belakang' => htmlspecialchars($this->input->post('namabelakang', true)),
@@ -113,7 +114,7 @@ class user_akun extends CI_Controller
                     PASSWORD_DEFAULT
                 ),
                 'image' => 'default.jpg',
-                'date_created' => time(),
+                'date_created' => date('Y-m-d H:i:s'),
                 'is_active' => 0,
                 'id_toko' => 0,
                 'id_tempatdistribusi' => 0
@@ -159,7 +160,6 @@ class user_akun extends CI_Controller
             $this->email->message('Click this link to verfiy your account : <a href="' . base_url() . 'user_akun/verivikasi?email=' . $this->input->post('email') . '&token=' . urlencode($token) . '">Activate</a>');
         }
 
-
         if ($this->email->send()) {
             return true;
         } else {
@@ -203,15 +203,29 @@ class user_akun extends CI_Controller
         }
     }
 
-    public function detail()
+    public function detail($id_invoice)
     {
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         if ($user) {
             $data['title'] = 'Detail Pesanan';
             $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
+            $data['tampil_pesanan'] = $this->user_akun_model->data_pesanan_hewan($id_invoice)->result_array();
+            $data['pemesan'] = $this->user_akun_model->get_pemesan($id_invoice)->row_array();
+            $data['distribusi'] = $this->user_akun_model->get_distribusi($id_invoice)->row_array();
+            $data['cek_row'] = $this->user_akun_model->data_pesanan($id_invoice)->result_array();
+
             $this->load->view('marketplace/templates_marketplace/header', $data);
-            $this->load->view('user_akun/detailpesanan');
+            $this->load->view('user_akun/detailpesanan', $data);
             $this->load->view('marketplace/templates_marketplace/footer');
+            // if (count($data['cek_row']) == 1) {
+            //     $this->load->view('marketplace/templates_marketplace/header', $data);
+            //     $this->load->view('user_akun/detailpesanan', $data);
+            //     $this->load->view('marketplace/templates_marketplace/footer');
+            // } else {
+            //     $this->load->view('marketplace/templates_marketplace/header', $data);
+            //     $this->load->view('user_akun/detailpesanan_more1store', $data);
+            //     $this->load->view('marketplace/templates_marketplace/footer');
+            // }
         } else {
             $data['title'] = 'Detail Pesanan';
             $this->load->view('marketplace/templates_marketplace/header', $data);

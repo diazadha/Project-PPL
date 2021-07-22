@@ -2,6 +2,7 @@
     <div class="checkout">
         <div class="container-fluid">
             <!-- Collapsable Card Example -->
+
             <div class="card shadow mb-4">
                 <!-- Card Header - Accordion -->
                 <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
@@ -183,6 +184,8 @@
                     </div>
                 </div>
             </div>
+            <hr style="border: 2px solid #FF6F61">
+
             <div class="card shadow mb-4">
                 <!-- Card Header - Accordion -->
                 <a href="#collapseCardpembeli" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
@@ -193,10 +196,10 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm-2 mb-3 mb-sm-0">
-                                <label>Nama Pembeli</label>
+                                <label>Nama Pemesan</label>
                             </div>
                             <div class="col-sm-8 mb-3 mb-sm-0">
-                                : Diaz Adha Asri Prakoso
+                                : <?= $pemesan['nama_depan']; ?> <?= $pemesan['nama_belakang']; ?>
                             </div>
                         </div>
                         <div class="row">
@@ -205,7 +208,7 @@
                             </div>
                             <div class="col-sm-8 mb-3 mb-sm-0">
                                 :
-                                diaz.adha@if.uai.ac.id
+                                <?= $pemesan['email']; ?>
                             </div>
                         </div>
                         <div class="row">
@@ -214,7 +217,7 @@
                             </div>
                             <div class="col-sm-8 mb-3 mb-sm-0">
                                 :
-                                081380965243
+                                <?= $pemesan['nohp']; ?>
                             </div>
                         </div>
                         <div class="row">
@@ -223,7 +226,7 @@
                             </div>
                             <div class="col-sm-8 mb-3 mb-sm-0">
                                 :
-                                2021-03-04
+                                <?= date('d-m-Y ', $pemesan['order_date']); ?>
                             </div>
                         </div>
                         <!-- <div class="row">
@@ -251,7 +254,7 @@
                                 <label>Nama Masjid</label>
                             </div>
                             <div class="col-sm-8 mb-3 mb-sm-0">
-                                : Masjid Agung Al-Azhar
+                                : <?= $distribusi['nama_tempat']; ?>
                             </div>
                         </div>
                         <div class="row">
@@ -260,8 +263,7 @@
                             </div>
                             <div class="col-sm-10 mb-3 mb-sm-0" style="text-align: justify;">
                                 :
-                                Masjid Agung Al-Azhar, Jl. Sisingamangaraja No.1, RT.2/RW.1, Selong, Kec. Kby.
-                                Baru, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta 12110
+                                <?= $distribusi['alamat']; ?>
                             </div>
                         </div>
                         <div class="row">
@@ -270,7 +272,7 @@
                             </div>
                             <div class="col-sm-8 mb-3 mb-sm-0">
                                 :
-                                (021) 72783683
+                                <?= $distribusi['notelp']; ?>
                             </div>
                         </div>
                         <!-- <div class="row">
@@ -306,53 +308,43 @@
                             <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr align="center">
-                                        <th>ID Hewan</th>
+                                        <th>No</th>
                                         <th>Nama Hewan Qurban</th>
+                                        <th>Nama Toko</th>
                                         <th>Jumlah</th>
                                         <th>Harga</th>
                                         <th>Sub Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
-                                    <tr>
-                                        <td align="center">
-                                            1
-                                        </td>
-                                        <td align="center">
-                                            Sapi
-                                        </td>
-                                        <td align="center">
-                                            1
-                                        </td>
-                                        <td align="right">Rp.
-                                            5.000.000
-                                        </td>
-                                        <td align="right"><strong>Rp.
-                                                5.000.000
-                                            </strong></td>
-                                    </tr>
-
-                                    <!-- <tr>
-                                    <td colspan="4" align="right"><strong>Total Belanja</strong></td>
-                                    <td align="right"><strong>Rp.
-                                            5.000.000
-                                        </strong></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" align="right"><strong>Pengiriman
-                                            <?= $psn->nama_armada ?>
-                                            <?= $psn->layanan ?>
-                                        </strong></td>
-                                    <td align="right"><strong>Rp.
-                                            <?= number_format($psn->ongkir, 0, ',', '.') ?>
-                                        </strong></td>
-                                </tr> -->
+                                    <?php $no = 1;
+                                    $grand_total = 0; ?>
+                                    <?php foreach ($tampil_pesanan as $psn) : ?>
+                                        <tr>
+                                            <td align="center">
+                                                <?= $no; ?>
+                                            </td>
+                                            <td align="center">
+                                                <?= $psn['nama_hewan']; ?>
+                                            </td>
+                                            <td align="center">
+                                                <?= $psn['nama_toko']; ?>
+                                            </td>
+                                            <td align="center">
+                                                <?= $psn['qty']; ?>
+                                            </td>
+                                            <td align="right">Rp. <?= number_format($psn['harga'], 0, ',', '.') ?>
+                                            </td>
+                                            <td align="right"><strong>Rp. <?= number_format($psn['total_harga'], 0, ',', '.') ?>
+                                                </strong></td>
+                                        </tr>
+                                        <?php $no++; ?>
+                                        <?php $grand_total = $grand_total + $psn['total_harga']; ?>
+                                    <?php endforeach; ?>
                                     <tr>
 
-                                        <td colspan="4" align="right"><strong>Grand Total</strong></td>
-                                        <td align="right"><strong>Rp.
-                                                5.000.000
+                                        <td colspan="5" align="right"><strong>Grand Total</strong></td>
+                                        <td align="right"><strong>Rp. <?= number_format($grand_total, 0, ',', '.') ?>
                                             </strong></td>
 
                                     </tr>
@@ -429,7 +421,7 @@
                                 Bukti Foto
                             </div>
                             <div class="col-md-6">
-                                <img src="img/bukti.jpg" alt="" width="270 px" style="border:2px ridge #0404B4;">
+                                <img src="<?= base_url('assets/') ?>img/bukti.jpg" alt="" width="270 px" style="border:2px ridge #0404B4;">
                             </div>
                         </div>
 
@@ -492,7 +484,15 @@
                                 </strong>
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <div class="col-md-5 mb-3 mb-sm-0">
+                                Transfer Ke
+                            </div>
+                            <div class="col-md-6">
+                                BNI : <br> 109230190302391 A/N Rani
+                            </div>
 
+                        </div>
 
 
                         <div class="form-group row">

@@ -98,19 +98,31 @@
                                         <?php foreach ($tampil_distribusi as $d) : ?>
                                             <div class="col-lg-4 md-4">
                                                 <div class="product-item">
-                                                    <div class="card" style="width: 18rem; border-color:tomato; border-width: 1px; ">
-                                                        <img src="<?= base_url('assets/img/masjid_distribusi.jpg')  ?>" class="card-img-top" alt="..." style=" height:200px;">
-                                                        <div class="card-body">
-                                                            <h3 class="card-title" style="font-weight: bold;"><?= ucwords($d['nama_tempat']); ?></h3>
-                                                            <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-                                                            <!-- <h4 style="text-align: right; font-weight:bolder;">Rp. <?= number_format($h->harga, 0, ',', '.') ?> </h4> -->
-                                                            <!-- <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $d['kota']; ?> </h4> -->
-                                                            <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $d['provinsi']; ?> </h4>
-                                                            <h4 style="text-align: right; font-size:medium; font-weight:bolder;">Total Hewan Qurban : <?= $d['total_hewan_qurban']; ?> </h4>
-                                                            <hr>
-                                                            <div class="row">
-                                                                <div class="col-lg-12">
-                                                                    <button class="btn" style="text-align: center;" onclick="pilih_distribusi(<?= $d['id_tempatdistribusi']; ?>)"> <i class="fas fa-check"></i> Pilih</button>
+                                                    <div class="card-deck">
+                                                        <div class="card" style="width: 18rem; border-color:tomato; border-width: 1px; ">
+                                                            <img src="<?= base_url('assets/img/masjid_distribusi.jpg')  ?>" class="card-img-top" alt="..." style=" height:250px;">
+                                                            <div class="card-body">
+                                                                <h3 class="card-title" style="font-weight: bold;"><?= ucwords($d['nama_tempat']); ?></h3>
+                                                                <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+                                                                <!-- <h4 style="text-align: right; font-weight:bolder;">Rp. <?= number_format($h->harga, 0, ',', '.') ?> </h4> -->
+                                                                <!-- <h4 style="text-align: right; font-size:medium; font-weight:bolder;"><?= $d['kota']; ?> </h4> -->
+                                                                <h4 style="text-align: left; font-size:medium; font-weight:bolder;"><?= $d['provinsi']; ?> </h4>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 mb-1">
+                                                                        <!-- <a class="btn" style="text-align: center; left: 18px; position:absolute;"><i class="fas fa-shopping-cart"></i> Tambah </a> -->
+                                                                        <h4 style="text-align: right; font-size:small; font-weight:bolder; left: 18px; top:1px; position:absolute;">Total Hewan : <span id="total_hewan_<?= $d['id_tempatdistribusi']; ?>"></span></h4>
+                                                                    </div>
+
+                                                                    <div class="col-lg-6 mb-1" style="text-align:right;">
+                                                                        <button class="btn btn-secondary btn-sm" id="t_<?= $d['id_tempatdistribusi']; ?>" style="text-align: center; background-color:tomato; color:white; left: 1px; top:5px; position:relative;" onclick="pilih_total(<?= $d['id_tempatdistribusi']; ?>)"><i class="fas fa-eye"></i> Show </button>
+                                                                    </div>
+                                                                </div>
+                                                                <br>
+                                                                <hr>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <button class="btn" style="text-align: center;" onclick="pilih_distribusi(<?= $d['id_tempatdistribusi']; ?>)"> <i class="fas fa-check"></i> Pilih</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -118,6 +130,7 @@
                                                 </div>
                                             </div>
                                         <?php endforeach; ?>
+
                                         <!-- Pagination Start -->
                                         <!-- <div class="col-md-12">
                                             <nav aria-label="Page navigation example">
@@ -188,9 +201,29 @@
                                         <input type="radio" class="custom-control-input" id="payment-1" name="payment">
                                         <label class="custom-control-label" for="payment-1">BNI</label>
                                     </div> -->
-                                    <p>Nama : <span id="nama_masjid"> ... </span></p>
+                                    <div class="row">
+                                        <div class="col-lg-4 mb-1">
+                                            <p>Nama </p>
+                                        </div>
+                                        <div class="col-lg-6 mb-1">
+                                            : <span id="nama_masjid"> ... </span>
+                                        </div>
+                                        <div class="col-lg-4 mb-1">
+                                            <p>Alamat </p>
+                                        </div>
+                                        <div class="col-lg-6 mb-1">
+                                            : <span id="alamat"> ... </span>
+                                        </div>
+                                        <div class="col-lg-4 mb-1">
+                                            <p>Provinsi </p>
+                                        </div>
+                                        <div class="col-lg-6 mb-1">
+                                            : <span id="provinsi"> ... </span>
+                                        </div>
+                                    </div>
+                                    <!-- <p>Nama : <span id="nama_masjid"> ... </span></p>
                                     <p>Alamat : <span id="alamat"> ... </span></p>
-                                    <p>Provinsi : <span id="provinsi"> ... </span></p>
+                                    <p>Provinsi : <span id="provinsi"> ... </span></p> -->
                                     <input type="hidden" id="id_distribusi" name="id_distribusi" required>
 
                                 </div>
@@ -204,3 +237,37 @@
             </div>
         </div>
         <!-- Checkout End -->
+        <script>
+            function pilih_total(id_tempatdistribusi) {
+                let id_distribusi = id_tempatdistribusi;
+                console.log(id_distribusi);
+
+                $.ajax({
+                    url: 'http://localhost/Project-PPL/qurban_in/marketplace/get_tempat_distribusi',
+                    data: {
+                        id_distribusi: id_distribusi
+                    },
+                    method: 'post',
+                    dataType: 'json',
+                    success: function(data) {
+                        console.log(data);
+                        $('#total_hewan_' + id_tempatdistribusi).html(data.total_hewan);
+                        $('#t_' + id_tempatdistribusi).hide("slow");
+                        // // console.log('sukses update');
+                        // let harga = data.harga;
+                        // console.log('harga : ', +harga);
+                        // let total_harga = (qty_new) * parseInt(harga);
+                        // $('#total_harga_' + id_keranjang).html('Rp. ' + total_harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+
+                        // let grand_total_before = $('#grand').val();
+                        // console.log('grand_total_before : ' + grand_total_before)
+
+                        // let grand_total = parseInt(harga) + parseInt(grand_total_before);
+                        // $('#grand_total').html('Rp. ' + grand_total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."));
+                        // console.log('grand : ', grand_total);
+                        // console.log('total_harga : ' + total_harga);
+                        // $('#grand').val(grand_total);
+                    }
+                });
+            }
+        </script>

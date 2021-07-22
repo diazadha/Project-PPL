@@ -1,3 +1,4 @@
+
 function pilih_distribusi(id_tempatdistribusi) {
     let id_distribusi = id_tempatdistribusi;
     console.log(id_distribusi);
@@ -33,3 +34,4 @@ function pilih_distribusi(id_tempatdistribusi) {
     });
 
 }
+
