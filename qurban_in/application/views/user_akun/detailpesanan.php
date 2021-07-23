@@ -14,7 +14,7 @@
                         <!-- Content Row -->
                         <div class="row">
                             <!-- Earnings (Monthly) Card Example -->
-                            <a href="" class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#bayar">
+                            <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#bayar">
                                 <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#bayar"> -->
                                 <div class="card border-left-primary shadow h-100 py-2">
                                     <div class="card-body">
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                                 <!-- </div> -->
-                            </a>
+                            </div>
 
                             <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#prosespesanan">
                                 <div class="card border-left-primary shadow h-100 py-2">
@@ -354,6 +354,105 @@
                     </div>
                 </div>
             </div>
+            <div class="card shadow mb-4">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseCardBayar" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-money-bill-wave"></i> Detail Pembayaran </h6>
+                </a>
+                <div class="collapse show" id="collapseCardBayar">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-2 mb-3 mb-sm-0">
+                                <label>Atas Nama</label>
+                            </div>
+                            <div class="col-sm-8 mb-3 mb-sm-0">
+                                : Rani
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 mb-3 mb-sm-0">
+                                <label>No. Rekening</label>
+                            </div>
+                            <div class="col-sm-10 mb-3 mb-sm-0" style="text-align: justify;">
+                                :
+                                BNI / 109230190302391
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 mb-3 mb-sm-0">
+                                <label>Total Tagihan</label>
+                            </div>
+                            <div class="col-sm-10 mb-3 mb-sm-0" style="text-align: justify;">
+                                :
+                                Rp. <?= number_format($grand_total, 0, ',', '.') ?>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-2 mb-3 mb-sm-0">
+                                <label>Upload Bukti</label>
+                            </div>
+                            <form action=" <?= base_url('user_akun/upload_bukti') ?> " method="POST" enctype="multipart/form-data">
+                                <div class="col-lg-8 mb-3 mb-sm-0">
+                                    <input type="file" name="foto_bukti" id="foto_bukti">
+                                    <input type="hidden" name="id_invoice" id="id_invoice" value="<?= $id_invoice; ?>">
+                                </div>
+                                <div class="col-lg-8 mb-3 mb-sm-0">
+                                    <button type="submit" class="btn btn-sm" style="width: 50%; background-color: #D7552A; color: white;" aria-haspopup="true" aria-expanded="false">
+                                        Upload Foto
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-sm-2 mb-3 mb-sm-0">
+                                <label>Foto Bukti Pembayaran</label>
+                            </div>
+                            <div class="col-sm-8 mb-3 mb-sm-0">
+                                : <img src="<?= base_url('uploads/bukti/') . $cek_foto['foto_bukti_bayar']; ?>" alt="">
+                            </div>
+                        </div> -->
+                        <?php if ($cek_foto['foto_bukti_bayar'] != '0') : ?>
+                            <div class="row">
+                                <div class="col-sm-2 mb-3 mb-sm-0">
+                                    <label>Foto Bukti Pembayaran</label>
+                                </div>
+                                <div class="col-sm-8 mb-3 mb-sm-0">
+                                    <img src="<?= base_url('uploads/bukti/') . $cek_foto['foto_bukti_bayar']; ?>" alt="" style="width: 300px; height: 280px; border-style:solid; border-color:tomato;">
+                                </div>
+                            </div>
+                        <?php else : ?>
+                            <div class="row">
+                                <div class="col-sm-2 mb-3 mb-sm-0">
+                                    <label>Foto Bukti Pembayaran</label>
+                                </div>
+                                <div class="col-sm-8 mb-3 mb-sm-0">
+                                    : Belum Upload Bukti
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                        <!-- <div class="row">
+                        <div class="col-sm-2 mb-3 mb-sm-0">
+                            <label>Tanggal Pemesanan</label>
+                        </div>
+                        <div class="col-sm-8 mb-3 mb-sm-0">
+                            :
+                            2021-03-04
+                        </div>
+                    </div> -->
+                        <!-- <div class="row">
+                        <div class="col-sm-2 mb-3 mb-sm-0">
+                            <label>Metode Bayar</label>
+                        </div>
+                        <div class="col-sm-8 mb-3 mb-sm-0">
+                            :
+                            
+                        </div>
+                    </div> -->
+                    </div>
+                </div>
+            </div>
             <div class="modal-footer ml-auto">
                 <a href="<?= base_url('user_akun'); ?>">
                     <div class="btn btn-sm btn-secondary">Kembali</div>
@@ -433,86 +532,3 @@
 
     </div>
     <!-- /.container-fluid -->
-    <!-- Modal bayar -->
-    <div class="modal fade" id="bayar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog" style="width: 550px">
-            <div class="modal-dialog modal-dialog-centered" role="document" style="width: 550px">
-                <div class="modal-content" style="width: 550px">
-                    <div class="modal-header" style="width: 550px">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Status Pembayaran
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-md-5 mb-3 mb-sm-0">
-                                Status Pembayaran
-                            </div>
-                            <div class="h5 col-md-6">
-                                <strong>
-                                    <!-- <span class="badge badge-info mb-1">
-                                    <label class="form-check-label">
-                                        
-                                    </label>
-                                </span> -->
-                                    <span class="badge badge-info mb-1">
-                                        <label class="form-check-label">
-                                            Pending
-                                        </label>
-                                    </span>
-
-                                    <!-- <span class="badge badge-danger mb-1">
-                                    <label class="form-check-label">
-                                        
-                                    </label>
-                                </span>
-
-                                <span class="badge badge-warning mb-1">
-                                    <label class="form-check-label">
-                                        
-                                    </label>
-                                </span>
-
-                                <span class="badge badge-warning mb-1">
-                                    <label class="form-check-label">
-                                       
-                                    </label>
-                                </span> -->
-
-                                </strong>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-md-5 mb-3 mb-sm-0">
-                                Transfer Ke
-                            </div>
-                            <div class="col-md-6">
-                                BNI : <br> 109230190302391 A/N Rani
-                            </div>
-
-                        </div>
-
-
-                        <div class="form-group row">
-                            <div class="col-md-5 mb-3 mb-sm-0">
-                                Upload Bukti
-                            </div>
-                            <div class="col-md-6">
-                                <input type="file" name="foto_bukti" class="form-control">
-                            </div>
-                        </div>
-                        <input type="hidden" class="form-control" id="id_invoice" name="id_invoice" value="">
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary btn-sm">Upload</button>
-                        </div>
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>

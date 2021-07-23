@@ -213,7 +213,10 @@ class user_akun extends CI_Controller
             $data['pemesan'] = $this->user_akun_model->get_pemesan($id_invoice)->row_array();
             $data['distribusi'] = $this->user_akun_model->get_distribusi($id_invoice)->row_array();
             $data['cek_row'] = $this->user_akun_model->data_pesanan($id_invoice)->result_array();
-
+            $data['cek_foto'] = $this->user_akun_model->cek_foto($id_invoice)->row_array();
+            $data['id_invoice'] = $id_invoice;
+            // var_dump($data['cek_foto']);
+            // die;
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('user_akun/detailpesanan', $data);
             $this->load->view('marketplace/templates_marketplace/footer');
@@ -231,6 +234,31 @@ class user_akun extends CI_Controller
             $this->load->view('marketplace/templates_marketplace/header', $data);
             $this->load->view('user_akun/detailpesanan');
             $this->load->view('marketplace/templates_marketplace/footer');
+        }
+    }
+
+    public function upload_bukti()
+    {
+        $foto_bukti         = $_FILES['foto_bukti']['name'];
+        $id_invoice           = $this->input->post('id_invoice');
+        if ($foto_bukti = '') {
+        } else {
+            $config['upload_path']       = './uploads/bukti';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('image_lib', $config);
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('foto_bukti')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_bukti = $this->upload->data('file_name');
+            }
+
+            $this->db->set('foto_bukti_bayar', $foto_bukti);
+            $this->db->where('id_invoice', $id_invoice);
+            $this->db->update('status_transaksi');
+            redirect('user_akun/detail/' . $id_invoice);
         }
     }
 

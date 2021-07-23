@@ -47,4 +47,13 @@ class user_akun_model extends CI_Model
         WHERE invoice.id_user = user.id_user and  mitra_distribusi.id_tempatdistribusi = invoice.id_tempatdistribusi AND invoice.id_invoice = $id_invoice";
         return $this->db->query($query);
     }
+
+    public function cek_foto($id_invoice)
+    {
+        $query = "SELECT DISTINCT(status_transaksi.id_invoice), status_transaksi.foto_bukti_bayar
+        FROM invoice, status_transaksi
+        WHERE status_transaksi.id_invoice = invoice.id_invoice
+        AND status_transaksi.id_invoice = $id_invoice";
+        return $this->db->query($query);
+    }
 }
