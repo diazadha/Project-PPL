@@ -31,7 +31,7 @@
                                         <tr>
                                             <td><?= $no; ?></td>
                                             <td><?= $r['nama_depan']; ?> <?= $r['nama_belakang']; ?></td>
-                                            <td><?= date('d/m/Y H:i:s', $r['order_date']); ?></td>
+                                            <td><?= date("d/m/y H:i:s", strtotime($r['order_date'])); ?></td>
 
                                             <td> <a href="<?= base_url('user_akun/detail/') . $r['id_invoice']; ?>"> <button class="btn">Detail</button> </a>
                                             </td>

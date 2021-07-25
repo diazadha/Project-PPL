@@ -328,6 +328,7 @@ class marketplace extends CI_Controller
 
     public function pesanan()
     {
+        date_default_timezone_set('Asia/Jakarta');
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $nama_depan = $_POST['nama_depan'];
@@ -339,7 +340,7 @@ class marketplace extends CI_Controller
             'nama_depan' => $nama_depan,
             'nama_belakang' => $nama_belakang,
             'email' => $email,
-            'order_date' => time(),
+            'order_date' => date('Y-m-d H:i:s'),
             'nohp' => $nohp,
             'id_tempatdistribusi' => $id_tempatdistribusi,
             'id_user' => $user['id_user'],

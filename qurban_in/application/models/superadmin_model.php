@@ -1,17 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class user_akun_model extends CI_Model
+class superadmin_model extends CI_Model
 {
-
-    public function get_riwayat($id_user)
-    {
-        $query = "SELECT invoice.* 
-        FROM invoice, user
-        WHERE invoice.id_user = user.id_user and user.id_user = $id_user";
-        return $this->db->query($query);
-    }
-
     public function data_pesanan($id_invoice)
     {
         $query = "SELECT tb_hewan.nama_hewan, toko.nama_toko, toko.id_toko

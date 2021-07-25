@@ -65,7 +65,7 @@
                 $class = 'nav-item';
             } ?>
 
-            <?php if ($title === 'Pesanan') {
+            <?php if ($title === 'Data Pesanan') {
                 $class1 = 'nav-item active';
             } else {
                 $class1 = 'nav-item';
@@ -112,6 +112,21 @@
                 <a class="nav-link" href="<?= base_url('superadmin'); ?>">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Kategori</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Invoice
+            </div>
+
+            <!-- Nav Item - Tables -->
+            <li class="<?= $class1; ?>">
+                <a class="nav-link" href="<?= base_url('superadmin/datapesanan'); ?>">
+                    <i class="fas fa-luggage-cart"></i>
+                    <span>Data Pesanan</span></a>
             </li>
 
             <!-- Divider -->

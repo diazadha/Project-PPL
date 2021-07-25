@@ -26,6 +26,62 @@ class superadmin extends CI_Controller
         }
     }
 
+    public function datapesanan()
+    {
+        $data['superadmin'] = $this->db->get_where('super_admin', ['email' => $this->session->userdata('email')])->row_array();
+        if ($data['superadmin']) {
+            $data['title'] = 'Data Pesanan';
+            $data['invoice'] = $this->db->get('invoice')->result_array();
+            $this->load->view('superadmin/templates_superadmin/header', $data);
+            $this->load->view('superadmin/templates_superadmin/sidebar', $data);
+            $this->load->view('superadmin/datapesanan', $data);
+            $this->load->view('superadmin/templates_superadmin/footer');
+        } else {
+            redirect('superadmin/login');
+        }
+    }
+
+    public function detail_pesanan($id_invoice)
+    {
+        $data['superadmin'] = $this->db->get_where('super_admin', ['email' => $this->session->userdata('email')])->row_array();
+        if ($data['superadmin']) {
+            $data['title'] = 'Data Pesanan';
+            // $data['invoice'] = $this->db->get('invoice')->result_array();
+            $data['tampil_pesanan'] = $this->superadmin_model->data_pesanan_hewan($id_invoice)->result_array();
+            $data['pemesan'] = $this->superadmin_model->get_pemesan($id_invoice)->row_array();
+            $data['distribusi'] = $this->superadmin_model->get_distribusi($id_invoice)->row_array();
+            $data['cek_row'] = $this->superadmin_model->data_pesanan($id_invoice)->result_array();
+            $data['cek_foto'] = $this->superadmin_model->cek_foto($id_invoice)->row_array();
+            $data['cek_bayar'] = $this->superadmin_model->cek_status_bayar($id_invoice)->row_array();
+            $data['id_invoice'] = $id_invoice;
+
+            if (count($data['cek_row']) == 1) {
+                $this->load->view('superadmin/templates_superadmin/header', $data);
+                $this->load->view('superadmin/templates_superadmin/sidebar', $data);
+                $this->load->view('superadmin/detail_pesanan', $data);
+                $this->load->view('superadmin/templates_superadmin/footer');
+            } else {
+                $this->load->view('superadmin/templates_superadmin/header', $data);
+                $this->load->view('superadmin/templates_superadmin/sidebar', $data);
+                $this->load->view('superadmin/detail_pesanan_more1store', $data);
+                $this->load->view('superadmin/templates_superadmin/footer');
+            }
+        } else {
+            redirect('superadmin/login');
+        }
+    }
+
+    public function update_status_bayar()
+    {
+        $status_bayar       = $this->input->post('status_bayar');
+        $id_invoice           = $this->input->post('id_invoice');
+
+        $this->db->set('status_bayar', $status_bayar);
+        $this->db->where('id_invoice', $id_invoice);
+        $this->db->update('status_transaksi');
+        redirect('superadmin/detail_pesanan/' . $id_invoice);
+    }
+
     public function login()
     {
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');

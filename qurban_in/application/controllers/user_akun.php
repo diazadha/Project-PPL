@@ -214,21 +214,22 @@ class user_akun extends CI_Controller
             $data['distribusi'] = $this->user_akun_model->get_distribusi($id_invoice)->row_array();
             $data['cek_row'] = $this->user_akun_model->data_pesanan($id_invoice)->result_array();
             $data['cek_foto'] = $this->user_akun_model->cek_foto($id_invoice)->row_array();
+            $data['cek_bayar'] = $this->user_akun_model->cek_status_bayar($id_invoice)->row_array();
             $data['id_invoice'] = $id_invoice;
             // var_dump($data['cek_foto']);
             // die;
-            $this->load->view('marketplace/templates_marketplace/header', $data);
-            $this->load->view('user_akun/detailpesanan', $data);
-            $this->load->view('marketplace/templates_marketplace/footer');
-            // if (count($data['cek_row']) == 1) {
-            //     $this->load->view('marketplace/templates_marketplace/header', $data);
-            //     $this->load->view('user_akun/detailpesanan', $data);
-            //     $this->load->view('marketplace/templates_marketplace/footer');
-            // } else {
-            //     $this->load->view('marketplace/templates_marketplace/header', $data);
-            //     $this->load->view('user_akun/detailpesanan_more1store', $data);
-            //     $this->load->view('marketplace/templates_marketplace/footer');
-            // }
+            // $this->load->view('marketplace/templates_marketplace/header', $data);
+            // $this->load->view('user_akun/detailpesanan', $data);
+            // $this->load->view('marketplace/templates_marketplace/footer');
+            if (count($data['cek_row']) == 1) {
+                $this->load->view('marketplace/templates_marketplace/header', $data);
+                $this->load->view('user_akun/detailpesanan', $data);
+                $this->load->view('marketplace/templates_marketplace/footer');
+            } else {
+                $this->load->view('marketplace/templates_marketplace/header', $data);
+                $this->load->view('user_akun/detailpesanan_more1store', $data);
+                $this->load->view('marketplace/templates_marketplace/footer');
+            }
         } else {
             $data['title'] = 'Detail Pesanan';
             $this->load->view('marketplace/templates_marketplace/header', $data);
