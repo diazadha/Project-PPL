@@ -280,6 +280,7 @@ class penjual extends CI_Controller
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
         $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
+        $data['invoice'] = $this->detailtoko_model->invoice($data['user']['id_toko'])->result_array();
 
         $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
         $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
@@ -287,18 +288,40 @@ class penjual extends CI_Controller
         $this->load->view('adminpenjual/templates_adminpenjual/footer');
     }
 
-    public function detail_pesanan()
+    public function detail_pesanan($id_invoice)
     {
         $data['title'] = 'Pesanan';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
         $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
+        $data['pemesan'] = $this->detailtoko_model->get_pemesan($id_invoice)->row_array();
+        $data['distribusi'] = $this->detailtoko_model->get_distribusi($id_invoice)->row_array();
+        $data['tampil_pesanan'] = $this->detailtoko_model->data_pesanan_hewan($id_invoice, $data['user']['id_toko'])->result_array();
+        $data['cek_bayar'] = $this->detailtoko_model->cek_status_bayar($id_invoice)->row_array();
+        $data['cek_foto'] = $this->detailtoko_model->cek_foto($id_invoice)->row_array();
+        $data['status_pesanan'] = $this->detailtoko_model->cek_proses_pesanan($id_invoice, $data['user']['id_toko'])->row_array();
+        $data['cek_row'] = $this->detailtoko_model->data_pesanan($id_invoice)->result_array();
+        $data['id_invoice'] = $id_invoice;
 
         $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
         $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
         $this->load->view('adminpenjual/detail_pesanan');
         $this->load->view('adminpenjual/templates_adminpenjual/footer');
     }
+
+    public function update_proses_pesanan()
+    {
+        $proses_pesanan       = $this->input->post('proses_pesanan');
+        $id_invoice           = $this->input->post('id_invoice');
+        $id_toko           = $this->input->post('id_toko');
+
+        $this->db->set('status_pesanan', $proses_pesanan);
+        $this->db->where('id_invoice', $id_invoice);
+        $this->db->where('id_toko', $id_toko);
+        $this->db->update('status_transaksi');
+        redirect('penjual/detail_pesanan/' . $id_invoice);
+    }
+
 
     public function hapus($id)
     {

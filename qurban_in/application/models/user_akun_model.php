@@ -14,12 +14,12 @@ class user_akun_model extends CI_Model
 
     public function data_pesanan($id_invoice)
     {
-        $query = "SELECT tb_hewan.nama_hewan, toko.nama_toko, toko.id_toko
-        FROM invoice, user, tb_hewan, toko, orders
+        $query = "SELECT toko.nama_toko, toko.id_toko, status_transaksi.*
+        FROM invoice, user, tb_hewan, toko, orders, status_transaksi
         WHERE invoice.id_user = user.id_user and invoice.id_invoice = orders.id_invoice AND orders.id_hewan = tb_hewan.id_hewan
-        AND toko.id_toko = tb_hewan.id_toko
+        AND toko.id_toko = tb_hewan.id_toko AND status_transaksi.id_invoice = invoice.id_invoice AND toko.id_toko = status_transaksi.id_toko
         AND invoice.id_invoice = $id_invoice
-        GROUP BY toko.id_toko";
+        GROUP by status_transaksi.id_toko";
         return $this->db->query($query);
     }
 

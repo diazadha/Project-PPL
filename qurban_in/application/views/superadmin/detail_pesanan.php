@@ -9,97 +9,91 @@
     <!-- Collapsable Card Example -->
     <!-- Collapsable Card Example -->
     <?php foreach ($cek_row as $c) : ?>
-    <?php endforeach; ?>
-    <div class="card shadow mb-4">
-        <!-- Card Header - Accordion -->
-        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-            <h6 class="m-0 font-weight-bold text-primary">Status Pesanan : <?= $c['nama_toko']; ?></h6>
-        </a>
-        <!-- Card Content - Collapse -->
-        <div class="collapse show" id="collapseCardExample">
-            <div class="card-body">
-                <!-- Content Row -->
-                <div class="row">
-                    <!-- Earnings (Monthly) Card Example -->
-                    <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#prosespesanan">
-                        <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#prosespesanan"> -->
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Proses Pesanan</div>
 
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
-                                            <strong>
+        <div class="card shadow mb-4">
+            <!-- Card Header - Accordion -->
+            <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Status Pesanan : <?= $c['nama_toko']; ?></h6>
+            </a>
+            <!-- Card Content - Collapse -->
+            <div class="collapse show" id="collapseCardExample">
+                <div class="card-body">
+                    <!-- Content Row -->
+                    <div class="row">
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#prosespesanan">
+                            <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#prosespesanan"> -->
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Proses Pesanan</div>
 
-                                                <!-- <span class="badge badge-info mb-1">
-                                                                    <label class="form-check-label">
-                                                                        Hewan
-                                                                    </label>
-                                                                </span> -->
-
-                                                <span class="badge badge-success mb-1">
-                                                    <label class="form-check-label">
-                                                        Distribusi / Dikirim
-                                                    </label>
-                                                </span>
-
-                                                <!-- <span class="badge badge-danger mb-1">
-                                                                    <label class="form-check-label">
-
-                                                                    </label>
-                                                                </span> -->
-
-                                                <!-- <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        Pending
-                                                                    </label>
-                                                                </span> -->
-
-                                                <!-- <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-
-                                                                    </label>
-                                                                </span> -->
-
-                                            </strong>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                <strong>
+                                                    <?php if ($cek_foto['foto_bukti_bayar'] == '0' || $cek_bayar['status_bayar'] == '0') : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Pending
+                                                            </label>
+                                                        </span>
+                                                    <?php elseif ($c['status_pesanan'] == 'PERSIAPAN') : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Persiapan Untuk Dikirim
+                                                            </label>
+                                                        </span>
+                                                    <?php elseif ($c['status_pesanan'] == 'DIKIRIM') : ?>
+                                                        <span class="badge badge-success mb-1">
+                                                            <label class="form-check-label">
+                                                                Dikirim ke Tempat Distribusi
+                                                            </label>
+                                                        </span>
+                                                    <?php else : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Menunggu Konfirmasi dari Penjual
+                                                            </label>
+                                                        </span>
+                                                    <?php endif; ?>
+                                                </strong>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <i class="fas fa-fw fa-truck fa-3x text-gray-300"></i>
+                                        <div class="col-auto">
+                                            <i class="fas fa-fw fa-truck fa-3x text-gray-300"></i>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- </div> -->
                         </div>
-                        <!-- </div> -->
-                    </div>
-                    <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi">
-                        <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Finalisasi Dan Bukti Sampai
+                        <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi">
+                            <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Finalisasi Dan Bukti Sampai
 
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
 
-                                                <!-- <span class="badge badge-warning mb-1">
+                                                    <!-- <span class="badge badge-warning mb-1">
                                                                     <label class="form-check-label">
                                                                         
                                                                     </label>
                                                                 </span> -->
 
-                                                <span class="badge badge-success mb-1">
-                                                    <label class="form-check-label">
-                                                        Sampai Tempat Distribusi
-                                                    </label>
-                                                </span>
+                                                    <span class="badge badge-success mb-1">
+                                                        <label class="form-check-label">
+                                                            Sampai Tempat Distribusi
+                                                        </label>
+                                                    </span>
 
-                                                <!-- <span class="badge badge-warning mb-1">
+                                                    <!-- <span class="badge badge-warning mb-1">
                                                                     <label class="form-check-label">
                                                                         
                                                                     </label>
@@ -129,44 +123,44 @@
                                                                     </label>
                                                                 </span> -->
 
-                                            </strong>
+                                                </strong>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
-                                        <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
-                                        <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                        <div class="col-auto">
+                                            <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
+                                            <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
+                                            <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- </div> -->
                         </div>
-                        <!-- </div> -->
-                    </div>
-                    <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi">
-                        <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Status Penyembelihan
+                        <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi">
+                            <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Status Penyembelihan
 
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
 
-                                                <!-- <span class="badge badge-warning mb-1">
+                                                    <!-- <span class="badge badge-warning mb-1">
                                                                     <label class="form-check-label">
                                                                         
                                                                     </label>
                                                                 </span> -->
 
-                                                <span class="badge badge-success mb-1">
-                                                    <label class="form-check-label">
-                                                        Sudah Disembelih
-                                                    </label>
-                                                </span>
+                                                    <span class="badge badge-success mb-1">
+                                                        <label class="form-check-label">
+                                                            Sudah Disembelih
+                                                        </label>
+                                                    </span>
 
-                                                <!-- <span class="badge badge-warning mb-1">
+                                                    <!-- <span class="badge badge-warning mb-1">
                                                                     <label class="form-check-label">
                                                                         
                                                                     </label>
@@ -196,44 +190,44 @@
                                                                     </label>
                                                                 </span> -->
 
-                                            </strong>
+                                                </strong>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
-                                        <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
-                                        <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                        <div class="col-auto">
+                                            <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
+                                            <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
+                                            <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- </div> -->
                         </div>
-                        <!-- </div> -->
-                    </div>
-                    <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi">
-                        <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
-                        <div class="card border-left-primary shadow h-100 py-2">
-                            <div class="card-body">
-                                <div class="row no-gutters align-items-center">
-                                    <div class="col mr-2">
-                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            Status Pendistribusian
+                        <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi">
+                            <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Status Pendistribusian
 
-                                        </div>
-                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
 
-                                                <!-- <span class="badge badge-warning mb-1">
+                                                    <!-- <span class="badge badge-warning mb-1">
                                                                     <label class="form-check-label">
                                                                         
                                                                     </label>
                                                                 </span> -->
 
-                                                <span class="badge badge-success mb-1">
-                                                    <label class="form-check-label">
-                                                        Sudah Didistribusikan
-                                                    </label>
-                                                </span>
+                                                    <span class="badge badge-success mb-1">
+                                                        <label class="form-check-label">
+                                                            Sudah Didistribusikan
+                                                        </label>
+                                                    </span>
 
-                                                <!-- <span class="badge badge-warning mb-1">
+                                                    <!-- <span class="badge badge-warning mb-1">
                                                                     <label class="form-check-label">
                                                                         
                                                                     </label>
@@ -263,23 +257,24 @@
                                                                     </label>
                                                                 </span> -->
 
-                                            </strong>
+                                                </strong>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-auto">
-                                        <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
-                                        <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
-                                        <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                        <div class="col-auto">
+                                            <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
+                                            <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
+                                            <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- </div> -->
                         </div>
-                        <!-- </div> -->
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    <?php endforeach; ?>
     <div class="card shadow mb-4">
         <!-- Card Header - Accordion -->
         <a href="#collapseCardpembeli" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">

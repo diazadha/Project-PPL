@@ -16,7 +16,7 @@
                  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                      <thead>
                          <tr style="text-align: center;">
-                             <th>ID Invoice</th>
+                             <th>No</th>
                              <th>Tanggal Pemesanan</th>
                              <th>Nama Pembeli</th>
                              <th>Aksi</th>
@@ -33,18 +33,23 @@
                                         </tr>
                                     </tfoot> -->
                      <tbody>
-                         <tr>
-                             <td style="text-align: center;">1</td>
-                             <td>2021-03-04</td>
-                             <td>Diaz Adha Asri Prakoso</td>
-                             <td>
-                                 <center>
-                                     <a href="<?= base_url('penjual/detail_pesanan'); ?>" class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></a>
-                                     <!-- <div class="btn btn-primary btn-sm"><i class="fas fa-edit"></i>
+                         <?php $no = 1; ?>
+                         <?php foreach ($invoice as $i) : ?>
+                             <tr>
+                                 <td style="text-align: center;"><?= $no; ?></td>
+                                 <!-- <td style="text-align: center;"><?= $i['id_invoice']; ?></td> -->
+                                 <td style="text-align: center;"> <?= date("d/m/y H:i:s", strtotime($i['order_date'])); ?></td>
+                                 <td><?= $i['nama_depan'] ?> <?= $i['nama_belakang']; ?></td>
+                                 <td>
+                                     <center>
+                                         <a href="<?= base_url('penjual/detail_pesanan/') . $i['id_invoice']; ?>" class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></a>
+                                         <!-- <div class="btn btn-primary btn-sm"><i class="fas fa-edit"></i>
                                                     </div> -->
-                                 </center>
-                             </td>
-                         </tr>
+                                     </center>
+                                 </td>
+                             </tr>
+                             <?php $no++; ?>
+                         <?php endforeach; ?>
                      </tbody>
                  </table>
              </div>

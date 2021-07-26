@@ -32,35 +32,31 @@
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <strong>
 
-                                                    <!-- <span class="badge badge-info mb-1">
-                                                                    <label class="form-check-label">
-                                                                        Hewan
-                                                                    </label>
-                                                                </span> -->
-
-                                                    <span class="badge badge-success mb-1">
-                                                        <label class="form-check-label">
-                                                            Distribusi / Dikirim
-                                                        </label>
-                                                    </span>
-
-                                                    <!-- <span class="badge badge-danger mb-1">
-                                                                    <label class="form-check-label">
-
-                                                                    </label>
-                                                                </span> -->
-
-                                                    <!-- <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        Pending
-                                                                    </label>
-                                                                </span> -->
-
-                                                    <!-- <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-
-                                                                    </label>
-                                                                </span> -->
+                                                    <?php if ($cek_foto['foto_bukti_bayar'] == '0' || $cek_bayar['status_bayar'] == '0') : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Pending
+                                                            </label>
+                                                        </span>
+                                                    <?php elseif ($c['status_pesanan'] == 'PERSIAPAN') : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Persiapan Untuk Dikirim
+                                                            </label>
+                                                        </span>
+                                                    <?php elseif ($c['status_pesanan'] == 'DIKIRIM') : ?>
+                                                        <span class="badge badge-success mb-1">
+                                                            <label class="form-check-label">
+                                                                Dikirim ke Tempat Distribusi
+                                                            </label>
+                                                        </span>
+                                                    <?php else : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Menunggu Konfirmasi dari Penjual
+                                                            </label>
+                                                        </span>
+                                                    <?php endif; ?>
 
                                                 </strong>
                                             </div>
