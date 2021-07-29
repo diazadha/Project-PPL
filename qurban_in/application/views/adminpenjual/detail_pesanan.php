@@ -124,9 +124,15 @@
                                                             </label>
                                                         </span>
                                                     <?php elseif ($status_pesanan['status_pesanan'] == 'DIKIRIM') : ?>
-                                                        <span class="badge badge-success mb-1">
+                                                        <span class="badge badge-info mb-1">
                                                             <label class="form-check-label">
                                                                 Dikirim ke Tempat Distribusi
+                                                            </label>
+                                                        </span>
+                                                    <?php elseif ($status_pesanan['status_pesanan'] == 'SAMPAI') : ?>
+                                                        <span class="badge badge-success mb-1">
+                                                            <label class="form-check-label">
+                                                                Sampai di Tempat Distribusi
                                                             </label>
                                                         </span>
                                                     <?php else : ?>
@@ -353,9 +359,15 @@
                                             </label>
                                         </span>
                                     <?php elseif ($status_pesanan['status_pesanan'] == 'DIKIRIM') : ?>
-                                        <span class="badge badge-success mb-1">
+                                        <span class="badge badge-info mb-1">
                                             <label class="form-check-label">
                                                 Dikirim ke Tempat Distribusi
+                                            </label>
+                                        </span>
+                                    <?php elseif ($status_pesanan['status_pesanan'] == 'SAMPAI') : ?>
+                                        <span class="badge badge-success mb-1">
+                                            <label class="form-check-label">
+                                                Sampai di Tempat Distribusi
                                             </label>
                                         </span>
                                     <?php else : ?>
@@ -379,6 +391,7 @@
                                         <option value="0">Pilih Status</option>
                                         <option value="PERSIAPAN">Dalam Persiapan</option>
                                         <option value="DIKIRIM">Distribusi / Dikirim</option>
+                                        <option value="SAMPAI">Sampai di Tempat Distribusi</option>
                                     </select>
                                 </div>
                             </div>

@@ -56,6 +56,7 @@
                                                                     </label>
                                                                 </span>
                                                             <?php endif; ?>
+
                                                         </strong>
                                                     </div>
                                                 </div>
@@ -67,152 +68,233 @@
                                         </div>
                                     </div>
                                 </div>
-                                <a href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi" onclick="get_id_toko('<?= $c['id_toko']; ?>', '<?= $c['foto_bukti_sampai'] ?>')">
-                                    <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
-                                    <div class="card border-left-primary shadow h-100 py-2">
-                                        <div class="card-body">
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col mr-2">
-                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                        Finalisasi Dan Bukti Sampai
+                                <?php if ($c['status_pesanan'] == '0' || $c['status_pesanan'] == 'PERSIAPAN' || $c['status_pesanan'] == 'DIKIRIM') : ?>
+                                    <div href="" class="col-xl-3 col-md-6 mb-4">
+                                        <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
+                                        <div class="card border-left-primary shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                            Finalisasi Dan Bukti Sampai
 
-                                                    </div>
-                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
-
-
-
-                                                            <?php if ($c['foto_bukti_sampai'] != '0' && $c['status_pesanan'] == 'SAMPAI') : ?>
-                                                                <span class="badge badge-success mb-1">
-                                                                    <label class="form-check-label">
-                                                                        Hewan Sudah Diterima
-                                                                    </label>
-                                                                </span>
-                                                            <?php elseif ($c['status_pesanan'] == 'SAMPAI') : ?>
-                                                                <span class="badge badge-info mb-1">
-                                                                    <label class="form-check-label">
-                                                                        Proses Penerimaan
-                                                                    </label>
-                                                                </span>
-                                                            <?php else : ?>
+                                                        </div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
                                                                 <span class="badge badge-info mb-1">
                                                                     <label class="form-check-label">
                                                                         Hewan Belum Sampai
                                                                     </label>
                                                                 </span>
-                                                            <?php endif; ?>
-
-
-
-
-                                                        </strong>
+                                                            </strong>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
-                                                    <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
-                                                    <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                                    <div class="col-auto">
+                                                        <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
+                                                        <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
+                                                        <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- </div> -->
                                     </div>
-                                    <!-- </div> -->
-                                </a>
-                                <a href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#sembelih" onclick="get_id_toko_sembelih('<?= $c['id_toko']; ?>','<?= $c['foto_bukti_sembelih'] ?>')">
-                                    <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
-                                    <div class="card border-left-primary shadow h-100 py-2">
-                                        <div class="card-body">
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col mr-2">
-                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                        Status Penyembelihan
+                                <?php else : ?>
+                                    <a href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi" onclick="get_id_toko('<?= $c['id_toko']; ?>', '<?= $c['foto_bukti_sampai'] ?>')">
+                                        <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
+                                        <div class="card border-left-primary shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                            Finalisasi Dan Bukti Sampai
 
+                                                        </div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
+
+                                                                <?php if ($c['foto_bukti_sampai'] != '0') : ?>
+                                                                    <span class="badge badge-success mb-1">
+                                                                        <label class="form-check-label">
+                                                                            Hewan Sudah Diterima
+                                                                        </label>
+                                                                    </span>
+
+                                                                <?php else : ?>
+                                                                    <span class="badge badge-info mb-1">
+                                                                        <label class="form-check-label">
+                                                                            Proses Penerimaan
+                                                                        </label>
+                                                                    </span>
+                                                                <?php endif; ?>
+
+
+
+                                                            </strong>
+                                                        </div>
                                                     </div>
-                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
+                                                    <div class="col-auto">
+                                                        <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
+                                                        <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
+                                                        <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                    </a>
+                                <?php endif; ?>
+                                <?php if ($c['status_pesanan'] == '0' || $c['status_pesanan'] == 'PERSIAPAN' || $c['status_pesanan'] == 'DIKIRIM') : ?>
+                                    <div href="" class="col-xl-3 col-md-6 mb-4">
+                                        <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
+                                        <div class="card border-left-primary shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                            Status Penyembelihan
 
-                                                            <?php if ($c['foto_bukti_sembelih'] != '0' && $c['status_pesanan'] == 'SAMPAI') : ?>
-                                                                <span class="badge badge-success mb-1">
-                                                                    <label class="form-check-label">
-                                                                        Hewan Sudah Disembelih
-                                                                    </label>
-                                                                </span>
-                                                            <?php elseif ($c['status_pesanan'] == 'SAMPAI') : ?>
-                                                                <span class="badge badge-info mb-1">
-                                                                    <label class="form-check-label">
-                                                                        Belum Disembelih
-                                                                    </label>
-                                                                </span>
-                                                            <?php else : ?>
+                                                        </div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
                                                                 <span class="badge badge-info mb-1">
                                                                     <label class="form-check-label">
                                                                         Hewan Belum Sampai
                                                                     </label>
                                                                 </span>
-                                                            <?php endif; ?>
-
-                                                        </strong>
+                                                            </strong>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
-                                                    <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
-                                                    <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                                    <div class="col-auto">
+                                                        <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
+                                                        <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
+                                                        <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- </div> -->
                                     </div>
-                                    <!-- </div> -->
-                                </a>
-                                <a href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#distribusi" onclick="get_id_toko_distribusi('<?= $c['id_toko']; ?>','<?= $c['foto_bukti_distribusi'] ?>')">
-                                    <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
-                                    <div class="card border-left-primary shadow h-100 py-2">
-                                        <div class="card-body">
-                                            <div class="row no-gutters align-items-center">
-                                                <div class="col mr-2">
-                                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                        Status Pendistribusian
+                                <?php else : ?>
+                                    <a href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#sembelih" onclick="get_id_toko_sembelih('<?= $c['id_toko']; ?>','<?= $c['foto_bukti_sembelih'] ?>')">
+                                        <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
+                                        <div class="card border-left-primary shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                            Status Penyembelihan
 
+                                                        </div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                            <strong>
+                                                                <?php if ($c['foto_bukti_sembelih'] != '0') : ?>
+                                                                    <span class="badge badge-success mb-1">
+                                                                        <label class="form-check-label">
+                                                                            Sudah Disembelih
+                                                                        </label>
+                                                                    </span>
+                                                                <?php else : ?>
+                                                                    <span class="badge badge-info mb-1">
+                                                                        <label class="form-check-label">
+                                                                            Belum Disembelih
+                                                                        </label>
+                                                                    </span>
+                                                                <?php endif; ?>
+
+                                                            </strong>
+                                                        </div>
                                                     </div>
-                                                    <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
+                                                    <div class="col-auto">
+                                                        <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
+                                                        <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
+                                                        <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                    </a>
+                                <?php endif; ?>
+                                <?php if ($c['status_pesanan'] == '0' || $c['status_pesanan'] == 'PERSIAPAN' || $c['status_pesanan'] == 'DIKIRIM') : ?>
+                                    <div href="" class="col-xl-3 col-md-6 mb-4">
+                                        <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
+                                        <div class="card border-left-primary shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                            Status Pendistribusian
 
-                                                            <?php if ($c['foto_bukti_distribusi'] != '0' && $c['status_pesanan'] == 'SAMPAI') : ?>
-                                                                <span class="badge badge-success mb-1">
-                                                                    <label class="form-check-label">
-                                                                        Hewan Sudah Didistribusikan
-                                                                    </label>
-                                                                </span>
-                                                            <?php elseif ($c['status_pesanan'] == 'SAMPAI') : ?>
-                                                                <span class="badge badge-info mb-1">
-                                                                    <label class="form-check-label">
-                                                                        Belum Didistribusikan
-                                                                    </label>
-                                                                </span>
-                                                            <?php else : ?>
+                                                        </div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
+
+
                                                                 <span class="badge badge-info mb-1">
                                                                     <label class="form-check-label">
                                                                         Hewan Belum Sampai
                                                                     </label>
                                                                 </span>
-                                                            <?php endif; ?>
 
-                                                        </strong>
+
+
+                                                            </strong>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-auto">
-                                                    <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
-                                                    <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
-                                                    <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                                    <div class="col-auto">
+                                                        <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
+                                                        <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
+                                                        <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!-- </div> -->
                                     </div>
-                                    <!-- </div> -->
-                                </a>
+                                <?php else : ?>
+                                    <a href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#distribusi" onclick="get_id_toko_distribusi('<?= $c['id_toko']; ?>','<?= $c['foto_bukti_distribusi'] ?>')">
+                                        <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
+                                        <div class="card border-left-primary shadow h-100 py-2">
+                                            <div class="card-body">
+                                                <div class="row no-gutters align-items-center">
+                                                    <div class="col mr-2">
+                                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                            Status Pendistribusian
+
+                                                        </div>
+                                                        <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
+                                                                <?php if ($c['foto_bukti_distribusi'] != '0') : ?>
+                                                                    <span class="badge badge-success mb-1">
+                                                                        <label class="form-check-label">
+                                                                            Sudah Didistribusikan
+                                                                        </label>
+                                                                    </span>
+                                                                <?php else : ?>
+                                                                    <span class="badge badge-info mb-1">
+                                                                        <label class="form-check-label">
+                                                                            Belum Didistribusikan
+                                                                        </label>
+                                                                    </span>
+                                                                <?php endif; ?>
+
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <!-- <i class="fas fa-clipboard-list fa-3x text-gray-300"></i> -->
+                                                        <i class="fas fa-clipboard-check fa-3x text-gray-300"></i>
+                                                        <i class="fas fa-camera fa-3x text-gray-300"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                    </a>
+                                <?php endif; ?>
+
                             </div>
                         </div>
                     </div>
                 </div>
             <?php endforeach; ?>
-            <hr style="border: 2px solid #FF6F61">
+            <!-- <hr style="border: 2px solid #FF6F61"> -->
 
             <div class="card shadow mb-4">
                 <!-- Card Header - Accordion -->
@@ -382,154 +464,12 @@
                     </div>
                 </div>
             </div>
-            <div class="card shadow mb-4">
-                <!-- Card Header - Accordion -->
-                <a href="#collapseCardBayar" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                    <h6 class="m-0 font-weight-bold text-primary"><i class="fas fa-money-bill-wave"></i> Detail Pembayaran </h6>
-                </a>
-                <div class="collapse show" id="collapseCardBayar">
-                    <div class="card-body">
-                        <div class="form-group row">
-                            <div class="col-sm-2 mb-3 mb-sm-0">
-                                <label>Atas Nama</label>
-                            </div>
-                            <div class="col-sm-8 mb-3 mb-sm-0">
-                                : Rani
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-2 mb-3 mb-sm-0">
-                                <label>No. Rekening</label>
-                            </div>
-                            <div class="col-sm-10 mb-3 mb-sm-0" style="text-align: justify;">
-                                :
-                                BNI / 109230190302391
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-2 mb-3 mb-sm-0">
-                                <label>Total Tagihan</label>
-                            </div>
-                            <div class="col-sm-10 mb-3 mb-sm-0" style="text-align: justify;">
-                                :
-                                Rp. <?= number_format($grand_total, 0, ',', '.') ?>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-
-                            <div class="col-sm-2 mb-3 mb-sm-0">
-                                <label>Upload Bukti</label>
-                            </div>
-                            <form action=" <?= base_url('user_akun/upload_bukti') ?> " method="POST" enctype="multipart/form-data">
-                                <div class="col-lg-8 mb-4 mb-sm-2">
-                                    <input type="file" name="foto_bukti" id="foto_bukti">
-                                    <input type="hidden" name="id_invoice" id="id_invoice" value="<?= $id_invoice; ?>">
-                                </div>
-
-                                <div class="col-lg-8 mb-2 mb-sm-0">
-                                    <button type="submit" class="btn btn-sm" style="width: 100%; background-color: #D7552A; color: white;" aria-haspopup="true" aria-expanded="false">
-                                        Upload Foto
-                                    </button>
-                                </div>
-
-                            </form>
-
-                        </div>
-                        <!-- <div class="row">
-                            <div class="col-sm-2 mb-3 mb-sm-0">
-                                <label>Foto Bukti Pembayaran</label>
-                            </div>
-                            <div class="col-sm-8 mb-3 mb-sm-0">
-                                : <img src="<?= base_url('uploads/bukti/') . $cek_foto['foto_bukti_bayar']; ?>" alt="">
-                            </div>
-                        </div> -->
-                        <div class="form-group row">
-                            <?php if ($cek_foto['foto_bukti_bayar'] != '0') : ?>
-
-                                <div class="col-sm-2 mb-3 mb-sm-0">
-                                    <label>Foto Bukti Pembayaran</label>
-                                </div>
-                                <div class="col-sm-8 mb-3 mb-sm-0">
-                                    <img src="<?= base_url('uploads/bukti/') . $cek_foto['foto_bukti_bayar']; ?>" alt="" style="width: 270px; border-style:solid; border-color:tomato;">
-                                </div>
-
-                            <?php else : ?>
-
-                                <div class="col-sm-2 mb-3 mb-sm-0">
-                                    <label>Foto Bukti Pembayaran</label>
-                                </div>
-                                <div class="col-sm-8 mb-3 mb-sm-0">
-                                    : Belum Upload Bukti
-                                </div>
-
-                            <?php endif; ?>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-sm-2 mb-3 mb-sm-0">
-                                Status
-                            </div>
-                            <?php if ($cek_bayar['status_bayar'] != '0' && $cek_bayar['status_bayar'] == 'SUKSES') : ?>
-                                <div class="h5 col-md-6">
-                                    <span class="badge badge-success mb-1">
-                                        <label class="form-check-label">
-                                            Sukses
-                                        </label>
-                                    </span>
-                                </div>
-                            <?php elseif ($cek_bayar['status_bayar'] == 'GAGAL') : ?>
-                                <div class="h5 col-md-6">
-                                    <span class="badge badge-danger mb-1">
-                                        <label class="form-check-label">
-                                            Gagal
-                                        </label>
-                                    </span>
-                                </div>
-                            <?php elseif ($cek_foto['foto_bukti_bayar'] == '0') : ?>
-                                <div class="h5 col-md-6">
-                                    <span class="badge badge-info mb-1">
-                                        <label class="form-check-label">
-                                            Menunggu Pembayaran
-                                        </label>
-                                    </span>
-                                </div>
-                            <?php elseif ($cek_foto['foto_bukti_bayar'] != '0' && $cek_bayar['status_bayar'] == 0) : ?>
-                                <div class="h5 col-md-6">
-                                    <span class="badge badge-info mb-1">
-                                        <label class="form-check-label">
-                                            Menunggu Konfirmasi
-                                        </label>
-                                    </span>
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                        <!-- <div class="row">
-                        <div class="col-sm-2 mb-3 mb-sm-0">
-                            <label>Tanggal Pemesanan</label>
-                        </div>
-                        <div class="col-sm-8 mb-3 mb-sm-0">
-                            :
-                            2021-03-04
-                        </div>
-                    </div> -->
-                        <!-- <div class="row">
-                        <div class="col-sm-2 mb-3 mb-sm-0">
-                            <label>Metode Bayar</label>
-                        </div>
-                        <div class="col-sm-8 mb-3 mb-sm-0">
-                            :
-                            
-                        </div>
-                    </div> -->
-                    </div>
-                </div>
-            </div>
             <div class="modal-footer ml-auto">
-                <a href="<?= base_url('user_akun'); ?>">
+                <a href="<?= base_url('tempatdistribusi/data_distribusi'); ?>">
                     <div class="btn btn-sm btn-secondary">Kembali</div>
                 </a>
             </div>
         </div>
-
     </div>
     <!-- Checkout End -->
     <!-- Modal finalisasi -->
@@ -545,6 +485,23 @@
                         </button>
                     </div>
                     <div class="card-body">
+
+                        <form action="<?= base_url('tempatdistribusi/update_foto_sampai') ?>" method="post" enctype="multipart/form-data">
+                            <div class="form-group row">
+                                <div class="col-md-5 mb-3 mb-sm-0">
+                                    Upload Foto
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" name="bukti_sampai" id="bukti_sampai" required>
+                                </div>
+                            </div>
+                            <input type="hidden" class="form-control" id="id_invoice" name="id_invoice" value="<?= $id_invoice; ?>">
+                            <input type="hidden" class="form-control" id="id_toko_buktisampai" name="id_toko_buktisampai" value="">
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-sm">Upload Foto</button>
+                            </div>
+                        </form>
+
                         <div class="form-group row">
                             <div class="col-md-5 mb-3 mb-sm-0">
                                 Bukti Foto
@@ -574,8 +531,22 @@
                     </div>
                     <div class="card-body">
 
+                        <form action="<?= base_url('tempatdistribusi/update_foto_sembelih') ?>" method="post" enctype="multipart/form-data">
+                            <div class="form-group row">
+                                <div class="col-md-5 mb-3 mb-sm-0">
+                                    Upload Foto
 
-
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" name="bukti_sampai" id="bukti_sampai" required>
+                                </div>
+                            </div>
+                            <input type="hidden" class="form-control" id="id_invoice" name="id_invoice" value="<?= $id_invoice; ?>">
+                            <input type="hidden" class="form-control" id="id_toko_sembelih" name="id_toko_sembelih" value="">
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-sm">Upload Foto</button>
+                            </div>
+                        </form>
                         <div class="form-group row">
                             <div class="col-md-5 mb-3 mb-sm-0">
                                 Bukti Foto
@@ -605,6 +576,23 @@
                     </div>
                     <div class="card-body">
 
+                        <form action="<?= base_url('tempatdistribusi/update_foto_distribusi') ?>" method="post" enctype="multipart/form-data">
+                            <div class="form-group row">
+                                <div class="col-md-5 mb-3 mb-sm-0">
+                                    Upload Foto
+
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="file" name="bukti_sampai" id="bukti_sampai" required>
+                                </div>
+                            </div>
+                            <input type="hidden" class="form-control" id="id_invoice" name="id_invoice" value="<?= $id_invoice; ?>">
+                            <input type="hidden" class="form-control" id="id_toko_distribusi" name="id_toko_distribusi" value="">
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary btn-sm">Upload Foto</button>
+                            </div>
+                        </form>
+
                         <div class="form-group row">
                             <div class="col-md-5 mb-3 mb-sm-0">
                                 Bukti Foto
@@ -626,7 +614,7 @@
         function get_id_toko(id_toko, foto_bukti) {
             console.log(id_toko);
             console.log(foto_bukti);
-            // $('#id_toko_buktisampai').val(id_toko);
+            $('#id_toko_buktisampai').val(id_toko);
             // $('#foto_bukti_sampai').src(foto_bukti)
             document.getElementById("foto_bukti_sampai").src = "<?= base_url('uploads/bukti/') ?>" + foto_bukti;
         }
@@ -634,14 +622,14 @@
         function get_id_toko_sembelih(id_toko, foto_bukti) {
             console.log(id_toko);
             console.log(foto_bukti);
-            // $('#id_toko_sembelih').val(id_toko);
+            $('#id_toko_sembelih').val(id_toko);
             document.getElementById("foto_bukti_sembelih").src = "<?= base_url('uploads/bukti/') ?>" + foto_bukti;
         }
 
         function get_id_toko_distribusi(id_toko, foto_bukti) {
             console.log(id_toko);
             console.log(foto_bukti);
-            // $('#id_toko_distribusi').val(id_toko);
+            $('#id_toko_distribusi').val(id_toko);
             document.getElementById("foto_bukti_distribusi").src = "<?= base_url('uploads/bukti/') ?>" + foto_bukti;
         }
     </script>

@@ -58,6 +58,18 @@
                 </div>
             </div>
         </li> -->
+
+            <?php if ($title === 'Data Hewan') {
+                $class = 'nav-item active';
+            } else {
+                $class = 'nav-item';
+            } ?>
+
+            <?php if ($title === 'Data Distribusi') {
+                $class1 = 'nav-item active';
+            } else {
+                $class1 = 'nav-item';
+            } ?>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -95,10 +107,25 @@
         </li> -->
 
             <!-- Nav Item - Tables -->
-            <li class="nav-item active">
+            <li class="nav-item <?= $class; ?>">
                 <a class="nav-link" href="<?= base_url('tempatdistribusi/inputhewan'); ?>">
                     <i class="fas fa-fw fa-table"></i>
                     <span>Input Data Hewan</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Data Distribusi
+            </div>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item <?= $class1; ?>">
+                <a class="nav-link" href="<?= base_url('tempatdistribusi/data_distribusi'); ?>">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>Data Distribusi</span></a>
             </li>
 
             <!-- Divider -->

@@ -368,6 +368,8 @@ class marketplace extends CI_Controller
                 'foto_bukti_bayar' => 0,
                 'status_pesanan' => 0,
                 'foto_bukti_sampai' => 0,
+                'foto_bukti_sembelih' => 0,
+                'foto_bukti_distribusi' => 0,
                 'id_toko' => $items['id_toko'],
             ];
             $this->db->insert('status_transaksi', $data_status_transaksi);

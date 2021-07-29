@@ -9,14 +9,13 @@
     <!-- Collapsable Card Example -->
     <!-- Collapsable Card Example -->
     <?php foreach ($cek_row as $c) : ?>
-
         <div class="card shadow mb-4">
             <!-- Card Header - Accordion -->
-            <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                <h6 class="m-0 font-weight-bold text-primary">Status Pesanan : <?= $c['nama_toko']; ?></h6>
+            <a href="#collapseCardExample_<?= $c['id_toko']; ?>" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                <h6 class="m-0 font-weight-bold text-primary">Status Pesanan : <?= $c['nama_toko']; ?> </h6>
             </a>
             <!-- Card Content - Collapse -->
-            <div class="collapse show" id="collapseCardExample">
+            <div class="collapse show" id="collapseCardExample_<?= $c['id_toko']; ?>">
                 <div class="card-body">
                     <!-- Content Row -->
                     <div class="row">
@@ -32,6 +31,7 @@
 
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">
                                                 <strong>
+
                                                     <?php if ($cek_foto['foto_bukti_bayar'] == '0' || $cek_bayar['status_bayar'] == '0') : ?>
                                                         <span class="badge badge-info mb-1">
                                                             <label class="form-check-label">
@@ -45,9 +45,15 @@
                                                             </label>
                                                         </span>
                                                     <?php elseif ($c['status_pesanan'] == 'DIKIRIM') : ?>
-                                                        <span class="badge badge-success mb-1">
+                                                        <span class="badge badge-info mb-1">
                                                             <label class="form-check-label">
                                                                 Dikirim ke Tempat Distribusi
+                                                            </label>
+                                                        </span>
+                                                    <?php elseif ($c['status_pesanan'] == 'SAMPAI') : ?>
+                                                        <span class="badge badge-success mb-1">
+                                                            <label class="form-check-label">
+                                                                Sampai di Tempat Distribusi
                                                             </label>
                                                         </span>
                                                     <?php else : ?>
@@ -57,6 +63,7 @@
                                                             </label>
                                                         </span>
                                                     <?php endif; ?>
+
                                                 </strong>
                                             </div>
                                         </div>
@@ -69,7 +76,7 @@
                             </div>
                             <!-- </div> -->
                         </div>
-                        <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi">
+                        <a href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi" onclick="get_id_toko('<?= $c['id_toko']; ?>', '<?= $c['foto_bukti_sampai'] ?>')">
                             <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
@@ -81,47 +88,25 @@
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
 
-                                                    <!-- <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span> -->
-
-                                                    <span class="badge badge-success mb-1">
-                                                        <label class="form-check-label">
-                                                            Sampai Tempat Distribusi
-                                                        </label>
-                                                    </span>
-
-                                                    <!-- <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-info mb-1">
-                                                                    <label class="form-check-label">
-                                                                       
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-danger mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-danger mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span> -->
+                                                    <?php if ($c['foto_bukti_sampai'] != '0' && $c['status_pesanan'] == 'SAMPAI') : ?>
+                                                        <span class="badge badge-success mb-1">
+                                                            <label class="form-check-label">
+                                                                Hewan Sudah Diterima
+                                                            </label>
+                                                        </span>
+                                                    <?php elseif ($c['status_pesanan'] == 'SAMPAI') : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Proses Penerimaan
+                                                            </label>
+                                                        </span>
+                                                    <?php else : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Hewan Belum Sampai
+                                                            </label>
+                                                        </span>
+                                                    <?php endif; ?>
 
                                                 </strong>
                                             </div>
@@ -135,8 +120,8 @@
                                 </div>
                             </div>
                             <!-- </div> -->
-                        </div>
-                        <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi">
+                        </a>
+                        <a href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#sembelih" onclick="get_id_toko_sembelih('<?= $c['id_toko']; ?>','<?= $c['foto_bukti_sembelih'] ?>')">
                             <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
@@ -148,47 +133,26 @@
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
 
-                                                    <!-- <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span> -->
+                                                    <?php if ($c['foto_bukti_sembelih'] != '0' && $c['status_pesanan'] == 'SAMPAI') : ?>
+                                                        <span class="badge badge-success mb-1">
+                                                            <label class="form-check-label">
+                                                                Hewan Sudah Disembelih
+                                                            </label>
+                                                        </span>
+                                                    <?php elseif ($c['status_pesanan'] == 'SAMPAI') : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Belum Disembelih
+                                                            </label>
+                                                        </span>
+                                                    <?php else : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Hewan Belum Sampai
+                                                            </label>
+                                                        </span>
+                                                    <?php endif; ?>
 
-                                                    <span class="badge badge-success mb-1">
-                                                        <label class="form-check-label">
-                                                            Sudah Disembelih
-                                                        </label>
-                                                    </span>
-
-                                                    <!-- <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-info mb-1">
-                                                                    <label class="form-check-label">
-                                                                       
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-danger mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-danger mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span> -->
 
                                                 </strong>
                                             </div>
@@ -202,8 +166,8 @@
                                 </div>
                             </div>
                             <!-- </div> -->
-                        </div>
-                        <div href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi">
+                        </a>
+                        <a href="" class="col-xl-3 col-md-6 mb-4" data-toggle="modal" data-target="#distribusi" onclick="get_id_toko_distribusi('<?= $c['id_toko']; ?>','<?= $c['foto_bukti_distribusi'] ?>')">
                             <!-- <div class="col-xl-4 col-md-6 mb-4" data-toggle="modal" data-target="#finalisasi"> -->
                             <div class="card border-left-primary shadow h-100 py-2">
                                 <div class="card-body">
@@ -215,48 +179,25 @@
                                             </div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800"> <strong>
 
-                                                    <!-- <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span> -->
-
-                                                    <span class="badge badge-success mb-1">
-                                                        <label class="form-check-label">
-                                                            Sudah Didistribusikan
-                                                        </label>
-                                                    </span>
-
-                                                    <!-- <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-warning mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-info mb-1">
-                                                                    <label class="form-check-label">
-                                                                       
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-danger mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span>
-
-                                                                <span class="badge badge-danger mb-1">
-                                                                    <label class="form-check-label">
-                                                                        
-                                                                    </label>
-                                                                </span> -->
-
+                                                    <?php if ($c['foto_bukti_distribusi'] != '0' && $c['status_pesanan'] == 'SAMPAI') : ?>
+                                                        <span class="badge badge-success mb-1">
+                                                            <label class="form-check-label">
+                                                                Hewan Sudah Didistribusikan
+                                                            </label>
+                                                        </span>
+                                                    <?php elseif ($c['status_pesanan'] == 'SAMPAI') : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Belum Didistribusikan
+                                                            </label>
+                                                        </span>
+                                                    <?php else : ?>
+                                                        <span class="badge badge-info mb-1">
+                                                            <label class="form-check-label">
+                                                                Hewan Belum Sampai
+                                                            </label>
+                                                        </span>
+                                                    <?php endif; ?>
                                                 </strong>
                                             </div>
                                         </div>
@@ -269,7 +210,7 @@
                                 </div>
                             </div>
                             <!-- </div> -->
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -603,3 +544,116 @@
             <div class="btn btn-sm btn-secondary">Kembali</div>
         </a>
     </div>
+    <!-- Modal finalisasi -->
+    <div class="modal fade" id="finalisasi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" style="width: 550px">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="width: 550px">
+                <div class="modal-content" style="width: 550px">
+                    <div class="modal-header" style="width: 550px">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Finalisasi Dan Bukti Sampai
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-5 mb-3 mb-sm-0">
+                                Bukti Foto
+                            </div>
+                            <div class="col-md-6">
+                                <img src="" alt="" id="foto_bukti_sampai" width="270 px" style="border:2px ridge #0404B4;">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="sembelih" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" style="width: 550px">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="width: 550px">
+                <div class="modal-content" style="width: 550px">
+                    <div class="modal-header" style="width: 550px">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Status Penyembelihan
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="card-body">
+
+
+
+                        <div class="form-group row">
+                            <div class="col-md-5 mb-3 mb-sm-0">
+                                Bukti Foto
+                            </div>
+                            <div class="col-md-6">
+                                <img src="" id="foto_bukti_sembelih" alt="" width="270 px" style="border:2px ridge #0404B4;">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="distribusi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog" style="width: 550px">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="width: 550px">
+                <div class="modal-content" style="width: 550px">
+                    <div class="modal-header" style="width: 550px">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Status Pendistribusian
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="card-body">
+
+                        <div class="form-group row">
+                            <div class="col-md-5 mb-3 mb-sm-0">
+                                Bukti Foto
+                            </div>
+                            <div class="col-md-6">
+                                <img src="" id="foto_bukti_distribusi" alt="" width="270 px" style="border:2px ridge #0404B4;">
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+    <script>
+        function get_id_toko(id_toko, foto_bukti) {
+            console.log(id_toko);
+            console.log(foto_bukti);
+            // $('#id_toko_buktisampai').val(id_toko);
+            // $('#foto_bukti_sampai').src(foto_bukti)
+            document.getElementById("foto_bukti_sampai").src = "<?= base_url('uploads/bukti/') ?>" + foto_bukti;
+        }
+
+        function get_id_toko_sembelih(id_toko, foto_bukti) {
+            console.log(id_toko);
+            console.log(foto_bukti);
+            // $('#id_toko_sembelih').val(id_toko);
+            document.getElementById("foto_bukti_sembelih").src = "<?= base_url('uploads/bukti/') ?>" + foto_bukti;
+        }
+
+        function get_id_toko_distribusi(id_toko, foto_bukti) {
+            console.log(id_toko);
+            console.log(foto_bukti);
+            // $('#id_toko_distribusi').val(id_toko);
+            document.getElementById("foto_bukti_distribusi").src = "<?= base_url('uploads/bukti/') ?>" + foto_bukti;
+        }
+    </script>

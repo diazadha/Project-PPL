@@ -138,6 +138,141 @@ class tempatdistribusi extends CI_Controller
         $this->load->view('adminmasjid/templates_adminmasjid/footer');
     }
 
+    public function data_distribusi()
+    {
+        $data['title'] = 'Data Distribusi';
+        $this->load->model('tempatdistribusi_model');
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        // $data['status'] = $this->tempatdistribusi_model->statushewan();
+        $data['profil'] = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $data['user']['id_tempatdistribusi']])->row_array();
+        // $data['distribusi'] = $this->tempatdistribusi_model->getalldata()->result();
+        $data['invoice'] = $this->tempatdistribusi_model->invoice($data['user']['id_tempatdistribusi'])->result_array();
+
+        $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
+        $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
+        $this->load->view('adminmasjid/data_distribusi', $data);
+        $this->load->view('adminmasjid/templates_adminmasjid/footer');
+    }
+
+    public function detail_pesanan($id_invoice)
+    {
+        $data['title'] = 'Data Distribusi';
+        $this->load->model('tempatdistribusi_model');
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        // $data['status'] = $this->tempatdistribusi_model->statushewan();
+        $data['profil'] = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $data['user']['id_tempatdistribusi']])->row_array();
+        $data['tampil_pesanan'] = $this->tempatdistribusi_model->data_pesanan_hewan($id_invoice)->result_array();
+        $data['pemesan'] = $this->tempatdistribusi_model->get_pemesan($id_invoice)->row_array();
+        $data['distribusi'] = $this->tempatdistribusi_model->get_distribusi($id_invoice)->row_array();
+        $data['cek_row'] = $this->tempatdistribusi_model->data_pesanan($id_invoice)->result_array();
+        $data['cek_foto'] = $this->tempatdistribusi_model->cek_foto($id_invoice)->row_array();
+        $data['cek_bayar'] = $this->tempatdistribusi_model->cek_status_bayar($id_invoice)->row_array();
+        $data['id_invoice'] = $id_invoice;
+
+        if (count($data['cek_row']) == 1) {
+            // $data['id_toko'] = $data['cek_row']['id_toko'];
+            $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
+            $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
+            $this->load->view('adminmasjid/detail_pesanan', $data);
+            $this->load->view('adminmasjid/templates_adminmasjid/footer');
+        } else {
+            // $data['id_toko'] = $data['cek_row']['id_toko'];
+            $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
+            $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
+            $this->load->view('adminmasjid/detailpesanan_more1store', $data);
+            $this->load->view('adminmasjid/templates_adminmasjid/footer');
+        }
+    }
+
+    public function update_foto_sampai()
+    {
+        $foto_bukti         = $_FILES['bukti_sampai']['name'];
+        $id_invoice           = $this->input->post('id_invoice');
+        $id_toko           = $this->input->post('id_toko_buktisampai');
+        // var_dump($id_toko);
+        // die;
+        if ($foto_bukti = '') {
+        } else {
+            $config['upload_path']       = './uploads/bukti';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('image_lib', $config);
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('bukti_sampai')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_bukti = $this->upload->data('file_name');
+            }
+
+            $this->db->set('foto_bukti_sampai', $foto_bukti);
+            $this->db->where('id_invoice', $id_invoice);
+            $this->db->where('id_toko', $id_toko);
+            $this->db->update('status_transaksi');
+            redirect('tempatdistribusi/detail_pesanan/' . $id_invoice);
+        }
+    }
+
+    public function update_foto_sembelih()
+    {
+        $foto_bukti         = $_FILES['bukti_sampai']['name'];
+        $id_invoice           = $this->input->post('id_invoice');
+        $id_toko           = $this->input->post('id_toko_sembelih');
+        // var_dump($id_toko);
+        // die;
+        if ($foto_bukti = '') {
+        } else {
+            $config['upload_path']       = './uploads/bukti';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('image_lib', $config);
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('bukti_sampai')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_bukti = $this->upload->data('file_name');
+            }
+
+            $this->db->set('foto_bukti_sembelih', $foto_bukti);
+            $this->db->where('id_invoice', $id_invoice);
+            $this->db->where('id_toko', $id_toko);
+            $this->db->update('status_transaksi');
+            redirect('tempatdistribusi/detail_pesanan/' . $id_invoice);
+        }
+    }
+
+    public function update_foto_distribusi()
+    {
+        $foto_bukti         = $_FILES['bukti_sampai']['name'];
+        $id_invoice           = $this->input->post('id_invoice');
+        $id_toko           = $this->input->post('id_toko_distribusi');
+        // var_dump($id_toko);
+        // die;
+        if ($foto_bukti = '') {
+        } else {
+            $config['upload_path']       = './uploads/bukti';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('image_lib', $config);
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('bukti_sampai')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_bukti = $this->upload->data('file_name');
+            }
+
+            $this->db->set('foto_bukti_distribusi', $foto_bukti);
+            $this->db->where('id_invoice', $id_invoice);
+            $this->db->where('id_toko', $id_toko);
+            $this->db->update('status_transaksi');
+            redirect('tempatdistribusi/detail_pesanan/' . $id_invoice);
+        }
+    }
+
     public function tambahhewan()
     {
 
