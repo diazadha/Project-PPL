@@ -309,4 +309,104 @@ class tempatdistribusi extends CI_Controller
         $id_hewan = $_POST['id_hewan'];
         echo json_encode($this->tempatdistribusi_model->gethewanbyid($id_hewan));
     }
+	
+	public function upload_dokumen()
+    {
+        $data['title'] = 'Upload Dokumen Verfikasi Tempat Distribusi';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['profil'] = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $data['user']['id_tempatdistribusi']])->row_array();
+
+        $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
+        $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
+        $this->load->view('adminmasjid/upload_dokumen', $data);
+        $this->load->view('adminmasjid/templates_adminmasjid/footer');
+    }
+	
+	public function update_foto_tempat_distribusi()
+    {
+        $id_tempat            = $this->input->post('id_tempat');
+        $foto_tempat_distribusi         = $_FILES['foto_tempat_distribusi']['name'];
+        if ($foto_tempat_distribusi = '') {
+        } else {
+            $config['upload_path']       = './uploads/dokumentempat';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('foto_tempat_distribusi')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_tempat_distribusi = $this->upload->data('file_name');
+            }
+            $data = array(
+                'foto_tempat_distribusi' => $foto_tempat_distribusi,
+            );
+
+            // $where = array('id_masjid' => $id);
+            $this->db->where('id_tempatdistribusi', $id_tempat);
+            $this->db->update('mitra_distribusi', $data);
+            // $this->m_masjid->update_data($where, $data, 'tb_masjid');
+            $this->session->set_flashdata('message1', 'Foto Tempat Distribusi Berhasil Dirubah!');
+            redirect('tempatdistribusi/upload_dokumen');
+        }
+    }
+
+    public function update_foto_ktp()
+    {
+        $id_tempat           = $this->input->post('id_tempat');
+        $foto_ktp          = $_FILES['foto_ktp']['name'];
+        if ($foto_ktp = '') {
+        } else {
+            $config['upload_path']       = './uploads/ktp_tempat';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('foto_ktp')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_ktp = $this->upload->data('file_name');
+            }
+            $data = array(
+                'foto_ktp' => $foto_ktp,
+            );
+
+            // $where = array('id_ktp' => $id);
+            $this->db->where('id_tempatdistribusi', $id_tempat);
+            $this->db->update('mitra_distribusi', $data);
+            // $this->m_ktp->update_data($where, $data, 'tb_ktp');
+            $this->session->set_flashdata('message1', 'Foto KTP Berhasil Dirubah!');
+            redirect('tempatdistribusi/upload_dokumen');
+        }
+    }
+	
+    public function update_foto_ktp_wajah()
+    {
+        $id_tempat            = $this->input->post('id_tempat');
+        $foto_ktp_wajah         = $_FILES['foto_ktp_wajah']['name'];
+        if ($foto_ktp_wajah= '') {
+        } else {
+            $config['upload_path']       = './uploads/ktp_wajah_tempat';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('foto_ktp_wajah')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_ktp_wajah= $this->upload->data('file_name');
+            }
+            $data = array(
+                'foto_ktp_wajah' => $foto_ktp_wajah,
+            );
+
+            // $where = array('id_ktp_wajah' => $id);
+            $this->db->where('id_tempatdistribusi', $id_tempat);
+            $this->db->update('mitra_distribusi', $data);
+            // $this->m_ktp_wajah->update_data($where, $data, 'tb_ktp_wajah');
+            $this->session->set_flashdata('message1', 'Foto KTP Wajah Berhasil Dirubah!');
+            redirect('tempatdistribusi/upload_dokumen');
+        }
+    }
 }
