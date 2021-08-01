@@ -409,4 +409,100 @@ class tempatdistribusi extends CI_Controller
             redirect('tempatdistribusi/upload_dokumen');
         }
     }
+	public function update()
+    {
+        $id               = $this->input->post('id_tempatdistribusi');
+        $nama_tempat      = $this->input->post('nama_tempat');
+        $alamat           = $this->input->post('alamat');
+        $kota         = $this->input->post('kota');
+        $provinsi          = $this->input->post('provinsi');
+        $notelp      = $this->input->post('notelp');
+        
+       
+        $data = array(
+            'nama_tempat'     => $nama_tempat,
+            'alamat'          => $alamat,
+            'kota'          => $kota,
+            'provinsi'           => $provinsi,
+            'notelp'       => $notelp,
+            'id_tempatdistribusi'       => $this->input->post('id_tempatdistribusi')
+        );
+
+        // $where = array('id_hewan' => $id);
+        $this->db->where('id_tempatdistribusi', $id);
+        $this->db->update('mitra_distribusi', $data);
+        // $this->m_hewan->update_data($where, $data, 'tb_hewan');
+        $this->session->set_flashdata('message1', 'Data Berhasil Dirubah!');
+        redirect('tempatdistribusi/biodata');
+    }
+     
+    public function biodata()
+    {
+        $data['title'] = 'Biodata ';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        // $data['hewan'] = $this->m_hewan->tampil_data();
+        $data['mitra_distribusi'] = $this->m_hewan->getalldata()->result();
+        $data['profil'] = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $data['user']['id_tempatdistribusi']])->row_array();
+        $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
+        $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
+        $this->load->view('adminmasjid/biodata', $data);
+        $this->load->view('adminmasjid/templates_adminmasjid/footer');
+    }
+    public function update_foto()
+    {
+        
+        $id               = $this->input->post('id_tempatdistribusi');
+        $foto_tempat          = $_FILES['foto_tempat']['name'];
+        if ($foto_tempat = '') {
+        } else {
+            $config['upload_path']       = './uploads/foto';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('image_lib', $config);
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('foto_tempat')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_tempat = $this->upload->data('file_name');
+            }
+            $data = array(
+                'foto_tempat' => $foto_tempat
+            );
+
+            // $where = array('id_hewan' => $id);
+            $this->db->where('foto_tempat', $id);
+            $this->db->update('mitra_distribusi', $data);
+            // $this->m_hewan->update_data($where, $data, 'tb_hewan');
+            $this->session->set_flashdata('message1', 'Foto Berhasil Dirubah!');
+            redirect('tempatdistribusi/biodata');
+        }
+    }
+    public function update_foto_tempat()
+    {
+
+        $id_tempatdistribusi =$this->input->post('id_tempatdistribusi');
+        $gambar    = $_FILES['foto_tempat']['name'];
+        $config['upload_path'] = './uploads/foto';
+        $config['allowed_types'] = 'jpg|jpeg|png|gif';
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('foto_tempat')) {
+            echo "Gambar gagal di upload!";
+        } else {
+            $gambar = $this->upload->data('file_name');
+        }
+
+
+        $data  = array(
+            'foto_tempat'   => $gambar,
+
+
+        );
+        $this->db->where('id_tempatdistribusi', $id_tempatdistribusi);
+        $this->db->update('mitra_distribusi', $data);
+        $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Product Added!</div>');
+        redirect('tempatdistribusi/biodata');
+    }
+	
 }
