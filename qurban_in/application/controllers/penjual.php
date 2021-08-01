@@ -333,4 +333,70 @@ class penjual extends CI_Controller
         $this->m_hewan->hapus_data('tb_hewan', array('id_hewan' => $id));
         redirect('penjual/inputhewan');
     }
+	
+	public function biodata_toko()
+    {
+        $data['title'] = 'Biodata Toko';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
+
+        $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
+        $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
+        $this->load->view('adminpenjual/biodata_toko', $data);
+        $this->load->view('adminpenjual/templates_adminpenjual/footer');
+    }
+	
+	public function update_toko()
+    {
+        $id              = $this->input->post('id_toko');
+        $nama            = $this->input->post('nama_toko');
+        $alamat          = $this->input->post('alamat');
+        $kota            = $this->input->post('kota');
+        $provinsi        = $this->input->post('provinsi');
+        $notlp           = $this->input->post('notlp');
+        $data = array(
+            'nama_toko'    => $nama,
+            'alamat'       => $alamat,
+            'kota'         => $kota,
+            'provinsi'     => $provinsi,
+            'notelp'       => $notlp
+        );
+
+        // $where = array('id_hewan' => $id);
+        $this->db->where('id_toko', $id);
+        $this->db->update('toko', $data);
+        // $this->m_hewan->update_data($where, $data, 'tb_hewan');
+        $this->session->set_flashdata('message1', 'Data Biodata Toko Berhasil Dirubah!');
+        redirect('penjual/biodata_toko');
+    }
+	
+	public function update_foto_toko()
+    {
+        $id_toko            = $this->input->post('id_toko');
+        $foto_toko          = $_FILES['foto_toko']['name'];
+        if ($foto_toko = '') {
+        } else {
+            $config['upload_path']       = './uploads/toko';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('foto_toko')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_toko = $this->upload->data('file_name');
+            }
+            $data = array(
+                'foto_toko' => $foto_toko
+            );
+
+            // $where = array('id_toko' => $id);
+            $this->db->where('id_toko', $id_toko);
+            $this->db->update('toko', $data);
+            // $this->m_toko->update_data($where, $data, 'tb_toko');
+            $this->session->set_flashdata('message1', 'Foto toko Berhasil Dirubah!');
+            redirect('penjual/biodata_toko');
+        }
+    }
 }
