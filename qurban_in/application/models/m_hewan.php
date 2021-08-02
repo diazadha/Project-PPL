@@ -42,8 +42,26 @@ class m_hewan extends CI_model
         $this->db->from('tb_hewan');
         $this->db->join('toko', 'toko.id_toko = tb_hewan.id_toko');
         $this->db->join('user', 'user.id_toko = toko.id_toko');
+        $this->db->join('kategori', 'kategori.id_kategori = tb_hewan.id_kategori');
         $this->db->where('user.email', $this->session->userdata('email'));
         return $this->db->get();
+    }
+
+    public function data_hewan($id_hewan)
+    {
+        $this->db->select('*');
+        $this->db->from('tb_hewan');
+        $this->db->join('kategori', 'kategori.id_kategori = tb_hewan.id_kategori');
+        $this->db->where('tb_hewan.id_hewan', $id_hewan);
+        return $this->db->get();
+    }
+
+    public function get_kategori_bydetail($id)
+    {
+        $query = "SELECT * 
+        FROM kategori 
+        WHERE kategori.id_kategori != $id";
+        return $this->db->query($query);
     }
 
     public function hapus_data($table, $where)

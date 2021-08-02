@@ -36,7 +36,7 @@
                              <th>No</th>
                              <th>Nama Hewan</th>
                              <th>Harga</th>
-                             <th>Stok</th>
+                             <th>Kategori</th>
                              <th>Jenis</th>
                              <th>Aksi</th>
                          </tr>
@@ -58,11 +58,11 @@
                                  <td style="text-align: center;"><?php echo $no++ ?></td>
                                  <td><?php echo $t->nama_hewan; ?></td>
                                  <td style="text-align: right;">Rp. <?= number_format($t->harga, 0, ',', '.') ?></td>
-                                 <td><?php echo $t->stok; ?></td>
+                                 <td><?php echo $t->kategori; ?></td>
                                  <td><?php echo $t->jenis; ?></td>
                                  <td>
                                      <center>
-                                         <a href="<?= base_url('penjual/detailhewan/') . $t->id_hewan; ?>" class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></a>
+                                         <a href="<?= base_url('penjual/detailhewan/') . $t->id_hewan . '/' . $t->id_kategori; ?>" class="btn btn-success btn-sm"><i class="fas fa-search-plus"></i></a>
                                          <!-- <div class="btn btn-primary btn-sm"><i class="fas fa-edit"></i>
                                                     </div> -->
                                          <a href="<?= base_url('penjual/hapus/') . $t->id_hewan; ?>" onclick="return confirm('Apakah Kamu Yakin?');" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></a>
@@ -118,12 +118,18 @@
                                  </div>
                              </div>
                              <div class="col-sm-6 mb-3 mb-sm-0">
-                                 Stok
+                                 Kategori
                                  <div class="input-group flex-nowrap">
-                                     <div class="input-group-prepend">
+                                     <!-- <div class="input-group-prepend">
                                          <span class="input-group-text" id="addon-wrapping">Qty</span>
-                                     </div>
-                                     <input type="number" min="1" name="stok" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" required>
+                                     </div> -->
+                                     <select name="kategori" id="kategori" class="form-control" required>
+                                         <option value="0">Pilih Kategori</option>
+                                         <?php foreach ($kategori as $k) : ?>
+                                             <option value="<?= $k['id_kategori']; ?>"> <?= $k['kategori']; ?> </option>
+                                         <?php endforeach; ?>
+                                     </select>
+                                     <!-- <input type="number" min="1" name="stok" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" required> -->
                                  </div>
                              </div>
                          </div>
@@ -132,14 +138,13 @@
                                  Jenis
                                  <div class="input-group flex-nowrap">
 
-                                     <input type="text" name="jenis" class="form-control" aria-label="kategori" aria-describedby="addon-wrapping" required>
+                                     <input type="text" name="jenis" class="form-control" aria-label="jenis" aria-describedby="addon-wrapping" required>
                                  </div>
                              </div>
                              <div class="col-sm-6 mb-3 mb-sm-0">
-                                 Kelas
+                                 Kode Hewan
                                  <div class="input-group flex-nowrap">
-
-                                     <input type="text" name="kelas" class="form-control" aria-label="kelas" aria-describedby="addon-wrapping" required>
+                                     <input type="text" name="nomor_hewan" class="form-control" aria-label="kelas" aria-describedby="addon-wrapping" required>
                                  </div>
                              </div>
                          </div>

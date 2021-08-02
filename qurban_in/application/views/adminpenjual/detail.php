@@ -5,6 +5,12 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold" style="color: #d7552a;">Detail Hewan Qurban</h6>
             </div>
+            <?php if ($this->session->flashdata('message1')) : ?>
+                <?php $message = $this->session->flashdata('message1'); ?>
+                <?= '<div class="alert alert-success">' . $message . '</div>'; ?>
+                <?php $this->session->unset_userdata('message1'); ?>
+            <?php endif; ?>
+
             <!-- Card Body -->
             <div class="card-body text-left">
 
@@ -30,8 +36,14 @@
                             <input type="text" name="jenis" class="form-control" value="<?= $hewan['jenis']; ?>" required>
                         </div>
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            Kelas
-                            <input type="number" min="1" name="kelas" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" value="<?= $hewan['kelas']; ?>" required>
+                            Kategori
+                            <select name="kategori" id="kategori" class="form-control" required>
+                                <option value="<?= $hewan['id_kategori'] ?>"><?= $hewan['kategori']; ?></option>
+                                <?php foreach ($kategori as $k) : ?>
+                                    <option value="<?= $k['id_kategori']; ?>"> <?= $k['kategori']; ?> </option>
+                                <?php endforeach; ?>
+                            </select>
+                            <!-- <input type="number" min="1" name="kategori" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" value="<?= $hewan['kelas']; ?>" required> -->
                         </div>
                     </div>
                     <div class="form-group row">
@@ -45,14 +57,14 @@
                             </div>
                         </div>
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                            Stok
+                            Kode Hewan
                             <div class="input-group flex-nowrap">
-                                <div class="input-group-prepend">
+                                <!-- <div class="input-group-prepend">
                                     <span class="input-group-text" id="addon-wrapping">Qty</span>
-                                </div>
-                                <input type="number" min="1" name="stok" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" value="<?= $hewan['stok']; ?>" required>
-                                <input type="hidden" name="id_hewan" value=" <?= $hewan['id_hewan']; ?> ">
-                                <input type="hidden" name="id_toko" value=" <?= $hewan['id_toko']; ?> ">
+                                </div> -->
+                                <input type="text" name="kode_hewan" class="form-control" aria-label="stok_barang" aria-describedby="addon-wrapping" value="<?= $hewan['kode_hewan']; ?>" required>
+                                <input type="hidden" name="id_hewan" value="<?= $hewan['id_hewan'] ?>">
+                                <input type="hidden" name="id_toko" value=" <?= $hewan['id_toko']; ?>">
                             </div>
                         </div>
                     </div>
@@ -65,7 +77,7 @@
                         <a href="<?= base_url('penjual/inputhewan'); ?>">
                             <div class="btn btn-sm btn-secondary">Kembali</div>
                         </a>
-                        <button type="submit" class="btn  btn-sm" aria-haspopup="true" aria-expanded="false" style="background-color: #D7552A; color: white;">
+                        <button type="submit" class="btn btn-sm" aria-haspopup="true" aria-expanded="false" style="background-color: #D7552A; color: white;">
                             Simpan Perubahan
                         </button>
                     </div>
@@ -93,6 +105,7 @@
                         <div class="form-group">
                             <input type="file" name="foto_hewan" class="form-control">
                             <input type="hidden" class="form-control" id="id_hewan" name="id_hewan" value="<?= $hewan['id_hewan']; ?>">
+                            <input type="hidden" name="id_kategori" value="<?= $hewan['id_kategori'] ?>">
                         </div>
                         <button type="submit" class="btn btn-sm" style="width: 100%; background-color: #D7552A; color: white;" aria-haspopup="true" aria-expanded="false">
                             Update Foto

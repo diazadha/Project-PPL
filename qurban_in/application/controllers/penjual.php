@@ -127,6 +127,7 @@ class penjual extends CI_Controller
         $this->session->userdata('email')])->row_array();
         // $data['hewan'] = $this->m_hewan->tampil_data();
         $data['toko'] = $this->m_hewan->getalldata()->result();
+        $data['kategori'] = $this->db->get('kategori')->result_array();
         $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
         $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
         $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
@@ -139,11 +140,11 @@ class penjual extends CI_Controller
         $nama_hewan          = $this->input->post('nama_hewan');
         $harga               = $this->input->post('harga');
         $berat               = $this->input->post('berat');
-        $stok                = $this->input->post('stok');
+        $kategori                = $this->input->post('kategori');
         $foto_hewan          = $_FILES['foto_hewan']['name'];
         $deskripsi           = $this->input->post('deskripsi');
         $jenis            = $this->input->post('jenis');
-        $kelas               = $this->input->post('kelas');
+        $nomor_hewan              = $this->input->post('nomor_hewan');
         if ($foto_hewan = '') {
         } else {
             $config['upload_path']       = './uploads/hewan';
@@ -161,11 +162,11 @@ class penjual extends CI_Controller
                 'nama_hewan'     => $nama_hewan,
                 'harga'          => $harga,
                 'berat'          => $berat,
-                'stok'           => $stok,
+                'id_kategori'    => $kategori,
                 'foto_hewan'     => $foto_hewan,
                 'deskripsi'      => $deskripsi,
-                'jenis'       => $jenis,
-                'kelas'          => $kelas,
+                'jenis'          => $jenis,
+                'kode_hewan'     => $nomor_hewan,
                 'id_toko'        => $this->input->post('id_toko'),
             );
             $this->m_hewan->tambah_hewan($data, 'tb_hewan');
@@ -181,18 +182,18 @@ class penjual extends CI_Controller
         $nama_hewan      = $this->input->post('nama_hewan');
         $harga           = $this->input->post('harga');
         $berat           = $this->input->post('berat');
-        $stok            = $this->input->post('stok');
+        $kategori            = $this->input->post('kategori');
         $jenis       = $this->input->post('jenis');
         $deskripsi       = $this->input->post('deskripsi');
-        $kelas           = $this->input->post('kelas');
+        $kode_hewan           = $this->input->post('kode_hewan');
         $data = array(
             'nama_hewan'     => $nama_hewan,
             'harga'          => $harga,
             'berat'          => $berat,
-            'stok'           => $stok,
+            'id_kategori'           => $kategori,
             'jenis'       => $jenis,
             'deskripsi'      => $deskripsi,
-            'kelas'          => $kelas,
+            'kode_hewan'          => $kode_hewan,
             'id_toko'       => $this->input->post('id_toko')
         );
 
@@ -201,12 +202,13 @@ class penjual extends CI_Controller
         $this->db->update('tb_hewan', $data);
         // $this->m_hewan->update_data($where, $data, 'tb_hewan');
         $this->session->set_flashdata('message1', 'Data Hewan Berhasil Dirubah!');
-        redirect('penjual/inputhewan');
+        redirect('penjual/detailhewan/' . $id . '/' . $kategori);
     }
 
     public function update_foto()
     {
         $id               = $this->input->post('id_hewan');
+        $id_kategori = $this->input->post('id_kategori');
         $foto_hewan          = $_FILES['foto_hewan']['name'];
         if ($foto_hewan = '') {
         } else {
@@ -230,18 +232,19 @@ class penjual extends CI_Controller
             $this->db->update('tb_hewan', $data);
             // $this->m_hewan->update_data($where, $data, 'tb_hewan');
             $this->session->set_flashdata('message1', 'Foto Hewan Berhasil Dirubah!');
-            redirect('penjual/inputhewan');
+            redirect('penjual/detailhewan/' . $id . '/' . $id_kategori);
         }
     }
 
-    public function detailhewan($id)
+    public function detailhewan($id_hewan, $id_kategori)
     {
         // $where = array('id_hewan' => $id);
         $data['title'] = 'Data Hewan';
         // $data['hewan'] = $this->m_hewan->detail_hewan($where, 'tb_hewan')->result();
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
-        $data['hewan'] = $this->db->get_where('tb_hewan', ['id_hewan' => $id])->row_array();
+        $data['hewan'] = $this->m_hewan->data_hewan($id_hewan)->row_array();
+        $data['kategori'] = $this->m_hewan->get_kategori_bydetail($id_kategori)->result_array();
         $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
 
         $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
