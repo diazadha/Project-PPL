@@ -336,4 +336,170 @@ class penjual extends CI_Controller
         $this->m_hewan->hapus_data('tb_hewan', array('id_hewan' => $id));
         redirect('penjual/inputhewan');
     }
+	
+	public function biodata_toko()
+    {
+        $data['title'] = 'Biodata Toko';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
+
+        $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
+        $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
+        $this->load->view('adminpenjual/biodata_toko', $data);
+        $this->load->view('adminpenjual/templates_adminpenjual/footer');
+    }
+	
+	public function update_toko()
+    {
+        $id              = $this->input->post('id_toko');
+        $nama            = $this->input->post('nama_toko');
+        $alamat          = $this->input->post('alamat');
+        $kota            = $this->input->post('kota');
+        $provinsi        = $this->input->post('provinsi');
+        $notlp           = $this->input->post('notlp');
+        $data = array(
+            'nama_toko'    => $nama,
+            'alamat'       => $alamat,
+            'kota'         => $kota,
+            'provinsi'     => $provinsi,
+            'notelp'       => $notlp
+        );
+
+        // $where = array('id_hewan' => $id);
+        $this->db->where('id_toko', $id);
+        $this->db->update('toko', $data);
+        // $this->m_hewan->update_data($where, $data, 'tb_hewan');
+        $this->session->set_flashdata('message1', 'Data Biodata Toko Berhasil Dirubah!');
+        redirect('penjual/biodata_toko');
+    }
+	
+	public function update_foto_toko()
+    {
+        $id_toko            = $this->input->post('id_toko');
+        $foto_toko          = $_FILES['foto_toko']['name'];
+        if ($foto_toko = '') {
+        } else {
+            $config['upload_path']       = './uploads/toko';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('foto_toko')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_toko = $this->upload->data('file_name');
+            }
+            $data = array(
+                'foto_toko' => $foto_toko
+            );
+
+            // $where = array('id_toko' => $id);
+            $this->db->where('id_toko', $id_toko);
+            $this->db->update('toko', $data);
+            // $this->m_toko->update_data($where, $data, 'tb_toko');
+            $this->session->set_flashdata('message1', 'Foto toko Berhasil Dirubah!');
+            redirect('penjual/biodata_toko');
+        }
+    }
+	
+	public function upload_dokumen()
+    {
+        $data['title'] = 'Upload Dokumen Verfikasi Toko';
+        $data['user'] = $this->db->get_where('user', ['email' =>
+        $this->session->userdata('email')])->row_array();
+        $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
+
+        $this->load->view('adminpenjual/templates_adminpenjual/header', $data);
+        $this->load->view('adminpenjual/templates_adminpenjual/sidebar', $data);
+        $this->load->view('adminpenjual/upload_dokumen', $data);
+        $this->load->view('adminpenjual/templates_adminpenjual/footer');
+    }
+
+    
+    public function update_foto_kandang()
+    {
+        $id_tempat            = $this->input->post('id_tempat');
+        $foto_kandang          = $_FILES['foto_kandang']['name'];
+        if ($foto_kandang = '') {
+        } else {
+            $config['upload_path']       = './uploads/dokumen_toko';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('foto_kandang')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_kandang = $this->upload->data('file_name');
+            }
+            $data = array(
+                'foto_kandang' => $foto_kandang,
+            );
+
+            // $where = array('id_masjid' => $id);
+            $this->db->where('id_toko', $id_tempat);
+            $this->db->update('toko', $data);
+            // $this->m_masjid->update_data($where, $data, 'tb_masjid');
+            $this->session->set_flashdata('message1', 'Foto Masjid Berhasil Dirubah!');
+            redirect('penjual/upload_dokumen');
+        }
+    }
+
+    public function update_foto_ktp()
+    {
+        $id_tempat           = $this->input->post('id_tempat');
+        $foto_ktp          = $_FILES['foto_ktp']['name'];
+        if ($foto_ktp = '') {
+        } else {
+            $config['upload_path']       = './uploads/ktp';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('foto_ktp')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_ktp = $this->upload->data('file_name');
+            }
+            $data = array(
+                'foto_ktp' => $foto_ktp,
+            );
+
+            // $where = array('id_ktp' => $id);
+            $this->db->where('id_toko', $id_tempat);
+            $this->db->update('toko', $data);
+            // $this->m_ktp->update_data($where, $data, 'tb_ktp');
+            $this->session->set_flashdata('message1', 'Foto KTP Berhasil Dirubah!');
+            redirect('penjual/upload_dokumen');
+        }
+    }
+    public function update_foto_orang_ktp()
+    {
+        $id_tempat            = $this->input->post('id_tempat');
+        $foto_orangktp        = $_FILES['foto_orangktp']['name'];
+        if ($foto_orangktp= '') {
+        } else {
+            $config['upload_path']       = './uploads/ktp_wajah';
+            $config['allowed_types']     = 'jpg|jpeg|png|gif';
+            $config['maintain_ratio']    = TRUE;
+
+            $this->load->library('upload', $config);
+            if (!$this->upload->do_upload('foto_orangktp')) {
+                echo "Gambar gagal diupload !";
+            } else {
+                $foto_orangktp= $this->upload->data('file_name');
+            }
+            $data = array(
+                'foto_orangktp' => $foto_orangktp,
+            );
+
+            // $where = array('id_ktp_wajah' => $id);
+            $this->db->where('id_toko', $id_tempat);
+            $this->db->update('toko', $data);
+            // $this->m_ktp_wajah->update_data($where, $data, 'tb_ktp_wajah');
+            $this->session->set_flashdata('message1', 'Foto KTP Wajah Berhasil Dirubah!');
+            redirect('penjual/upload_dokumen');
+        }
+    }
 }
