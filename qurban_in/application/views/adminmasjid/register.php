@@ -1,10 +1,10 @@
 <?php if ($this->session->userdata('email')) {
     $get_tempat = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
     if ($get_tempat['id_tempatdistribusi'] != 0) {
-        $distribusi = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $get_tempat['id_tempatdistribusi']])->row_array();
-        if ($distribusi['is_active'] != 0) {
-            redirect('tempatdistribusi/inputhewan');
-        }
+        redirect('tempatdistribusi/inputhewan');
+        // $distribusi = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $get_tempat['id_tempatdistribusi']])->row_array();
+        // if ($distribusi['is_active'] != 0) {
+        // }
     }
 } else {
     redirect('user_akun/register');

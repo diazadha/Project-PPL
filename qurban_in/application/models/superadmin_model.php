@@ -56,4 +56,20 @@ class superadmin_model extends CI_Model
         AND status_transaksi.id_invoice = $id_invoice";
         return $this->db->query($query);
     }
+
+    public function verifikasi_toko($id_toko)
+    {
+        $query = "SELECT * 
+        FROM toko
+        WHERE toko.id_toko = $id_toko";
+        return $this->db->query($query);
+    }
+
+    public function verifikasi_tempat_distribusi($id_distribusi)
+    {
+        $query = "SELECT * 
+        FROM mitra_distribusi
+        WHERE mitra_distribusi.id_tempatdistribusi = $id_distribusi";
+        return $this->db->query($query);
+    }
 }

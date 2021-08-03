@@ -65,17 +65,51 @@
                 $class = 'nav-item';
             } ?>
 
+            <?php if ($title === 'Biodata Tempat Distribusi') {
+                $class2 = 'nav-item active';
+            } else {
+                $class2 = 'nav-item';
+            } ?>
+
             <?php if ($title === 'Data Distribusi') {
                 $class1 = 'nav-item active';
             } else {
                 $class1 = 'nav-item';
             } ?>
+
+            <?php if ($title === 'Upload Dokumen') {
+                $class3 = 'nav-item active';
+            } else {
+                $class3 = 'nav-item';
+            } ?>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Managemen
+                Profil
+            </div>
+
+            <!-- Nav Item - Tables -->
+            <li class="nav-item <?= $class2; ?>">
+                <a class="nav-link" href="<?= base_url('tempatdistribusi/biodata'); ?>">
+                    <i class="fas fa-edit"></i>
+                    <span>Biodata Tempat Distribusi</span></a>
+            </li>
+
+            <li class="nav-item <?= $class3; ?>">
+                <a class="nav-link" href="<?= base_url('tempatdistribusi/upload_dokumen'); ?>">
+                    <i class="fas fa-upload"></i>
+                    <span>Upload Dokumen</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Managemen Tempat Distribusi
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -106,7 +140,7 @@
                 <span>Charts</span></a>
         </li> -->
 
-            <!-- Nav Item - Tables -->
+
             <li class="nav-item <?= $class; ?>">
                 <a class="nav-link" href="<?= base_url('tempatdistribusi/inputhewan'); ?>">
                     <i class="fas fa-fw fa-table"></i>

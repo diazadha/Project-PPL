@@ -71,6 +71,18 @@
                 $class1 = 'nav-item';
             } ?>
 
+            <?php if ($title === 'Data Toko') {
+                $class2 = 'nav-item active';
+            } else {
+                $class2 = 'nav-item';
+            } ?>
+
+            <?php if ($title === 'Data Tempat Distribusi') {
+                $class3 = 'nav-item active';
+            } else {
+                $class3 = 'nav-item';
+            } ?>
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -128,6 +140,26 @@
                     <i class="fas fa-luggage-cart"></i>
                     <span>Data Pesanan</span></a>
             </li>
+
+            <hr class="sidebar-divider">
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Toko dan Tempat Distribusi
+            </div>
+
+            <!-- Nav Item - Tables -->
+            <li class="<?= $class2; ?>">
+                <a class="nav-link" href="<?= base_url('superadmin/data_toko'); ?>">
+                    <i class="fas fa-store"></i>
+                    <span>Data Toko</span></a>
+            </li>
+
+            <li class="<?= $class3; ?>">
+                <a class="nav-link" href="<?= base_url('superadmin/data_tempat_distribusi'); ?>">
+                    <i class="fas fa-mosque"></i>
+                    <span>Data Tempat Distribusi</span></a>
+            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">

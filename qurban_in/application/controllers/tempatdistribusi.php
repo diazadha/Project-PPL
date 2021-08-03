@@ -96,9 +96,9 @@ class tempatdistribusi extends CI_Controller
             $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
             if ($user_token) {
                 if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
-                    $this->db->set('is_active', 1);
-                    $this->db->where('id_tempatdistribusi', $id_tempatdistribusi);
-                    $this->db->update('mitra_distribusi');
+                    // $this->db->set('is_active', 1);
+                    // $this->db->where('id_tempatdistribusi', $id_tempatdistribusi);
+                    // $this->db->update('mitra_distribusi');
                     $this->db->delete('user_token', ['email' => $email]);
                     $this->db->set('id_tempatdistribusi', $id_tempatdistribusi);
                     $this->db->where('email', $email);
@@ -309,10 +309,10 @@ class tempatdistribusi extends CI_Controller
         $id_hewan = $_POST['id_hewan'];
         echo json_encode($this->tempatdistribusi_model->gethewanbyid($id_hewan));
     }
-	
-	public function upload_dokumen()
+
+    public function upload_dokumen()
     {
-        $data['title'] = 'Upload Dokumen Verfikasi Tempat Distribusi';
+        $data['title'] = 'Upload Dokumen';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
         $data['profil'] = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $data['user']['id_tempatdistribusi']])->row_array();
@@ -322,8 +322,8 @@ class tempatdistribusi extends CI_Controller
         $this->load->view('adminmasjid/upload_dokumen', $data);
         $this->load->view('adminmasjid/templates_adminmasjid/footer');
     }
-	
-	public function update_foto_tempat_distribusi()
+
+    public function update_foto_tempat_distribusi()
     {
         $id_tempat            = $this->input->post('id_tempat');
         $foto_tempat_distribusi         = $_FILES['foto_tempat_distribusi']['name'];
@@ -347,7 +347,7 @@ class tempatdistribusi extends CI_Controller
             $this->db->where('id_tempatdistribusi', $id_tempat);
             $this->db->update('mitra_distribusi', $data);
             // $this->m_masjid->update_data($where, $data, 'tb_masjid');
-            $this->session->set_flashdata('message1', 'Foto Tempat Distribusi Berhasil Dirubah!');
+            $this->session->set_flashdata('message1', 'Upload Berhasil!');
             redirect('tempatdistribusi/upload_dokumen');
         }
     }
@@ -376,16 +376,16 @@ class tempatdistribusi extends CI_Controller
             $this->db->where('id_tempatdistribusi', $id_tempat);
             $this->db->update('mitra_distribusi', $data);
             // $this->m_ktp->update_data($where, $data, 'tb_ktp');
-            $this->session->set_flashdata('message1', 'Foto KTP Berhasil Dirubah!');
+            $this->session->set_flashdata('message1', 'Upload Berhasil!');
             redirect('tempatdistribusi/upload_dokumen');
         }
     }
-	
+
     public function update_foto_ktp_wajah()
     {
         $id_tempat            = $this->input->post('id_tempat');
         $foto_ktp_wajah         = $_FILES['foto_ktp_wajah']['name'];
-        if ($foto_ktp_wajah= '') {
+        if ($foto_ktp_wajah = '') {
         } else {
             $config['upload_path']       = './uploads/ktp_wajah_tempat';
             $config['allowed_types']     = 'jpg|jpeg|png|gif';
@@ -395,7 +395,7 @@ class tempatdistribusi extends CI_Controller
             if (!$this->upload->do_upload('foto_ktp_wajah')) {
                 echo "Gambar gagal diupload !";
             } else {
-                $foto_ktp_wajah= $this->upload->data('file_name');
+                $foto_ktp_wajah = $this->upload->data('file_name');
             }
             $data = array(
                 'foto_ktp_wajah' => $foto_ktp_wajah,
@@ -405,11 +405,12 @@ class tempatdistribusi extends CI_Controller
             $this->db->where('id_tempatdistribusi', $id_tempat);
             $this->db->update('mitra_distribusi', $data);
             // $this->m_ktp_wajah->update_data($where, $data, 'tb_ktp_wajah');
-            $this->session->set_flashdata('message1', 'Foto KTP Wajah Berhasil Dirubah!');
+            $this->session->set_flashdata('message1', 'Upload Berhasil!');
             redirect('tempatdistribusi/upload_dokumen');
         }
     }
-	public function update()
+
+    public function update()
     {
         $id               = $this->input->post('id_tempatdistribusi');
         $nama_tempat      = $this->input->post('nama_tempat');
@@ -417,15 +418,15 @@ class tempatdistribusi extends CI_Controller
         $kota         = $this->input->post('kota');
         $provinsi          = $this->input->post('provinsi');
         $notelp      = $this->input->post('notelp');
-        
-       
+
+
         $data = array(
             'nama_tempat'     => $nama_tempat,
             'alamat'          => $alamat,
             'kota'          => $kota,
             'provinsi'           => $provinsi,
             'notelp'       => $notelp,
-            'id_tempatdistribusi'       => $this->input->post('id_tempatdistribusi')
+            'id_tempatdistribusi'       => $id
         );
 
         // $where = array('id_hewan' => $id);
@@ -435,14 +436,14 @@ class tempatdistribusi extends CI_Controller
         $this->session->set_flashdata('message1', 'Data Berhasil Dirubah!');
         redirect('tempatdistribusi/biodata');
     }
-     
+
     public function biodata()
     {
-        $data['title'] = 'Biodata ';
+        $data['title'] = 'Biodata Tempat Distribusi';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
         // $data['hewan'] = $this->m_hewan->tampil_data();
-        $data['mitra_distribusi'] = $this->m_hewan->getalldata()->result();
+        // $data['mitra_distribusi'] = $this->m_hewan->getalldata()->result();
         $data['profil'] = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $data['user']['id_tempatdistribusi']])->row_array();
         $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
         $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
@@ -451,7 +452,7 @@ class tempatdistribusi extends CI_Controller
     }
     public function update_foto()
     {
-        
+
         $id               = $this->input->post('id_tempatdistribusi');
         $foto_tempat          = $_FILES['foto_tempat']['name'];
         if ($foto_tempat = '') {
@@ -482,9 +483,9 @@ class tempatdistribusi extends CI_Controller
     public function update_foto_tempat()
     {
 
-        $id_tempatdistribusi =$this->input->post('id_tempatdistribusi');
+        $id_tempatdistribusi = $this->input->post('id_tempatdistribusi');
         $gambar    = $_FILES['foto_tempat']['name'];
-        $config['upload_path'] = './uploads/foto';
+        $config['upload_path'] = './uploads/tempatdistribusi';
         $config['allowed_types'] = 'jpg|jpeg|png|gif';
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('foto_tempat')) {
@@ -492,17 +493,12 @@ class tempatdistribusi extends CI_Controller
         } else {
             $gambar = $this->upload->data('file_name');
         }
-
-
         $data  = array(
             'foto_tempat'   => $gambar,
-
-
         );
         $this->db->where('id_tempatdistribusi', $id_tempatdistribusi);
         $this->db->update('mitra_distribusi', $data);
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New Product Added!</div>');
         redirect('tempatdistribusi/biodata');
     }
-	
 }

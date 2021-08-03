@@ -93,9 +93,9 @@ class penjual extends CI_Controller
             $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
             if ($user_token) {
                 if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
-                    $this->db->set('is_active', 1);
-                    $this->db->where('id_toko', $id_toko);
-                    $this->db->update('toko');
+                    // $this->db->set('is_active', 1);
+                    // $this->db->where('id_toko', $id_toko);
+                    // $this->db->update('toko');
                     $this->db->delete('user_token', ['email' => $email]);
                     $this->db->set('id_toko', $id_toko);
                     $this->db->where('email', $email);
@@ -336,8 +336,8 @@ class penjual extends CI_Controller
         $this->m_hewan->hapus_data('tb_hewan', array('id_hewan' => $id));
         redirect('penjual/inputhewan');
     }
-	
-	public function biodata_toko()
+
+    public function biodata_toko()
     {
         $data['title'] = 'Biodata Toko';
         $data['user'] = $this->db->get_where('user', ['email' =>
@@ -349,8 +349,8 @@ class penjual extends CI_Controller
         $this->load->view('adminpenjual/biodata_toko', $data);
         $this->load->view('adminpenjual/templates_adminpenjual/footer');
     }
-	
-	public function update_toko()
+
+    public function update_toko()
     {
         $id              = $this->input->post('id_toko');
         $nama            = $this->input->post('nama_toko');
@@ -373,8 +373,8 @@ class penjual extends CI_Controller
         $this->session->set_flashdata('message1', 'Data Biodata Toko Berhasil Dirubah!');
         redirect('penjual/biodata_toko');
     }
-	
-	public function update_foto_toko()
+
+    public function update_foto_toko()
     {
         $id_toko            = $this->input->post('id_toko');
         $foto_toko          = $_FILES['foto_toko']['name'];
@@ -402,10 +402,10 @@ class penjual extends CI_Controller
             redirect('penjual/biodata_toko');
         }
     }
-	
-	public function upload_dokumen()
+
+    public function upload_dokumen()
     {
-        $data['title'] = 'Upload Dokumen Verfikasi Toko';
+        $data['title'] = 'Upload Dokumen';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
         $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
@@ -416,7 +416,7 @@ class penjual extends CI_Controller
         $this->load->view('adminpenjual/templates_adminpenjual/footer');
     }
 
-    
+
     public function update_foto_kandang()
     {
         $id_tempat            = $this->input->post('id_tempat');
@@ -441,7 +441,7 @@ class penjual extends CI_Controller
             $this->db->where('id_toko', $id_tempat);
             $this->db->update('toko', $data);
             // $this->m_masjid->update_data($where, $data, 'tb_masjid');
-            $this->session->set_flashdata('message1', 'Foto Masjid Berhasil Dirubah!');
+            $this->session->set_flashdata('message1', 'Foto Berhasil Diupload!');
             redirect('penjual/upload_dokumen');
         }
     }
@@ -470,7 +470,7 @@ class penjual extends CI_Controller
             $this->db->where('id_toko', $id_tempat);
             $this->db->update('toko', $data);
             // $this->m_ktp->update_data($where, $data, 'tb_ktp');
-            $this->session->set_flashdata('message1', 'Foto KTP Berhasil Dirubah!');
+            $this->session->set_flashdata('message1', 'Foto Berhasil Diupload!');
             redirect('penjual/upload_dokumen');
         }
     }
@@ -478,7 +478,7 @@ class penjual extends CI_Controller
     {
         $id_tempat            = $this->input->post('id_tempat');
         $foto_orangktp        = $_FILES['foto_orangktp']['name'];
-        if ($foto_orangktp= '') {
+        if ($foto_orangktp = '') {
         } else {
             $config['upload_path']       = './uploads/ktp_wajah';
             $config['allowed_types']     = 'jpg|jpeg|png|gif';
@@ -488,7 +488,7 @@ class penjual extends CI_Controller
             if (!$this->upload->do_upload('foto_orangktp')) {
                 echo "Gambar gagal diupload !";
             } else {
-                $foto_orangktp= $this->upload->data('file_name');
+                $foto_orangktp = $this->upload->data('file_name');
             }
             $data = array(
                 'foto_orangktp' => $foto_orangktp,
@@ -498,7 +498,7 @@ class penjual extends CI_Controller
             $this->db->where('id_toko', $id_tempat);
             $this->db->update('toko', $data);
             // $this->m_ktp_wajah->update_data($where, $data, 'tb_ktp_wajah');
-            $this->session->set_flashdata('message1', 'Foto KTP Wajah Berhasil Dirubah!');
+            $this->session->set_flashdata('message1', 'Foto Berhasil Diupload!');
             redirect('penjual/upload_dokumen');
         }
     }

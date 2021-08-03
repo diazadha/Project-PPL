@@ -1,10 +1,10 @@
 <?php if ($this->session->userdata('email')) {
     $get_tempat = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
     if ($get_tempat['id_toko'] != 0) {
-        $toko = $this->db->get_where('toko', ['id_toko' => $get_tempat['id_toko']])->row_array();
-        if ($toko['is_active'] != 0) {
-            redirect('penjual/inputhewan');
-        }
+        redirect('penjual/inputhewan');
+        // $toko = $this->db->get_where('toko', ['id_toko' => $get_tempat['id_toko']])->row_array();
+        // if ($toko['is_active'] != 0) {
+        // }
     }
 } else {
     redirect('user_akun/register');

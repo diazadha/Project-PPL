@@ -26,6 +26,88 @@ class superadmin extends CI_Controller
         }
     }
 
+    public function data_toko()
+    {
+        $data['superadmin'] = $this->db->get_where('super_admin', ['email' => $this->session->userdata('email')])->row_array();
+        if ($data['superadmin']) {
+            $data['title'] = 'Data Toko';
+            $data['toko'] = $this->db->get('toko')->result_array();
+            $this->load->view('superadmin/templates_superadmin/header', $data);
+            $this->load->view('superadmin/templates_superadmin/sidebar', $data);
+            $this->load->view('superadmin/data_toko', $data);
+            $this->load->view('superadmin/templates_superadmin/footer');
+        } else {
+            redirect('superadmin/login');
+        }
+    }
+
+    public function verifikasi_toko($id_toko)
+    {
+        $data['superadmin'] = $this->db->get_where('super_admin', ['email' => $this->session->userdata('email')])->row_array();
+        if ($data['superadmin']) {
+            $data['title'] = 'Data Toko';
+            $data['profil'] = $this->superadmin_model->verifikasi_toko($id_toko)->row_array();
+            $this->load->view('superadmin/templates_superadmin/header', $data);
+            $this->load->view('superadmin/templates_superadmin/sidebar', $data);
+            $this->load->view('superadmin/verifikasi_toko', $data);
+            $this->load->view('superadmin/templates_superadmin/footer');
+        } else {
+            redirect('superadmin/login');
+        }
+    }
+
+    public function update_verifikasi_toko()
+    {
+        $id_toko = $this->input->post('id_toko');
+        $aktif = $this->input->post('aktif');
+
+        $this->db->set('is_active', $aktif);
+        $this->db->where('id_toko', $id_toko);
+        $this->db->update('toko');
+        redirect('superadmin/verifikasi_toko/' . $id_toko);
+    }
+
+    public function data_tempat_distribusi()
+    {
+        $data['superadmin'] = $this->db->get_where('super_admin', ['email' => $this->session->userdata('email')])->row_array();
+        if ($data['superadmin']) {
+            $data['title'] = 'Data Tempat Distribusi';
+            $data['distribusi'] = $this->db->get('mitra_distribusi')->result_array();
+            $this->load->view('superadmin/templates_superadmin/header', $data);
+            $this->load->view('superadmin/templates_superadmin/sidebar', $data);
+            $this->load->view('superadmin/data_tempat_distribusi', $data);
+            $this->load->view('superadmin/templates_superadmin/footer');
+        } else {
+            redirect('superadmin/login');
+        }
+    }
+
+    public function verifikasi_tempat_distribusi($id_distribusi)
+    {
+        $data['superadmin'] = $this->db->get_where('super_admin', ['email' => $this->session->userdata('email')])->row_array();
+        if ($data['superadmin']) {
+            $data['title'] = 'Data Tempat Distribusi';
+            $data['profil'] = $this->superadmin_model->verifikasi_tempat_distribusi($id_distribusi)->row_array();
+            $this->load->view('superadmin/templates_superadmin/header', $data);
+            $this->load->view('superadmin/templates_superadmin/sidebar', $data);
+            $this->load->view('superadmin/verifikasi_tempat_distribusi', $data);
+            $this->load->view('superadmin/templates_superadmin/footer');
+        } else {
+            redirect('superadmin/login');
+        }
+    }
+
+    public function update_verifikasi_tempat_distribusi()
+    {
+        $id_distribusi = $this->input->post('id_distribusi');
+        $aktif = $this->input->post('aktif');
+
+        $this->db->set('is_active', $aktif);
+        $this->db->where('id_tempatdistribusi', $id_distribusi);
+        $this->db->update('mitra_distribusi');
+        redirect('superadmin/verifikasi_tempat_distribusi/' . $id_distribusi);
+    }
+
     public function datapesanan()
     {
         $data['superadmin'] = $this->db->get_where('super_admin', ['email' => $this->session->userdata('email')])->row_array();

@@ -116,7 +116,6 @@
         </div>
     </div>
     <!-- /.container-fluid -->
-
 </div>
 <!-- Modal tambah hewan qurban -->
 <div class="modal fade" id="updatehewan" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
