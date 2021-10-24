@@ -80,7 +80,6 @@ class user_akun extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
             'is_unique' => 'Email sudah pernah digunakan!'
         ]);
-        // $this->form_validation->set_rules('nohp', 'Name', 'required|trim');
         $this->form_validation->set_rules('nohp', 'Mobile Number ', 'required'); //{10} for 10 digits number
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[6]|matches[password2]', [
             'matches' => 'Password tidak sama!',
@@ -216,11 +215,6 @@ class user_akun extends CI_Controller
             $data['cek_foto'] = $this->user_akun_model->cek_foto($id_invoice)->row_array();
             $data['cek_bayar'] = $this->user_akun_model->cek_status_bayar($id_invoice)->row_array();
             $data['id_invoice'] = $id_invoice;
-            // var_dump($data['cek_foto']);
-            // die;
-            // $this->load->view('marketplace/templates_marketplace/header', $data);
-            // $this->load->view('user_akun/detailpesanan', $data);
-            // $this->load->view('marketplace/templates_marketplace/footer');
             if (count($data['cek_row']) == 1) {
                 $this->load->view('marketplace/templates_marketplace/header', $data);
                 $this->load->view('user_akun/detailpesanan', $data);
@@ -267,7 +261,6 @@ class user_akun extends CI_Controller
     {
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('namadepan');
-        // $this->session->set_flashdata('message', 'Logout Berhasil');
         redirect('marketplace');
     }
 }

@@ -96,14 +96,10 @@ class tempatdistribusi extends CI_Controller
             $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
             if ($user_token) {
                 if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
-                    // $this->db->set('is_active', 1);
-                    // $this->db->where('id_tempatdistribusi', $id_tempatdistribusi);
-                    // $this->db->update('mitra_distribusi');
                     $this->db->delete('user_token', ['email' => $email]);
                     $this->db->set('id_tempatdistribusi', $id_tempatdistribusi);
                     $this->db->where('email', $email);
                     $this->db->update('user');
-                    // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' has been activated!</div');
                     redirect('tempatdistribusi/inputhewan');
                 } else {
                     $this->db->delete('mitra_distribusi', ['id_tempatdistribusi' => $id_tempatdistribusi]);
@@ -144,9 +140,7 @@ class tempatdistribusi extends CI_Controller
         $this->load->model('tempatdistribusi_model');
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
-        // $data['status'] = $this->tempatdistribusi_model->statushewan();
         $data['profil'] = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $data['user']['id_tempatdistribusi']])->row_array();
-        // $data['distribusi'] = $this->tempatdistribusi_model->getalldata()->result();
         $data['invoice'] = $this->tempatdistribusi_model->invoice($data['user']['id_tempatdistribusi'])->result_array();
 
         $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
@@ -161,7 +155,6 @@ class tempatdistribusi extends CI_Controller
         $this->load->model('tempatdistribusi_model');
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
-        // $data['status'] = $this->tempatdistribusi_model->statushewan();
         $data['profil'] = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $data['user']['id_tempatdistribusi']])->row_array();
         $data['tampil_pesanan'] = $this->tempatdistribusi_model->data_pesanan_hewan($id_invoice)->result_array();
         $data['pemesan'] = $this->tempatdistribusi_model->get_pemesan($id_invoice)->row_array();
@@ -172,13 +165,11 @@ class tempatdistribusi extends CI_Controller
         $data['id_invoice'] = $id_invoice;
 
         if (count($data['cek_row']) == 1) {
-            // $data['id_toko'] = $data['cek_row']['id_toko'];
             $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
             $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
             $this->load->view('adminmasjid/detail_pesanan', $data);
             $this->load->view('adminmasjid/templates_adminmasjid/footer');
         } else {
-            // $data['id_toko'] = $data['cek_row']['id_toko'];
             $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
             $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
             $this->load->view('adminmasjid/detailpesanan_more1store', $data);
@@ -191,8 +182,6 @@ class tempatdistribusi extends CI_Controller
         $foto_bukti         = $_FILES['bukti_sampai']['name'];
         $id_invoice           = $this->input->post('id_invoice');
         $id_toko           = $this->input->post('id_toko_buktisampai');
-        // var_dump($id_toko);
-        // die;
         if ($foto_bukti = '') {
         } else {
             $config['upload_path']       = './uploads/bukti';
@@ -220,8 +209,6 @@ class tempatdistribusi extends CI_Controller
         $foto_bukti         = $_FILES['bukti_sampai']['name'];
         $id_invoice           = $this->input->post('id_invoice');
         $id_toko           = $this->input->post('id_toko_sembelih');
-        // var_dump($id_toko);
-        // die;
         if ($foto_bukti = '') {
         } else {
             $config['upload_path']       = './uploads/bukti';
@@ -249,8 +236,6 @@ class tempatdistribusi extends CI_Controller
         $foto_bukti         = $_FILES['bukti_sampai']['name'];
         $id_invoice           = $this->input->post('id_invoice');
         $id_toko           = $this->input->post('id_toko_distribusi');
-        // var_dump($id_toko);
-        // die;
         if ($foto_bukti = '') {
         } else {
             $config['upload_path']       = './uploads/bukti';
@@ -342,11 +327,8 @@ class tempatdistribusi extends CI_Controller
             $data = array(
                 'foto_tempat_distribusi' => $foto_tempat_distribusi,
             );
-
-            // $where = array('id_masjid' => $id);
             $this->db->where('id_tempatdistribusi', $id_tempat);
             $this->db->update('mitra_distribusi', $data);
-            // $this->m_masjid->update_data($where, $data, 'tb_masjid');
             $this->session->set_flashdata('message1', 'Upload Berhasil!');
             redirect('tempatdistribusi/upload_dokumen');
         }
@@ -371,11 +353,8 @@ class tempatdistribusi extends CI_Controller
             $data = array(
                 'foto_ktp' => $foto_ktp,
             );
-
-            // $where = array('id_ktp' => $id);
             $this->db->where('id_tempatdistribusi', $id_tempat);
             $this->db->update('mitra_distribusi', $data);
-            // $this->m_ktp->update_data($where, $data, 'tb_ktp');
             $this->session->set_flashdata('message1', 'Upload Berhasil!');
             redirect('tempatdistribusi/upload_dokumen');
         }
@@ -400,11 +379,8 @@ class tempatdistribusi extends CI_Controller
             $data = array(
                 'foto_ktp_wajah' => $foto_ktp_wajah,
             );
-
-            // $where = array('id_ktp_wajah' => $id);
             $this->db->where('id_tempatdistribusi', $id_tempat);
             $this->db->update('mitra_distribusi', $data);
-            // $this->m_ktp_wajah->update_data($where, $data, 'tb_ktp_wajah');
             $this->session->set_flashdata('message1', 'Upload Berhasil!');
             redirect('tempatdistribusi/upload_dokumen');
         }
@@ -428,11 +404,8 @@ class tempatdistribusi extends CI_Controller
             'notelp'       => $notelp,
             'id_tempatdistribusi'       => $id
         );
-
-        // $where = array('id_hewan' => $id);
         $this->db->where('id_tempatdistribusi', $id);
         $this->db->update('mitra_distribusi', $data);
-        // $this->m_hewan->update_data($where, $data, 'tb_hewan');
         $this->session->set_flashdata('message1', 'Data Berhasil Dirubah!');
         redirect('tempatdistribusi/biodata');
     }
@@ -442,8 +415,6 @@ class tempatdistribusi extends CI_Controller
         $data['title'] = 'Biodata Tempat Distribusi';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
-        // $data['hewan'] = $this->m_hewan->tampil_data();
-        // $data['mitra_distribusi'] = $this->m_hewan->getalldata()->result();
         $data['profil'] = $this->db->get_where('mitra_distribusi', ['id_tempatdistribusi' => $data['user']['id_tempatdistribusi']])->row_array();
         $this->load->view('adminmasjid/templates_adminmasjid/header', $data);
         $this->load->view('adminmasjid/templates_adminmasjid/sidebar', $data);
@@ -471,11 +442,8 @@ class tempatdistribusi extends CI_Controller
             $data = array(
                 'foto_tempat' => $foto_tempat
             );
-
-            // $where = array('id_hewan' => $id);
             $this->db->where('foto_tempat', $id);
             $this->db->update('mitra_distribusi', $data);
-            // $this->m_hewan->update_data($where, $data, 'tb_hewan');
             $this->session->set_flashdata('message1', 'Foto Berhasil Dirubah!');
             redirect('tempatdistribusi/biodata');
         }

@@ -93,14 +93,10 @@ class penjual extends CI_Controller
             $user_token = $this->db->get_where('user_token', ['token' => $token])->row_array();
             if ($user_token) {
                 if (time() - $user_token['date_created'] < (60 * 60 * 24)) {
-                    // $this->db->set('is_active', 1);
-                    // $this->db->where('id_toko', $id_toko);
-                    // $this->db->update('toko');
                     $this->db->delete('user_token', ['email' => $email]);
                     $this->db->set('id_toko', $id_toko);
                     $this->db->where('email', $email);
                     $this->db->update('user');
-                    // $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">' . $email . ' has been activated!</div');
                     redirect('penjual/inputhewan');
                 } else {
                     $this->db->delete('toko', ['id_toko' => $id_toko]);
@@ -125,7 +121,6 @@ class penjual extends CI_Controller
         $data['title'] = 'Data Hewan';
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
-        // $data['hewan'] = $this->m_hewan->tampil_data();
         $data['toko'] = $this->m_hewan->getalldata()->result();
         $data['kategori'] = $this->db->get('kategori')->result_array();
         $data['profil'] = $this->db->get_where('toko', ['id_toko' => $data['user']['id_toko']])->row_array();
@@ -196,11 +191,8 @@ class penjual extends CI_Controller
             'kode_hewan'          => $kode_hewan,
             'id_toko'       => $this->input->post('id_toko')
         );
-
-        // $where = array('id_hewan' => $id);
         $this->db->where('id_hewan', $id);
         $this->db->update('tb_hewan', $data);
-        // $this->m_hewan->update_data($where, $data, 'tb_hewan');
         $this->session->set_flashdata('message1', 'Data Hewan Berhasil Dirubah!');
         redirect('penjual/detailhewan/' . $id . '/' . $kategori);
     }
@@ -226,11 +218,8 @@ class penjual extends CI_Controller
             $data = array(
                 'foto_hewan' => $foto_hewan
             );
-
-            // $where = array('id_hewan' => $id);
             $this->db->where('id_hewan', $id);
             $this->db->update('tb_hewan', $data);
-            // $this->m_hewan->update_data($where, $data, 'tb_hewan');
             $this->session->set_flashdata('message1', 'Foto Hewan Berhasil Dirubah!');
             redirect('penjual/detailhewan/' . $id . '/' . $id_kategori);
         }
@@ -238,9 +227,7 @@ class penjual extends CI_Controller
 
     public function detailhewan($id_hewan, $id_kategori)
     {
-        // $where = array('id_hewan' => $id);
         $data['title'] = 'Data Hewan';
-        // $data['hewan'] = $this->m_hewan->detail_hewan($where, 'tb_hewan')->result();
         $data['user'] = $this->db->get_where('user', ['email' =>
         $this->session->userdata('email')])->row_array();
         $data['hewan'] = $this->m_hewan->data_hewan($id_hewan)->row_array();
@@ -366,10 +353,8 @@ class penjual extends CI_Controller
             'notelp'       => $notlp
         );
 
-        // $where = array('id_hewan' => $id);
         $this->db->where('id_toko', $id);
         $this->db->update('toko', $data);
-        // $this->m_hewan->update_data($where, $data, 'tb_hewan');
         $this->session->set_flashdata('message1', 'Data Biodata Toko Berhasil Dirubah!');
         redirect('penjual/biodata_toko');
     }
@@ -393,11 +378,8 @@ class penjual extends CI_Controller
             $data = array(
                 'foto_toko' => $foto_toko
             );
-
-            // $where = array('id_toko' => $id);
             $this->db->where('id_toko', $id_toko);
             $this->db->update('toko', $data);
-            // $this->m_toko->update_data($where, $data, 'tb_toko');
             $this->session->set_flashdata('message1', 'Foto toko Berhasil Dirubah!');
             redirect('penjual/biodata_toko');
         }
@@ -436,11 +418,8 @@ class penjual extends CI_Controller
             $data = array(
                 'foto_kandang' => $foto_kandang,
             );
-
-            // $where = array('id_masjid' => $id);
             $this->db->where('id_toko', $id_tempat);
             $this->db->update('toko', $data);
-            // $this->m_masjid->update_data($where, $data, 'tb_masjid');
             $this->session->set_flashdata('message1', 'Foto Berhasil Diupload!');
             redirect('penjual/upload_dokumen');
         }
@@ -466,10 +445,8 @@ class penjual extends CI_Controller
                 'foto_ktp' => $foto_ktp,
             );
 
-            // $where = array('id_ktp' => $id);
             $this->db->where('id_toko', $id_tempat);
             $this->db->update('toko', $data);
-            // $this->m_ktp->update_data($where, $data, 'tb_ktp');
             $this->session->set_flashdata('message1', 'Foto Berhasil Diupload!');
             redirect('penjual/upload_dokumen');
         }
@@ -494,10 +471,8 @@ class penjual extends CI_Controller
                 'foto_orangktp' => $foto_orangktp,
             );
 
-            // $where = array('id_ktp_wajah' => $id);
             $this->db->where('id_toko', $id_tempat);
             $this->db->update('toko', $data);
-            // $this->m_ktp_wajah->update_data($where, $data, 'tb_ktp_wajah');
             $this->session->set_flashdata('message1', 'Foto Berhasil Diupload!');
             redirect('penjual/upload_dokumen');
         }

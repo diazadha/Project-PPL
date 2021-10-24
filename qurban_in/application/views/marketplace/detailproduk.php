@@ -27,11 +27,11 @@
                                 <div class="title">
                                     <h1><?= ucwords($tampil_hewan->nama_hewan); ?></h1>
                                 </div>
-                                <div class="ratting">
+                                <!-- <div class="ratting">
                                     <?php for ($i = 1; $i <= $tampil_hewan->kelas; $i++) : ?>
                                         <i class="fa fa-star"></i>
                                     <?php endfor; ?>
-                                </div>
+                                </div> -->
                                 <div class="price">
                                     <h4>Harga:</h4>
                                     <!-- <span>$149</span> -->
@@ -40,8 +40,8 @@
                                     <p style="font-size: large;"><?= $tampil_hewan->jenis; ?></p> <br>
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <h4>Kelas: </h4>
-                                            <p style="font-size: large;"> <?= $tampil_hewan->kelas; ?> </p>
+                                            <h4>Kode Hewan: </h4>
+                                            <p style="font-size: large;"> <?= $tampil_hewan->kode_hewan; ?> </p>
                                         </div>
                                         <div class="col-lg-6">
                                             <h4>Berat:</h4>
@@ -51,17 +51,19 @@
                                 </div>
                                 <div class="quantity">
                                     <div class="row">
-                                        <div class="col-lg-6">
+                                        <div class="price col-lg-6">
                                             <h4>Jumlah:</h4>
+                                            <p style="font-size: large;">1</p>
                                             <div class="qty">
-                                                <button class="btn-minus"><i class="fa fa-minus"></i></button>
-                                                <input type="text" value="1">
-                                                <button class="btn-plus"><i class="fa fa-plus"></i></button>
+                                                <!-- <button class="btn-minus"><i class="fa fa-minus"></i></button> -->
+                                                <!-- <input type="text" value="1" readonly> -->
+
+                                                <!-- <button class="btn-plus"><i class="fa fa-plus"></i></button> -->
                                             </div>
                                         </div>
                                         <div class="price col-lg-6">
-                                            <h4>Stok:</h4>
-                                            <p style="font-size: large;"> <?= $tampil_hewan->stok; ?> </p>
+                                            <h4>Kategori:</h4>
+                                            <p style="font-size: large;"> <?= $tampil_hewan->kategori; ?> </p>
                                         </div>
                                     </div>
                                 </div>
@@ -129,7 +131,9 @@
             <div class="col-lg-4 sidebar">
                 <div class="sidebar-widget category">
                     <h2 class="title"> <?= $tampil_hewan->nama_toko; ?> </h2>
-                    <img src=" <?= base_url('assets/'); ?>img/toko.jpg " alt="" style="width: 100%; height:100%; border-style:solid; border-color:tomato ">
+
+                    <img src=" <?= base_url('uploads/toko/') . $tampil_hewan->foto_toko; ?>" alt="" style="width: 100%; height:250px; border-style:solid; border-color:tomato ">
+
                     <div class="modal-footer ml-auto">
                         <a href="<?= base_url('marketplace/detail_toko'); ?>">
                             <div class="btn btn-sm " style="background-color: tomato; color:white">Kunjungi Toko</div>

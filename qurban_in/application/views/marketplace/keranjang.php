@@ -35,9 +35,9 @@
                                             <td style="text-align: right;">Rp. <?= number_format($k['harga'], 0, ',', '.') ?></td>
                                             <td>
                                                 <div class="qty">
-                                                    <button class="btn-minus" onclick="kurang_qty(<?= $k['id_keranjang']; ?>)"><i class="fa fa-minus"></i></button>
+                                                    <!-- <button class="btn-minus" onclick="kurang_qty(<?= $k['id_keranjang']; ?>)"><i class="fa fa-minus"></i></button> -->
                                                     <input type="text" id="qty_<?= $k['id_keranjang']; ?>" value=" <?= $k['qty']; ?>" min="1" readonly>
-                                                    <button class="btn-plus" onclick="tambah_qty(<?= $k['id_keranjang']; ?>)"><i class="fa fa-plus"></i></button>
+                                                    <!-- <button class="btn-plus" onclick="tambah_qty(<?= $k['id_keranjang']; ?>)"><i class="fa fa-plus"></i></button> -->
                                                 </div>
                                             </td>
                                             <td style="text-align: right;"> <span id="total_harga_<?= $k['id_keranjang']; ?>">Rp. <?= number_format($k['total_harga'], 0, ',', '.') ?></span> </td>
@@ -61,7 +61,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="cart-summary">
-                                <form action=" <?= base_url('marketplace/checkout') ?> " method="GET">
+                                <form action=" <?= base_url('marketplace/checkout') ?> " method="POST">
                                     <div class="cart-content">
                                         <h1>Cost</h1>
                                         <!-- <p>Sub Total<span></span></p> -->

@@ -128,7 +128,6 @@ class superadmin extends CI_Controller
         $data['superadmin'] = $this->db->get_where('super_admin', ['email' => $this->session->userdata('email')])->row_array();
         if ($data['superadmin']) {
             $data['title'] = 'Data Pesanan';
-            // $data['invoice'] = $this->db->get('invoice')->result_array();
             $data['tampil_pesanan'] = $this->superadmin_model->data_pesanan_hewan($id_invoice)->result_array();
             $data['pemesan'] = $this->superadmin_model->get_pemesan($id_invoice)->row_array();
             $data['distribusi'] = $this->superadmin_model->get_distribusi($id_invoice)->row_array();
@@ -207,7 +206,6 @@ class superadmin extends CI_Controller
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[super_admin.email]', [
             'is_unique' => 'Email sudah pernah digunakan!'
         ]);
-        // $this->form_validation->set_rules('nohp', 'Name', 'required|trim');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[6]|matches[password2]', [
             'matches' => 'Password tidak sama!',
             'min_length' => 'Password telalu pendek minimal 6 karakter'
@@ -281,7 +279,6 @@ class superadmin extends CI_Controller
     {
         $this->session->unset_userdata('email');
         $this->session->unset_userdata('namadepan');
-        // $this->session->set_flashdata('message', 'Logout Berhasil');
         redirect('superadmin');
     }
 }

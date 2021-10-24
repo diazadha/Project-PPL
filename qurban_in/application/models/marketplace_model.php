@@ -25,6 +25,7 @@ class marketplace_model extends CI_Model
         $this->db->select('*');
         $this->db->from('tb_hewan');
         $this->db->join('toko', 'toko.id_toko=tb_hewan.id_toko');
+        $this->db->join('kategori', 'kategori.id_kategori=tb_hewan.id_kategori');
         $this->db->where('tb_hewan.id_hewan', $id_hewan);
         return $this->db->get();
     }
@@ -165,17 +166,6 @@ class marketplace_model extends CI_Model
         $this->db->where('keranjang.id_keranjang', $id_keranjang);
         return $this->db->get();
     }
-
-    // public function count_hewan($id_tempat)
-    // {
-    //     $query = "SELECT COUNT(hewan_tempatdistribusi.id_hewan) as total_hewan, mitra_distribusi.nama_tempat, mitra_distribusi.provinsi, mitra_distribusi.id_tempatdistribusi, mitra_distribusi.alamat 
-    //     FROM hewan_tempatdistribusi, mitra_distribusi
-    //     WHERE hewan_tempatdistribusi.id_tempatdistribusi=mitra_distribusi.id_tempatdistribusi
-    //     AND mitra_distribusi.id_tempatdistribusi != $id_tempat
-    //     AND hewan_tempatdistribusi.id_status = 1
-    //     AND mitra_distribusi.id_tempatdistribusi = $id_tempat";
-    //     return $this->db->query($query);
-    // }
 
     public function tampil_tempat_distribusi_semua($id_tempat)
     {

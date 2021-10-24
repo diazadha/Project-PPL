@@ -21,6 +21,7 @@
     <link href=" <?= base_url('assets/') ?>lib/slick/slick-theme.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url('assets/') ?>img/qurban.in.png">
     <!-- Template Stylesheet -->
     <link href=" <?= base_url('assets/') ?>css/style.css" rel="stylesheet">
 
@@ -34,11 +35,11 @@
             <div class="row">
                 <div class="col-sm-6">
                     <i class="fa fa-envelope"></i>
-                    support@email.com
+                    qurban.in24@gmail.com
                 </div>
                 <div class="col-sm-6">
                     <i class="fa fa-phone-alt"></i>
-                    +012-345-6789
+                    (021) 72792753
                 </div>
             </div>
         </div>

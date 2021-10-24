@@ -50,7 +50,6 @@ class marketplace extends CI_Controller
 
     public function filter_harga()
     {
-        // $this->load->library('session');
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         if ($user) {
             $data['title'] = 'Home';
@@ -74,7 +73,6 @@ class marketplace extends CI_Controller
 
     public function filter_berat()
     {
-        // $this->load->library('session');
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         if ($user) {
             $data['title'] = 'Home';
@@ -98,7 +96,6 @@ class marketplace extends CI_Controller
 
     public function filter_harga_diatas()
     {
-        // $this->load->library('session');
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         if ($user) {
             $data['title'] = 'Home';
@@ -120,7 +117,6 @@ class marketplace extends CI_Controller
 
     public function filter_berat_diatas()
     {
-        // $this->load->library('session');
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         if ($user) {
             $data['title'] = 'Home';
@@ -206,18 +202,12 @@ class marketplace extends CI_Controller
             $hewan = $this->marketplace_model->find_hewan_byid($id_hewan)->row();
             $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
             $keranjang = $this->marketplace_model->cek_keranjang($id_hewan, $user['id_user'])->row_array();
-            // $keranjang = $this->db->get_where('keranjang', ['id_hewan' => $id_hewan])->row_array();
             if ($keranjang) {
-                // $this->cart->insert($data);
-                $total_qty = $keranjang['qty'] + 1;
-                $this->db->set('qty', $total_qty);
-                $this->db->where('id_keranjang', $keranjang['id_keranjang']);
-                $this->db->update('keranjang');
                 echo " <script>
+                alert('Hewan sudah ada di keranjang!');
                 document.location.href = '..' 
                 </script>
                 ";
-                // redirect('marketplace');
             } else {
                 $data = array(
                     'id_hewan'      => $id_hewan,
@@ -225,21 +215,17 @@ class marketplace extends CI_Controller
                     'id_user' => $user['id_user'],
                     'id_toko' => $hewan->id_toko,
                 );
-
-                // $this->cart->insert($data);
                 $this->db->insert('keranjang', $data);
                 echo " <script>
                 document.location.href = '..' 
                 </script>
                 ";
-                // redirect('marketplace');
             }
         }
     }
 
     public function hapus_item_keranjang($id_keranjang)
     {
-        // $this->db->where('id_keranjang', $id_keranjang);
         $this->db->delete('keranjang',  ['id_keranjang' => $id_keranjang]);
         redirect('marketplace/cart');
     }
@@ -266,7 +252,6 @@ class marketplace extends CI_Controller
     {
         $id_keranjang = $_POST['id_keranjang'];
         $qty = $_POST['qty'];
-        // echo json_encode($this->marketplace_model->update_keranjang($id_keranjang, $qty)->row_array());
         $query = "UPDATE keranjang SET qty = $qty WHERE id_keranjang = $id_keranjang";
 
         echo json_encode($this->marketplace_model->getharga($id_keranjang)->row_array());
@@ -281,7 +266,7 @@ class marketplace extends CI_Controller
             $data['total_cart'] = $this->marketplace_model->total_cart($user['id_user'])->row_array();
             $data['tampil_keranjang'] = $this->marketplace_model->tampil_keranjang($user['id_user'])->result_array();
             $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-            $data['grand_total'] = $this->input->get('grand');
+            $data['grand_total'] = $this->input->post('grand');
             $data['tampil_distribusi'] = $this->marketplace_model->tampil_tempat_distribusi_semua($user['id_tempatdistribusi'])->result_array();
 
             $this->load->view('marketplace/templates_marketplace/header', $data);
@@ -323,7 +308,6 @@ class marketplace extends CI_Controller
         $user = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $id_distribusi = $_POST['id_distribusi'];
         echo json_encode($this->marketplace_model->tampil_tempat_distribusi_byid($id_distribusi, $user['id_tempatdistribusi'])->row_array());
-        // return $this->db->query($query);
     }
 
     public function pesanan()
@@ -345,8 +329,6 @@ class marketplace extends CI_Controller
             'id_tempatdistribusi' => $id_tempatdistribusi,
             'id_user' => $user['id_user'],
         ];
-        // var_dump($nama_depan);
-        // die;
         $this->db->insert('invoice', $data_invoice);
 
 
@@ -376,8 +358,6 @@ class marketplace extends CI_Controller
 
             $this->db->delete('keranjang', ['id_keranjang' => $items['id_keranjang']]);
         }
-
-        // $sukses = ['status' => 1];
         echo json_encode($this->marketplace_model->max_id_invoice()->row_array());
     }
 }

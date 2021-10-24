@@ -28,7 +28,7 @@
                                 <input type="file" name="foto_tempat_distribusi" class="form-control-class">
                             </div>
                             <div class="col-lg-8 mb-2 mb-sm-0">
-                                <button type="submit" class="btn btn-sm" style="width: 100%; background-color: #D7552A; color: white;" aria-haspopup="true" aria-expanded="false">
+                                <button type="submit" class="btn btn-sm" style="background-color: #D7552A; color: white;" aria-haspopup="true" aria-expanded="false">
                                     Upload Foto
                                 </button>
                             </div>
@@ -40,7 +40,7 @@
                                 <label>Foto</label>
                             </div>
                             <div class="col-sm-8 mb-3 mb-sm-0">
-                                <img src="<?= base_url('uploads/dokumentempat/') . $profil['foto_tempat_distribusi']; ?>" alt="" style="width: 270px; border-style:solid; border-color:tomato;">
+                                <img class="img-fluid" alt="Responsive image" src="<?= base_url('uploads/dokumentempat/') . $profil['foto_tempat_distribusi']; ?>" style="width: 270px; border-style:solid; border-color:tomato;">
                             </div>
                         <?php else : ?>
                             <div class="col-sm-3 mb-3 mb-sm-0">
@@ -70,7 +70,7 @@
                                 <input type="file" name="foto_ktp" class="form-control-class">
                             </div>
                             <div class="col-lg-8 mb-2 mb-sm-0">
-                                <button type="submit" class="btn btn-sm" style="width: 100%; background-color: #D7552A; color: white;" aria-haspopup="true" aria-expanded="false">
+                                <button type="submit" class="btn btn-sm" style="background-color: #D7552A; color: white;" aria-haspopup="true" aria-expanded="false">
                                     Upload Foto
                                 </button>
                             </div>
@@ -82,7 +82,7 @@
                                 <label>Foto</label>
                             </div>
                             <div class="col-sm-8 mb-3 mb-sm-0">
-                                <img src="<?= base_url('uploads/ktp_tempat/') . $profil['foto_ktp']; ?>" alt="" style="width: 270px; border-style:solid; border-color:tomato;">
+                                <img class="img-fluid" alt="Responsive image" src="<?= base_url('uploads/ktp_tempat/') . $profil['foto_ktp']; ?>" style="width: 270px; border-style:solid; border-color:tomato;">
                             </div>
                         <?php else : ?>
                             <div class="col-sm-3 mb-3 mb-sm-0">
@@ -106,15 +106,19 @@
                 <div class="card-body">
                     <div class="form-group row">
                         <form action=" <?= base_url('tempatdistribusi/update_foto_ktp_wajah') ?>" method="POST" enctype="multipart/form-data">
+
                             <div class="col-lg-8 mb-4 mb-sm-2">
                                 <input type="hidden" name="id_tempat" class="form-control-file" value="<?= $profil['id_tempatdistribusi'] ?>">
                                 <input type="file" name="foto_ktp_wajah" class="form-control-class">
                             </div>
+
+
                             <div class="col-lg-8 mb-2 mb-sm-0">
-                                <button type="submit" class="btn btn-sm" style="width: 100%; background-color: #D7552A; color: white;" aria-haspopup="true" aria-expanded="false">
+                                <button type="submit" class="btn btn-sm" style="background-color: #D7552A; color: white;" aria-haspopup="true" aria-expanded="false">
                                     Upload Foto
                                 </button>
                             </div>
+
                         </form>
                     </div>
                     <div class="form-group row">
@@ -123,7 +127,7 @@
                                 <label>Foto</label>
                             </div>
                             <div class="col-sm-8 mb-3 mb-sm-0">
-                                <img src="<?= base_url('uploads/ktp_wajah_tempat/') . $profil['foto_ktp_wajah']; ?>" alt="" style="width: 270px; border-style:solid; border-color:tomato;">
+                                <img class="img-fluid" alt="Responsive image" src="<?= base_url('uploads/ktp_wajah_tempat/') . $profil['foto_ktp_wajah']; ?>" style="width: 270px; border-style:solid; border-color:tomato;">
                             </div>
                         <?php else : ?>
                             <div class="col-sm-3 mb-3 mb-sm-0">
@@ -145,6 +149,7 @@
                 <div class="col-sm-3 mb-3 mb-sm-0">
                     Status Tempat Distribusi
                 </div>
+
                 <?php if ($profil['foto_tempat_distribusi'] && $profil['foto_ktp'] && $profil['foto_ktp_wajah'] && $profil['is_active'] == 1) : ?>
                     <div class="h5 col-md-4">
                         <span class="badge badge-success mb-1">
@@ -170,6 +175,7 @@
                         </span>
                     </div>
                 <?php endif; ?>
+
             </div>
         </div>
     </div>
